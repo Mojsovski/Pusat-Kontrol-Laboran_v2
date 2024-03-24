@@ -3,7 +3,16 @@ import { Link } from "react-router-dom";
 import LoginBG from "../../assets/images/login.jpg";
 import UdinusLogo from "../../assets/images/UdinusLogo.png";
 
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+
 function LoginPage() {
+  const [showPassword, setShowPassword] = useState("false");
+
+  const togglePasswordViibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <>
       <div className="h-screen w-full bg-neutral-300 flex relative ">
@@ -33,13 +42,26 @@ function LoginPage() {
               </div>
               <div className="my-2">
                 <label className="ml-3 mb-1">Password</label>
-                <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
+                <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white flex">
                   <input
-                    type="password"
+                    type={showPassword ? "password" : "text"}
                     id="username"
-                    className="block text-base pl-4 p-3 bg-white w-96 h-10 rounded-3xl focus:outline-none "
+                    className="block text-base pl-4 py-3 bg-white w-96 h-10 rounded-3xl focus:outline-none "
                     placeholder="password"
                   />
+                  <div onClick={togglePasswordViibility} className=" px-5 py-2">
+                    {showPassword ? (
+                      <VisibilityOffIcon
+                        fontSize="medium"
+                        className="text-gray-600"
+                      />
+                    ) : (
+                      <VisibilityIcon
+                        fontSize="medium"
+                        className="text-gray-600"
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="my-8">
