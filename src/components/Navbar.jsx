@@ -7,7 +7,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 const Navbar = ({ title, showButtonBack }) => {
   const navigate = useNavigate();
   return (
-    <nav className="fixed inset-x-0 sm:ml-[300px] bg-gray-100 border-gray-200 shadow-md z-50">
+    <nav className="fixed inset-x-0 sm:ml-[300px] bg-gray-200 border-gray-200 shadow-md z-50">
       <div className="flex flex-wrap items-center justify-between py-6 px-6">
         <div className="flex">
           {showButtonBack && (
@@ -21,25 +21,19 @@ const Navbar = ({ title, showButtonBack }) => {
           )}
           <p className="text-3xl font-bold text-gray-900 ">{title}</p>
         </div>
-        <div className="flex md:order-2 gap-8 ">
-          <button type="button">
-            <img src={iconSms} alt="" className="w-[30px]" />
-          </button>
-          <button type="button">
-            <img src={iconNotif} alt="" className="w-[30px]" />
-          </button>
+        <div className="flex md:order-2 gap-8  ">
           <button
             type="button"
-            className="flex text-sm  rounded-full focus:ring-4 focus:ring-gray-300 "
+            className="flex text-sm w-48 rounded-2xl bg-white  "
             aria-expanded="false"
             data-dropdown-toggle="dropdown-user"
           >
-            <span className="sr-only">Open user menu</span>
             <img
-              className="w-[30px] h-[30px] rounded-full"
-              src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+              className="w-[35px] h-[35px] rounded-full object-cover"
+              src="https://mahasiswa.dinus.ac.id/images/foto/A/A12/2020/A12.2020.06406.jpg"
               alt="user photo"
             />
+            <span className="p-2 font-medium flex ">Amratta Tegar L</span>
           </button>
         </div>
       </div>
