@@ -16,6 +16,8 @@ const useStore = create((set) => ({
 function InvHome() {
   const bears = useStore((state) => state.bears);
   const increasePopulation = useStore((state) => state.increasePopulation);
+  const removeAllBears = useStore((state) => state.removeAllBears);
+  const updateBears = useStore((state) => state.updateBears);
 
   return (
     <div className="h-screen bg-[#C4C4C4] relative ">
@@ -25,10 +27,25 @@ function InvHome() {
         <div className="px-5 py-3 flex gap-5 relative ">
           {/* button */}
           <div className="w-96 h-10 gap-3 bg space-y-5 relative">
-            <button className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md"></button>
-            <button className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md"></button>
-            <button className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md"></button>
-            <button className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md"></button>
+            <button
+              onClick={increasePopulation}
+              className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md"
+            >
+              one up
+            </button>
+            <button className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md">
+              {bears} around here..
+            </button>
+            <button
+              onClick={removeAllBears}
+              className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md"
+            >
+              remove bear
+            </button>
+            <button
+              onClick={removeAllBears}
+              className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md"
+            ></button>
           </div>
           {/* card 1*/}
           <div className="w-[800px] h-[270px] p-8 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
@@ -46,12 +63,8 @@ function InvHome() {
             </div>
             <div className="h-9 flex justify-center items-center">
               <div className="w-36 h-7 py-1 rounded-2xl bg-[#07AC22]">
-                <div className=" text-center text-white text-sm flex items-center justify-center ">
-                  <button onClick={increasePopulation}>one up</button>
-                </div>
-                <div className=" text-center text-white text-sm flex items-center justify-center ">
-                  {bears} around here..
-                </div>
+                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
+                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
               </div>
             </div>
           </div>
