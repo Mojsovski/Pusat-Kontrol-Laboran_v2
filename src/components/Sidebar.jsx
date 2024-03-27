@@ -79,7 +79,7 @@ const Sidebar = () => {
             </li>
             <li>
               <Link
-                to={"/inv"}
+                to={"/inventaris"}
                 className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
               >
                 <img src={logoInventaris} className="w-[30px] h-8 " />
