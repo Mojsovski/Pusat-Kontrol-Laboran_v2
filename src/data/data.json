@@ -1,0 +1,46 @@
+{
+  "inv" : [
+  {
+    "invNama": "PC Gigabyte",
+    "invCPU": "Intel Core i5 10400F",
+    "invMobo": "Gigabyte B560M Gaming HD",
+    "invRAM": "16 GB",
+    "invGPU": "Nvidia GT 1030",
+    "invStatus": "normal",
+    "invCategory": "cilent",
+    "invKeyboard": "Nvidia GT 1030",
+    "invMouse": "SSD 256GB",
+    "invStorage": "SSD 256GB",
+    "invMonitor": "LG 22inc",
+    "id": "1"
+  },
+  {
+    "invNama": "PC Gigabyte",
+    "invCPU": "Intel Core i5 10400F",
+    "invMobo": "Gigabyte B560M Gaming HD",
+    "invRAM": "16 GB",
+    "invGPU": "Nvidia GT 1030",
+    "invStatus": "baik",
+    "invCategory": "cilent",
+    "invKeyboard": "Nvidia GT 1030",
+    "invMouse": "SSD 256GB",
+    "invStorage": "SSD 256GB",
+    "invMonitor": "LG 22inc",
+    "id": "2"
+  },
+  {
+    "invNama": "PC Gigabyte",
+    "invCPU": "Intel Core i5 10400F",
+    "invMobo": "Gigabyte B560M Gaming HD",
+    "invRAM": "16 GB",
+    "invGPU": "Nvidia GT 1030",
+    "invStatus": "rusak",
+    "invCategory": "cilent",
+    "invKeyboard": "Nvidia GT 1030",
+    "invMouse": "SSD 256GB",
+    "invStorage": "SSD 256GB",
+    "invMonitor": "LG 22inc",
+    "id": "3"
+  }
+]
+}

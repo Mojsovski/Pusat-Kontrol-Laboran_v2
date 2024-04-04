@@ -1,7 +1,7 @@
 import React from "react";
 import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
-import { create } from "zustand";
+import { Link } from "react-router-dom";
 
 import logoInputPC from "../../assets/icons/pcinput.svg";
 import logoEditPC from "../../assets/icons/pcedit.svg";
@@ -26,39 +26,43 @@ function InvHome() {
     <div className="h-screen bg-[#C4C4C4] relative  ">
       <Sidebar />
       <Navbar title="Inventaris" />
-      <div className=" px-5 py-28 pl-14 sm:ml-[266px] flex flex-col bg-[#C4C4C4] relative">
+      <div className=" pr-10 py-28 pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4] relative space-y-6">
         {/* column 1 */}
-        <div className="px-5 py-3 flex gap-5 relative ">
+        <div className="flex gap-5 relative">
           {/* button */}
           <div className="w-96 h-10 gap-3 bg space-y-7 relative">
-            <button
+            <Link
+              to={"/inventaris/input"}
               // onClick={increasePopulation}
               className="relative w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
             >
               <img src={logoInputPC} className="w-[19px] " />
               Input Inventaris Lab
-            </button>
-            <button
+            </Link>
+            <Link
+              to={"/inventaris/input"}
               // onClick={increasePopulation}
               className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
             >
               <img src={logoEditPC} className="w-[21px] " />
               Edit Inventaris Lab
-            </button>
-            <button
+            </Link>
+            <Link
+              to={"/inventaris/input"}
               // onClick={increasePopulation}
               className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
             >
               <img src={logoVerifikasi} className="w-[19px] " />
               Verifikasi Bulanan
-            </button>
-            <button
+            </Link>
+            <Link
+              to={"/inventaris/input"}
               // onClick={increasePopulation}
               className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
             >
               <img src={logoInputPC} className="w-[19px]" />
               Input Inventaris
-            </button>
+            </Link>
           </div>
 
           {/* card 1*/}
@@ -77,19 +81,64 @@ function InvHome() {
               </button>
             </div>
             {/* table */}
-            <div className="h-[180px] text-center text-8xl flex justify-center items-center">
-              <div className=""></div>
-              <div className=""></div>
-              <div className=""></div>
+            <div className="py-5 gap-7 px-5 h-[169px]  text-8xl flex flex-row justify-between items-start">
+              <div className="flex justify-start gap-3">
+                <div className="space-y-5">
+                  <div className=" text-base font-semibold">PC Cilent</div>
+                  <div className="text-base font-semibold">PC Dosen</div>
+                  <div className="text-base font-semibold">PC Laboran</div>
+                </div>
+                <div className="space-y-5">
+                  <div className=" text-base font-semibold">:</div>
+                  <div className="text-base font-semibold">:</div>
+                  <div className="text-base font-semibold">:</div>
+                </div>
+                <div className="space-y-5">
+                  <div className=" text-base font-semibold">30</div>
+                  <div className="text-base font-semibold">30</div>
+                  <div className="text-base font-semibold">30</div>
+                </div>
+              </div>
+              <div className="flex justify-start gap-3">
+                <div className="space-y-5">
+                  <div className=" text-base font-semibold">PC Cadangan</div>
+                  <div className="text-base font-semibold">PC Rusak</div>
+                </div>
+                <div className="space-y-5">
+                  <div className=" text-base font-semibold">:</div>
+                  <div className="text-base font-semibold">:</div>
+                </div>
+                <div className="space-y-5">
+                  <div className=" text-base font-semibold">30</div>
+                  <div className="text-base font-semibold">30</div>
+                </div>
+              </div>
+              <div className="flex justify-start gap-3">
+                <div className="space-y-5">
+                  <div className=" text-base font-semibold">PC Pinjam</div>
+                  <div className="text-base font-semibold">PC Dipinjam</div>
+                  <div className="text-base font-semibold">Total PC</div>
+                </div>
+                <div className="space-y-5">
+                  <div className=" text-base font-semibold">:</div>
+                  <div className="text-base font-semibold">:</div>
+                  <div className="text-base font-semibold">:</div>
+                </div>
+                <div className="space-y-5">
+                  <div className=" text-base font-semibold">30</div>
+                  <div className="text-base font-semibold">30</div>
+                  <div className="text-base font-semibold">30</div>
+                </div>
+              </div>
             </div>
             <div className=" flex justify-between ">
-              <div className="px-5 h-5 rounded-2xl bg-[#0F4C92] shadow">
-                <div className=" text-center text-white text-xs flex items-center justify-center ">
+              <div className="px-5 h-7 rounded-2xl bg-[#0F4C92] shadow flex items-center justify-center">
+                <div className=" text-center text-white text-xs  ">
                   terakhir update : 14 Juni 2023
                 </div>
               </div>
-              <div className="px-5 h-5 rounded-2xl bg-[#FF0000] shadow">
-                <div className=" text-center text-white text-xs flex items-center justify-center ">
+              <div className="px-5 h-7 rounded-2xl bg-[#FF0000] shadow flex items-center justify-center ">
+                <div className=" text-center text-white text-xs ">
                   belum verifikasi
                 </div>
               </div>
@@ -98,7 +147,7 @@ function InvHome() {
         </div>
 
         {/* column 2 */}
-        <div className="px-5 py-3 flex gap-5 relative  ">
+        <div className="flex gap-5 relative  ">
           <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md ">
             <div className=" h-10 flex flex-row justify-between items-center">
               <div className="flex flex-row gap-4 ">
@@ -121,7 +170,7 @@ function InvHome() {
         </div>
 
         {/* column 3 */}
-        <div className="px-5 py-3 flex gap-5 relative  ">
+        <div className="flex gap-5 relative  ">
           <div className="w-full h-[277px] px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
             <div className=" h-10 flex flex-row gap-4">
               <img src={logoRekap} className="w-[35px] " />
@@ -143,7 +192,7 @@ function InvHome() {
         </div>
 
         {/* column 4 */}
-        <div className="px-5 py-3 flex gap-5 relative  ">
+        <div className=" flex gap-5 relative  ">
           {/* row 1 */}
           <div className=" w-1/2  h-[277px] px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
             <div className=" h-10 flex flex-row gap-4">
