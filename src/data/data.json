@@ -1,24 +1,10 @@
 {
   "inv" : [
   {
-    "invNama": "PC Gigabyte",
+    "invNama": "D2I-01",
     "invCPU": "Intel Core i5 10400F",
     "invMobo": "Gigabyte B560M Gaming HD",
-    "invRAM": "16 GB",
-    "invGPU": "Nvidia GT 1030",
-    "invStatus": "normal",
-    "invCategory": "cilent",
-    "invKeyboard": "Nvidia GT 1030",
-    "invMouse": "SSD 256GB",
-    "invStorage": "SSD 256GB",
-    "invMonitor": "LG 22inc",
-    "id": "1"
-  },
-  {
-    "invNama": "PC Gigabyte",
-    "invCPU": "Intel Core i5 10400F",
-    "invMobo": "Gigabyte B560M Gaming HD",
-    "invRAM": "16 GB",
+    "invRAM": "DDR4 16GB",
     "invGPU": "Nvidia GT 1030",
     "invStatus": "baik",
     "invCategory": "cilent",
@@ -26,21 +12,165 @@
     "invMouse": "SSD 256GB",
     "invStorage": "SSD 256GB",
     "invMonitor": "LG 22inc",
-    "id": "2"
+    "id": "1",
+    "default": "yes"
   },
   {
-    "invNama": "PC Gigabyte",
+    "invNama": "D2I-02",
     "invCPU": "Intel Core i5 10400F",
     "invMobo": "Gigabyte B560M Gaming HD",
-    "invRAM": "16 GB",
+    "invRAM": "DDR4 16GB",
     "invGPU": "Nvidia GT 1030",
-    "invStatus": "rusak",
+    "invStatus": "rusak berat",
     "invCategory": "cilent",
     "invKeyboard": "Nvidia GT 1030",
     "invMouse": "SSD 256GB",
     "invStorage": "SSD 256GB",
     "invMonitor": "LG 22inc",
-    "id": "3"
+    "id": "2",
+    "default": "no"
+  },
+  {
+    "invNama": "D2I-03",
+    "invCPU": "Intel Core i5 10400F",
+    "invMobo": "Gigabyte B560M Gaming HD",
+    "invRAM": "DDR4 16GB",
+    "invGPU": "Nvidia GT 1030",
+    "invStatus": "rusak ringan",
+    "invCategory": "cilent",
+    "invKeyboard": "Nvidia GT 1030",
+    "invMouse": "SSD 256GB",
+    "invStorage": "SSD 256GB",
+    "invMonitor": "LG 22inc",
+    "id": "3",
+    "default": "no"
+    
+  },
+  {
+    "invNama": "D2I-03",
+    "invCPU": "Intel Core i5 10400F",
+    "invMobo": "Gigabyte B560M Gaming HD",
+    "invRAM": "DDR4 16GB",
+    "invGPU": "Nvidia GT 1030",
+    "invStatus": "rusak ringan",
+    "invCategory": "cilent",
+    "invKeyboard": "Nvidia GT 1030",
+    "invMouse": "SSD 256GB",
+    "invStorage": "SSD 256GB",
+    "invMonitor": "LG 22inc",
+    "id": "4",
+    "default": "no"
+    
+  },
+  {
+    "invNama": "D2I-03",
+    "invCPU": "Intel Core i5 10400F",
+    "invMobo": "Gigabyte B560M Gaming HD",
+    "invRAM": "DDR4 16GB",
+    "invGPU": "Nvidia GT 1030",
+    "invStatus": "rusak berat",
+    "invCategory": "cilent",
+    "invKeyboard": "Nvidia GT 1030",
+    "invMouse": "SSD 256GB",
+    "invStorage": "SSD 256GB",
+    "invMonitor": "LG 22inc",
+    "id": "5",
+    "default": "no"
+    
+  },
+  {
+    "invNama": "D2I-03",
+    "invCPU": "Intel Core i5 10400F",
+    "invMobo": "Gigabyte B560M Gaming HD",
+    "invRAM": "DDR4 16GB",
+    "invGPU": "Nvidia GT 1030",
+    "invStatus": "baik",
+    "invCategory": "cilent",
+    "invKeyboard": "Nvidia GT 1030",
+    "invMouse": "SSD 256GB",
+    "invStorage": "SSD 256GB",
+    "invMonitor": "LG 22inc",
+    "id": "6",
+    "default": "no"
+    
+  },
+  {
+    "invNama": "D2I-03",
+    "invCPU": "Intel Core i5 10400F",
+    "invMobo": "Gigabyte B560M Gaming HD",
+    "invRAM": "DDR4 16GB",
+    "invGPU": "Nvidia GT 1030",
+    "invStatus": "rusak ringan",
+    "invCategory": "cilent",
+    "invKeyboard": "Nvidia GT 1030",
+    "invMouse": "SSD 256GB",
+    "invStorage": "SSD 256GB",
+    "invMonitor": "LG 22inc",
+    "id": "7",
+    "default": "no"
+    
+  },
+  {
+    "invNama": "D2I-03",
+    "invCPU": "Intel Core i5 10400F",
+    "invMobo": "Gigabyte B560M Gaming HD",
+    "invRAM": "DDR4 16GB",
+    "invGPU": "Nvidia GT 1030",
+    "invStatus": "rusak berat",
+    "invCategory": "cilent",
+    "invKeyboard": "Nvidia GT 1030",
+    "invMouse": "SSD 256GB",
+    "invStorage": "SSD 256GB",
+    "invMonitor": "LG 22inc",
+    "id": "8",
+    "default": "no"
+    
+  },
+  {
+    "invNama": "D2I-03",
+    "invCPU": "Intel Core i5 10400F",
+    "invMobo": "Gigabyte B560M Gaming HD",
+    "invRAM": "DDR4 16GB",
+    "invGPU": "Nvidia GT 1030",
+    "invStatus": "baik",
+    "invCategory": "cilent",
+    "invKeyboard": "Nvidia GT 1030",
+    "invMouse": "SSD 256GB",
+    "invStorage": "SSD 256GB",
+    "invMonitor": "LG 22inc",
+    "id": "9",
+    "default": "no"
+    
+  },{
+    "invNama": "D2I-03",
+    "invCPU": "Intel Core i5 10400F",
+    "invMobo": "Gigabyte B560M Gaming HD",
+    "invRAM": "DDR4 16GB",
+    "invGPU": "Nvidia GT 1030",
+    "invStatus": "rusak berat",
+    "invCategory": "cilent",
+    "invKeyboard": "Nvidia GT 1030",
+    "invMouse": "SSD 256GB",
+    "invStorage": "SSD 256GB",
+    "invMonitor": "LG 22inc",
+    "id": "10",
+    "default": "no"
+    
+  },{
+    "invNama": "D2I-03",
+    "invCPU": "Intel Core i5 10400F",
+    "invMobo": "Gigabyte B560M Gaming HD",
+    "invRAM": "DDR4 16GB",
+    "invGPU": "Nvidia GT 1030",
+    "invStatus": "baik",
+    "invCategory": "cilent",
+    "invKeyboard": "Nvidia GT 1030",
+    "invMouse": "SSD 256GB",
+    "invStorage": "SSD 256GB",
+    "invMonitor": "LG 22inc",
+    "id": "11",
+    "default": "no"
+    
   }
 ]
 }

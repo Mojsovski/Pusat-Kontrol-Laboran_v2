@@ -3,6 +3,8 @@ import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 import { Link } from "react-router-dom";
 
+import useStore from "../../data/Data";
+
 import logoInputPC from "../../assets/icons/pcinput.svg";
 import logoEditPC from "../../assets/icons/pcedit.svg";
 import logoVerifikasi from "../../assets/icons/verifikasi.svg";
@@ -18,6 +20,8 @@ import logoBandwidth from "../../assets/icons/jaringan.svg";
 // }));
 
 function InvHome() {
+  const inv = useStore((state) => state.inv);
+  const filteredInv = inv.filter((item) => item.default === "yes");
   // const bears = useStore((state) => state.bears);
   // const increasePopulation = useStore((state) => state.increasePopulation);
   // const removeAllBears = useStore((state) => state.removeAllBears);
@@ -74,11 +78,14 @@ function InvHome() {
                   Rekap Inventaris
                 </div>
               </div>
-              <button className="px-5 h-6 rounded-2xl bg-[#F5BD45] flex items-center shadow">
+              <Link
+                to={"/inventaris/rekap"}
+                className="px-5 h-6 rounded-2xl bg-[#F5BD45] flex items-center shadow"
+              >
                 <div className="  text-black text-xs font-medium  ">
                   selengkapnya
                 </div>
-              </button>
+              </Link>
             </div>
             {/* table */}
             <div className="py-5 gap-7 px-5 h-[169px]  text-8xl flex flex-row justify-between items-start">
@@ -156,21 +163,85 @@ function InvHome() {
                   Spesifikasi Komputer Utama
                 </div>
               </div>
-              <button className="px-5 h-6 rounded-2xl bg-[#F5BD45] flex items-center shadow">
+              <Link
+                to={"/inventaris/list-PC"}
+                className="px-5 h-6 rounded-2xl bg-[#F5BD45] flex items-center shadow"
+              >
                 <div className="  text-black text-xs font-medium  ">
                   selengkapnya
                 </div>
-              </button>
+              </Link>
             </div>
             {/* table */}
-            <div className="h-[180px] text-center text-8xl flex justify-center items-center">
-              asas
+
+            <div className="overflow-x-auto relative ">
+              <table className="w-full text-sm  rtl:text-right text-center ">
+                <thead className="text-center">
+                  <tr>
+                    <th scope="col" className="px-1 py-3  ">
+                      No
+                    </th>
+                    <th scope="col" className="px-4 py-3 ">
+                      Nama
+                    </th>
+                    <th scope="col" className="px-1 py-3 ">
+                      Prosessor
+                    </th>
+                    <th scope="col" className="px-1 py-3 ">
+                      Motherboard
+                    </th>
+                    <th scope="col" className="px-1 py-3 ">
+                      RAM
+                    </th>
+                    <th scope="col" className="px-3 py-3">
+                      Kartu grafis
+                    </th>
+                    <th scope="col" className="px-1 py-3 ">
+                      Penyimpanan
+                    </th>
+
+                    <th scope="col" className="px-1 py-3">
+                      Kategori
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredInv.map((data) => (
+                    <tr>
+                      <td scope="col" className="px-1 py-3">
+                        {data.id}
+                      </td>
+                      <td scope="col" className="px-4 py-3">
+                        {data.invNama}
+                      </td>
+                      <td scope="col" className="px-1 py-3">
+                        {data.invCPU}
+                      </td>
+                      <td scope="col" className="px-1 py-3">
+                        {data.invMobo}
+                      </td>
+                      <td scope="col" className="px-1 py-3">
+                        {data.invRAM}
+                      </td>
+                      <td scope="col" className="px-3 py-3">
+                        {data.invGPU}
+                      </td>
+                      <td scope="col" className="px-1 py-3">
+                        {data.invStorage}
+                      </td>
+                      <td scope="col" className="px-1 py-3">
+                        {data.invCategory}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
 
         {/* column 3 */}
-        <div className="flex gap-5 relative  ">
+        {/* <div className="flex gap-5 relative  ">
           <div className="w-full h-[277px] px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
             <div className=" h-10 flex flex-row gap-4">
               <img src={logoRekap} className="w-[35px] " />
@@ -189,7 +260,7 @@ function InvHome() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* column 4 */}
         <div className=" flex gap-5 relative  ">
