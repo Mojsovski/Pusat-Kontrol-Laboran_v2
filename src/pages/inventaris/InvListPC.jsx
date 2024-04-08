@@ -2,11 +2,39 @@ import React from "react";
 import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 import logoInput from "../../assets/icons/pcinput.svg";
-import useStore from "../../data/Data";
+import useStore from "../../data/Data.js";
+import { useEffect } from "react";
+
+// import { useEffect, useState } from "react";
+// import { createClient } from "@supabase/supabase-js";
+
+// const supabase = createClient(
+//   import.meta.env.VITE_SUPABASE_URL,
+//   import.meta.env.VITE_SUPABASE_ANON_KEY
+// );
 
 function InvListPC() {
-  const inv = useStore((state) => state.inv);
+  // const data = useStore((state) => state.data);
   // console.log({ inv });
+
+  // const [data, setInv] = useState([]);
+
+  // useEffect(() => {
+  //   getInv();
+  // }, []);
+
+  // async function getInv() {
+  //   const { data } = await supabase.from("inv").select();
+  //   setInv(data);
+  // }
+
+  const { data, fetchData } = useStore();
+  let Num = 1;
+
+  useEffect(() => {
+    fetchData(); // Panggil fetchData saat komponen Table pertama kali dimuat
+  }, []);
+
   return (
     <div className="h-screen bg-[#C4C4C4] relative  ">
       <Sidebar />
@@ -57,28 +85,28 @@ function InvListPC() {
                 </tr>
               </thead>
               <tbody>
-                {inv.map((data) => (
+                {data.map((inv) => (
                   <tr>
                     <td scope="col" className="px-1 py-3">
-                      {data.id}
+                      {Num++}
                     </td>
                     <td scope="col" className="px-4 py-3">
-                      {data.invNama}
+                      {inv.Name}
                     </td>
                     <td scope="col" className="px-4 py-3">
-                      {data.invCPU}
+                      {inv.CPU}
                     </td>
                     <td scope="col" className="px-1 py-3">
-                      {data.invRAM}
+                      {inv.RAM}
                     </td>
                     <td scope="col" className="px-3 py-3">
-                      {data.invGPU}
+                      {inv.GPU}
                     </td>
                     <td scope="col" className="px-1 py-3">
-                      {data.invStorage}
+                      {inv.Storage}
                     </td>
                     <td scope="col" className="px-1 py-3">
-                      {data.invCategory}
+                      {inv.CategoryPC}
                     </td>
                     <td
                       scope="col"
@@ -86,16 +114,16 @@ function InvListPC() {
                     >
                       <p
                         className={`${
-                          data.invStatus === "baik"
+                          inv.Status === "baik"
                             ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                            : data.invStatus === "rusak ringan"
+                            : inv.Status === "rusak ringan"
                             ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                            : data.invStatus === "rusak berat"
+                            : inv.Status === "rusak berat"
                             ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
                             : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
                         }`}
                       >
-                        {data.invStatus}
+                        {inv.Status}
                       </p>
                     </td>
                     <td className="px-1 py-3 ">

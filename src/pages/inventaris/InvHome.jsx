@@ -1,9 +1,10 @@
 import React from "react";
+import { useEffect } from "react";
 import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 import { Link } from "react-router-dom";
 
-import useStore from "../../data/Data";
+import useStore from "../../data/Data.js";
 
 import logoInputPC from "../../assets/icons/pcinput.svg";
 import logoEditPC from "../../assets/icons/pcedit.svg";
@@ -12,19 +13,14 @@ import logoRekap from "../../assets/icons/inv2.svg";
 
 import logoBandwidth from "../../assets/icons/jaringan.svg";
 
-// const useStore = create((set) => ({
-//   bears: 0,
-//   increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-//   removeAllBears: () => set({ bears: 0 }),
-//   updateBears: (newBears) => set({ bears: newBears }),
-// }));
-
 function InvHome() {
-  const inv = useStore((state) => state.inv);
-  const filteredInv = inv.filter((item) => item.default === "yes");
-  // const bears = useStore((state) => state.bears);
-  // const increasePopulation = useStore((state) => state.increasePopulation);
-  // const removeAllBears = useStore((state) => state.removeAllBears);
+  const { data, fetchData } = useStore();
+
+  const filteredInv = data.filter((item) => item.default === "yes");
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="h-screen bg-[#C4C4C4] relative  ">
@@ -173,7 +169,6 @@ function InvHome() {
               </Link>
             </div>
             {/* table */}
-
             <div className="overflow-x-auto relative ">
               <table className="w-full text-sm  rtl:text-right text-center ">
                 <thead className="text-center">
@@ -206,32 +201,32 @@ function InvHome() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredInv.map((data) => (
+                  {filteredInv.map((inv) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
-                        {data.id}
+                        {inv.id}
                       </td>
                       <td scope="col" className="px-4 py-3">
-                        {data.invNama}
+                        {inv.Name}
+                      </td>
+                      {/* <td scope="col" className="px-1 py-3">
+                        {inv.PC.CPU}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.invCPU}
+                        {inv.PC.Mobo}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.invMobo}
-                      </td>
-                      <td scope="col" className="px-1 py-3">
-                        {data.invRAM}
+                        {inv.PC.RAM}
                       </td>
                       <td scope="col" className="px-3 py-3">
-                        {data.invGPU}
+                        {inv.PC.GPU}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.invStorage}
+                        {inv.PC.Storage}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.invCategory}
-                      </td>
+                        {inv.PC.Category}
+                      </td> */}
                     </tr>
                   ))}
                 </tbody>

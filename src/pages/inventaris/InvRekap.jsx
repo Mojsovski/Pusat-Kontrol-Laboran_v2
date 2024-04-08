@@ -1,9 +1,10 @@
 import React from "react";
+import { useEffect } from "react";
 import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 import logoInput from "../../assets/icons/pcinput.svg";
 import { Link } from "react-router-dom";
-import useStore from "../../data/Data";
+import useStore from "../../data/Data.js";
 
 import logoInputPC from "../../assets/icons/pcinput.svg";
 import logoEditPC from "../../assets/icons/pcedit.svg";
@@ -11,10 +12,15 @@ import logoVerifikasi from "../../assets/icons/verifikasi.svg";
 import logoRekap from "../../assets/icons/inv2.svg";
 
 function InvRekap() {
-  const inv = useStore((state) => state.inv);
-  const filteredInv = inv.filter(
-    (item) => item.invStatus === "rusak berat" || item.invStatus === "baik"
+  const { data, fetchData } = useStore();
+  let Num = 1;
+
+  const filteredInv = data.filter(
+    (item) => item.Status === "rusak berat" || item.Status === "rusak ringan"
   );
+  useEffect(() => {
+    fetchData(); // Panggil fetchData saat komponen Table pertama kali dimuat
+  }, []);
 
   return (
     <div className="h-screen bg-[#C4C4C4] relative  ">
@@ -96,6 +102,36 @@ function InvRekap() {
             </div>
           </div>
         </div>
+        {/* Column 2 */}
+        <div className=" flex gap-5 relative ">
+          {/* row 1 */}
+          <div className=" w-1/2 px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
+            <div className=" h-10 flex flex-row gap-4">
+              <img src={logoInputPC} className="w-[25px] " />
+              <div className="p-1 font-semibold text-xl ">Rekap</div>
+            </div>
+            <div className=""></div>
+          </div>
+          {/* row 2 */}
+          <div className="w-1/2 h-[277px] px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
+            <div className=" h-10 flex flex-row gap-4">
+              <img src={logoInputPC} className="w-[35px] " />
+              <div className="p-1 font-semibold text-xl ">Rekap</div>
+            </div>
+            <div className="h-32 text-center text-8xl flex justify-center items-center ">
+              D.2.I
+            </div>
+            <div className="h-10 text-center text-base flex justify-center items-center ">
+              Shift : Siang (14.00-21.00)
+            </div>
+            <div className="h-9 flex justify-center items-center">
+              <div className="w-36 h-7 py-1 rounded-2xl bg-[#07AC22]">
+                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
+                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
+              </div>
+            </div>
+          </div>
+        </div>
         {/* Column 3 */}
         <div className="flex gap-5 relative">
           <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md">
@@ -140,28 +176,28 @@ function InvRekap() {
                   {filteredInv.map((data) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
-                        {data.id}
+                        {Num++}
                       </td>
                       <td scope="col" className="px-4 py-3">
-                        {data.invNama}
+                        {data.Name}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.invCPU}
+                        {data.CPU}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.invMobo}
+                        {data.Mobo}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.invRAM}
+                        {data.RAM}
                       </td>
                       <td scope="col" className="px-3 py-3">
-                        {data.invGPU}
+                        {data.GPU}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.invStorage}
+                        {data.Storage}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.invCategory}
+                        {data.CategoryPC}
                       </td>
                     </tr>
                   ))}

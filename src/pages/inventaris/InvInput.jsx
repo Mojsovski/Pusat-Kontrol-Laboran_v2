@@ -3,7 +3,6 @@ import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 import logoInput from "../../assets/icons/pcinput.svg";
 
-import { create } from "zustand";
 import { Link } from "react-router-dom";
 
 function InvInput() {
@@ -198,7 +197,7 @@ function InvInput() {
             <div className="space-y-6 ">
               <div className="my-2">
                 <Link
-                  to={"/inventaris/detail"}
+                  to={"/inventaris/list-PC"}
                   type="submit"
                   className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
                 >
