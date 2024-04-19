@@ -13,13 +13,12 @@ import logoRekap from "../../assets/icons/inv2.svg";
 
 function InvRekap() {
   const { data, fetchData } = useStore();
-  let Num = 1;
 
   const filteredInv = data.filter(
-    (item) => item.Status === "rusak berat" || item.Status === "rusak ringan"
+    (item) => item.status === "rusak ringan" || item.status === "rusak berat"
   );
   useEffect(() => {
-    fetchData(); // Panggil fetchData saat komponen Table pertama kali dimuat
+    fetchData();
   }, []);
 
   return (
@@ -108,27 +107,120 @@ function InvRekap() {
           <div className=" w-1/2 px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
             <div className=" h-10 flex flex-row gap-4">
               <img src={logoInputPC} className="w-[25px] " />
-              <div className="p-1 font-semibold text-xl ">Rekap</div>
+              <div className="p-1 font-semibold text-xl ">Barang Pinjam</div>
             </div>
-            <div className=""></div>
+            <div className="overflow-x-auto relative ">
+              <table className="w-full text-sm  rtl:text-right text-center ">
+                <thead className=" text-center">
+                  <tr>
+                    <th scope="col" className="px-1 py-3  ">
+                      No
+                    </th>
+                    <th scope="col" className="px-10 py-3 ">
+                      Nama
+                    </th>
+                    <th scope="col" className="px-6 py-3 ">
+                      jumlah
+                    </th>
+                    <th scope="col" className="px-1 py-3 ">
+                      Kondisi
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredInv.map((data, index) => (
+                    <tr>
+                      <td scope="col" className="px-1 py-3">
+                        {index + 1}
+                      </td>
+                      <td scope="col" className="px-6 py-3">
+                        {data.Name}
+                      </td>
+                      <td scope="col" className="px-1 py-3">
+                        {data.Status}
+                      </td>
+                      <td
+                        scope="col"
+                        className="px-1 py-3 flex items-center justify-center"
+                      >
+                        <p
+                          className={`${
+                            data.Status === "baik"
+                              ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
+                              : data.Status === "rusak ringan"
+                              ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
+                              : data.Status === "rusak berat"
+                              ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
+                              : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
+                          }`}
+                        >
+                          {data.Status}
+                        </p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
           {/* row 2 */}
-          <div className="w-1/2 h-[277px] px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
+          <div className="w-1/2  px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
             <div className=" h-10 flex flex-row gap-4">
               <img src={logoInputPC} className="w-[35px] " />
-              <div className="p-1 font-semibold text-xl ">Rekap</div>
+              <div className="p-1 font-semibold text-xl ">Barang Dipinjam</div>
             </div>
-            <div className="h-32 text-center text-8xl flex justify-center items-center ">
-              D.2.I
-            </div>
-            <div className="h-10 text-center text-base flex justify-center items-center ">
-              Shift : Siang (14.00-21.00)
-            </div>
-            <div className="h-9 flex justify-center items-center">
-              <div className="w-36 h-7 py-1 rounded-2xl bg-[#07AC22]">
-                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
-                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
-              </div>
+            <div className="overflow-x-auto relative ">
+              <table className="w-full text-sm  rtl:text-right text-center ">
+                <thead className=" text-center">
+                  <tr>
+                    <th scope="col" className="px-1 py-3  ">
+                      No
+                    </th>
+                    <th scope="col" className="px-10 py-3 ">
+                      Nama
+                    </th>
+                    <th scope="col" className="px-6 py-3 ">
+                      jumlah
+                    </th>
+                    <th scope="col" className="px-1 py-3 ">
+                      Kondisi
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredInv.map((data, index) => (
+                    <tr>
+                      <td scope="col" className="px-1 py-3">
+                        {index + 1}
+                      </td>
+                      <td scope="col" className="px-6 py-3">
+                        {data.name}
+                      </td>
+                      <td scope="col" className="px-1 py-3">
+                        {data.status}
+                      </td>
+                      <td
+                        scope="col"
+                        className="px-1 py-3 flex items-center justify-center"
+                      >
+                        <p
+                          className={`${
+                            data.status === "baik"
+                              ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
+                              : data.status === "rusak ringan"
+                              ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
+                              : data.status === "rusak berat"
+                              ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
+                              : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
+                          }`}
+                        >
+                          {data.status}
+                        </p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -173,31 +265,31 @@ function InvRekap() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredInv.map((data) => (
+                  {filteredInv.map((data, index) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
-                        {Num++}
+                        {index + 1}
                       </td>
                       <td scope="col" className="px-4 py-3">
-                        {data.Name}
+                        {data.name}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.CPU}
+                        {data.pc.cpu}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.Mobo}
+                        {data.pc.mobo}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.RAM}
+                        {data.pc.ram}
                       </td>
                       <td scope="col" className="px-3 py-3">
-                        {data.GPU}
+                        {data.pc.gpu}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.Storage}
+                        {data.pc.storage}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.CategoryPC}
+                        {data.pc.category}
                       </td>
                     </tr>
                   ))}

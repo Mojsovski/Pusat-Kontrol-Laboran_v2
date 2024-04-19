@@ -16,7 +16,8 @@ import logoBandwidth from "../../assets/icons/jaringan.svg";
 function InvHome() {
   const { data, fetchData } = useStore();
 
-  const filteredInv = data.filter((item) => item.default === "yes");
+  const filterDefaultSpec = data.filter((item) => item.default === "yes");
+  const filterNonPC = data.filter((item) => item.category === "Non PC");
 
   useEffect(() => {
     fetchData();
@@ -201,32 +202,32 @@ function InvHome() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredInv.map((inv) => (
+                  {filterDefaultSpec.map((inv, index) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
-                        {inv.id}
+                        {index + 1}
                       </td>
                       <td scope="col" className="px-4 py-3">
-                        {inv.Name}
-                      </td>
-                      {/* <td scope="col" className="px-1 py-3">
-                        {inv.PC.CPU}
+                        {inv.name}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {inv.PC.Mobo}
+                        {inv.pc.cpu}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {inv.PC.RAM}
+                        {inv.pc.mobo}
+                      </td>
+                      <td scope="col" className="px-1 py-3">
+                        {inv.pc.ram}
                       </td>
                       <td scope="col" className="px-3 py-3">
-                        {inv.PC.GPU}
+                        {inv.pc.gpu}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {inv.PC.Storage}
+                        {inv.pc.storage}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {inv.PC.Category}
-                      </td> */}
+                        {inv.pc.category}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -260,41 +261,73 @@ function InvHome() {
         {/* column 4 */}
         <div className=" flex gap-5 relative  ">
           {/* row 1 */}
-          <div className=" w-1/2  h-[277px] px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
+          <div className=" w-1/2  px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
             <div className=" h-10 flex flex-row gap-4">
-              <img src={logoInputPC} className="w-[35px] " />
-              <div className="p-1 font-semibold text-xl ">Rekap</div>
-            </div>
-            <div className="h-32 text-center text-8xl flex justify-center items-center ">
-              D.2.I
-            </div>
-            <div className="h-10 text-center text-base flex justify-center items-center ">
-              Shift : Siang (14.00-21.00)
-            </div>
-            <div className="h-9 flex justify-center items-center">
-              <div className="w-36 h-7 py-1 rounded-2xl bg-[#07AC22]">
-                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
-                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
+              <img src={logoRekap} className="w-[25px] " />
+              <div className="p-1 font-semibold text-lg flex items-center">
+                Barang Non Komputer
               </div>
+            </div>
+            {/* table */}
+            <div className="overflow-x-auto relative ">
+              <table className="w-full text-sm  rtl:text-right text-center ">
+                <thead className="text-center">
+                  <tr>
+                    <th scope="col" className="px-1 py-3  ">
+                      No
+                    </th>
+                    <th scope="col" className="px-7 py-3 ">
+                      Nama
+                    </th>
+                    <th scope="col" className="px-1 py-3 ">
+                      Jumlah
+                    </th>
+                    <th scope="col" className=" py-3 ">
+                      Kondisi
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filterNonPC.map((inv, index) => (
+                    <tr>
+                      <td scope="col" className="px-1 py-3">
+                        {index + 1}
+                      </td>
+                      <td scope="col" className="px-7 py-3">
+                        {inv.name}
+                      </td>
+                      <td scope="col" className="px-1 py-3">
+                        {index + 1}
+                      </td>
+                      <td
+                        scope="col"
+                        className="py-3 flex items-center justify-center "
+                      >
+                        <p
+                          className={`${
+                            inv.status === "baik"
+                              ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
+                              : inv.status === "rusak ringan"
+                              ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
+                              : inv.status === "rusak berat"
+                              ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
+                              : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
+                          }`}
+                        >
+                          {inv.status}
+                        </p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
           {/* row 2 */}
-          <div className="w-1/2 h-[277px] px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
+          <div className="w-1/2  px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
             <div className=" h-10 flex flex-row gap-4">
-              <img src={logoInputPC} className="w-[35px] " />
+              <img src={logoRekap} className="w-[25px] " />
               <div className="p-1 font-semibold text-xl ">Rekap</div>
-            </div>
-            <div className="h-32 text-center text-8xl flex justify-center items-center ">
-              D.2.I
-            </div>
-            <div className="h-10 text-center text-base flex justify-center items-center ">
-              Shift : Siang (14.00-21.00)
-            </div>
-            <div className="h-9 flex justify-center items-center">
-              <div className="w-36 h-7 py-1 rounded-2xl bg-[#07AC22]">
-                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
-                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
-              </div>
             </div>
           </div>
         </div>

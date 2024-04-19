@@ -3,42 +3,42 @@
     {
       "id": "1",
       "default": "yes",
-      "Name": "D2I-01",
-      "Status": "baik",
-      "Category": "PC",
-      "PC": [
+      "name": "D2I-01",
+      "status": "baik",
+      "category": "PC",
+      "pc": [
         {
-          "CPU": "Intel Core i5 10400F",
-          "Mobo": "Gigabyte B560M Gaming HD",
-          "RAM": "DDR4 16GB",
-          "GPU": "Nvidia GT 1030",
-          "Keyboard": "Nvidia GT 1030",
-          "Mouse": "SSD 256GB",
-          "Storage": "SSD 256GB",
-          "Monitor": "LG 22inc",
-          "PSU": "Gigabyte P550B",
-          "Category": "dosen"
+          "cpu": "Intel Core i5 10400F",
+          "mobo": "Gigabyte B560M Gaming HD",
+          "ram": "DDR4 16GB",
+          "gpu": "Nvidia GT 1030",
+          "keyboard": "Nvidia GT 1030",
+          "mouse": "SSD 256GB",
+          "storage": "SSD 256GB",
+          "monitor": "LG 22inc",
+          "psu": "Gigabyte P550B",
+          "category": "dosen"
         }
       ]
     },
     {
       "id": "2",
-      "default": "no",
-      "Name": "D2I-02",
-      "Status": "rusak berat",
-      "Category": "PC",
-      "PC": [
+      "default": "yes",
+      "name": "D2I-01",
+      "status": "baik",
+      "category": "PC",
+      "pc": [
         {
-          "CPU": "Intel Core i7 10700F",
-          "Mobo": "ASUS TUF Gaming B560M-PLUS",
-          "RAM": "DDR4 32GB",
-          "GPU": "Nvidia RTX 3080",
-          "Keyboard": "Razer BlackWidow V3",
-          "Mouse": "Logitech G502 Hero",
-          "Storage": "NVMe SSD 1TB",
-          "Monitor": "ASUS ROG Strix XG279Q",
-          "PSU": "Gigabyte P550B",
-          "Category": "cilent"
+          "cpu": "Intel Core i5 10400F",
+          "mobo": "Gigabyte B560M Gaming HD",
+          "ram": "DDR4 16GB",
+          "gpu": "Nvidia GT 1030",
+          "keyboard": "Nvidia GT 1030",
+          "mouse": "SSD 256GB",
+          "storage": "SSD 256GB",
+          "monitor": "LG 22inc",
+          "psu": "Gigabyte P550B",
+          "category": "dosen"
         }
       ]
     }

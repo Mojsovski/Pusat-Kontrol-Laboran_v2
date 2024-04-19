@@ -10,6 +10,7 @@
 
 import { create } from "zustand";
 import { createClient } from "@supabase/supabase-js";
+import { v4 as uuidv4 } from "uuid";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -17,10 +18,42 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 const useStore = create((set) => ({
   data: [],
+  formData: {
+    id: "",
+    name: "",
+    default: "",
+    status: "",
+    category: "",
+    pc: [],
+  },
+
+  // setCategory: (invtype) => set(() => ({ category: invtype })), // Fungsi untuk mengupdate jenisBarang
+
   fetchData: async () => {
     try {
-      // Ambil data dari Supabase
-      const { data, error } = await supabase.from("inv3").select("*");
+      const { data, error } = await supabase.from("inv5").select("*");
+      if (error) throw error;
+      set({ data });
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  },
+
+  submitForm: async () => {
+    const { formData } = useStore.getState();
+    formData.id = uuidv4();
+    try {
+      const { data, error } = await supabase.from("inv5").insert([formData]);
+      if (error) throw error;
+      console.log("Form submitted successfully:", data);
+    } catch (error) {
+      console.error("Error submitting form:", error.message);
+    }
+  },
+
+  authData: async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword;
       if (error) throw error;
       // Simpan data dalam state Zustand
       set({ data });
@@ -28,6 +61,30 @@ const useStore = create((set) => ({
       console.error("Error fetching data:", error.message);
     }
   },
+
+  updateFormData: (field, value) =>
+    set((state) => {
+      // For nested objects like pc, you might need a more complex logic
+      if (field.includes(".")) {
+        const [parent, child] = field.split(".");
+        return {
+          formData: {
+            ...state.formData,
+            [parent]: {
+              ...state.formData[parent],
+              [child]: value,
+            },
+          },
+        };
+      } else {
+        return {
+          formData: {
+            ...state.formData,
+            [field]: value,
+          },
+        };
+      }
+    }),
 }));
 
 export default useStore;
