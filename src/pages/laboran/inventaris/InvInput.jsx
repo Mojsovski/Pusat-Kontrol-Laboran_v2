@@ -1,10 +1,11 @@
 import React from "react";
-import Sidebar from "../../components/Sidebar";
-import Navbar from "../../components/Navbar";
-import logoInput from "../../assets/icons/pcinput.svg";
-import useStore from "../../data/Data.js";
-
 import { Link } from "react-router-dom";
+
+import useStore from "../../../data/Data.js";
+
+import Sidebar from "../../../components/Sidebar";
+import Navbar from "../../../components/Navbar";
+import icons from "../../../assets/icons/icon.jsx";
 
 function InvInput() {
   const { formData, updateFormData, submitForm } = useStore();
@@ -15,9 +16,8 @@ function InvInput() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
     await submitForm();
-    // Redirect or show success message
   };
 
   return (
@@ -29,7 +29,7 @@ function InvInput() {
           {/* col 1 */}
           <div className=" h-10 flex flex-row justify-between items-center">
             <div className="flex flex-row gap-4 ">
-              <img src={logoInput} className="w-[25px] " />
+              <img src={icons.inputPC} className="w-[25px] " />
               <div className="p-1 font-semibold text-xl ">Input Inventaris</div>
             </div>
             <div className="my-2 ">
@@ -237,6 +237,15 @@ function InvInput() {
                     />
                   </div>
                 </div>
+                <div className="pt-10 flex justify-end" onClick={handleSubmit}>
+                  <Link
+                    to={"/inventaris/list-PC"}
+                    type="submit"
+                    className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
+                  >
+                    Input
+                  </Link>
+                </div>
               </div>
             </div>
           )}
@@ -276,23 +285,19 @@ function InvInput() {
                     </select>
                   </div>
                 </div>
+                <div className="pt-7 flex justify-end" onClick={handleSubmit}>
+                  <Link
+                    to={"/inventaris/list-PC"}
+                    type="submit"
+                    className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
+                  >
+                    Input
+                  </Link>
+                </div>
               </div>
             </div>
           )}
           {/* col 3 */}
-          <div className="px-11 flex flex-row justify-end mt-10 ">
-            <div className="space-y-6 ">
-              <div className="my-2 bg" onClick={handleSubmit}>
-                <Link
-                  to={"/inventaris/list-PC"}
-                  type="submit"
-                  className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
-                >
-                  Input
-                </Link>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

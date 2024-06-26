@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 
 import LoginPage from "./pages/login/LoginPage";
-import Home from "./pages/home/Home";
-import InvHome from "./pages/inventaris/InvHome";
-import InvInput from "./pages/inventaris/InvInput";
-import InvListPC from "./pages/inventaris/InvListPC";
-import InvRekap from "./pages/inventaris/InvRekap";
+import Home from "./pages/laboran/home/Home";
+import InvHome from "./pages/laboran/inventaris/InvHome";
+import InvInput from "./pages/laboran/inventaris/InvInput";
+import InvListPC from "./pages/laboran/inventaris/InvListPC";
+import InvRekap from "./pages/laboran/inventaris/InvRekap";
 
 function App() {
   return (

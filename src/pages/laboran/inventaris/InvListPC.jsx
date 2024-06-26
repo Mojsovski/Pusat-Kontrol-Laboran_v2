@@ -1,9 +1,11 @@
 import React from "react";
-import Sidebar from "../../components/Sidebar";
-import Navbar from "../../components/Navbar";
-import logoInput from "../../assets/icons/pcinput.svg";
-import useStore from "../../data/Data.js";
 import { useEffect } from "react";
+
+import useStore from "../../../data/Data.js";
+
+import Sidebar from "../../../components/Sidebar";
+import Navbar from "../../../components/Navbar";
+import icons from "../../../assets/icons/icon.jsx";
 
 function InvListPC() {
   const { data, fetchData } = useStore();
@@ -22,7 +24,7 @@ function InvListPC() {
         <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md">
           <div className="h-10 flex flex-row gap-5 items-center">
             <div className="flex flex-row gap-4 ">
-              <img src={logoInput} className="w-[25px] " />
+              <img src={icons.inputPC} className="w-[25px] " />
               <div className="p-1 font-semibold text-xl ">
                 Daftar Inventaris
               </div>

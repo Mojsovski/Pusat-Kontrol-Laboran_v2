@@ -1,22 +1,21 @@
 import React from "react";
 import { useEffect } from "react";
-import Sidebar from "../../components/Sidebar";
-import Navbar from "../../components/Navbar";
-import logoInput from "../../assets/icons/pcinput.svg";
 import { Link } from "react-router-dom";
-import useStore from "../../data/Data.js";
 
-import logoInputPC from "../../assets/icons/pcinput.svg";
-import logoEditPC from "../../assets/icons/pcedit.svg";
-import logoVerifikasi from "../../assets/icons/verifikasi.svg";
-import logoRekap from "../../assets/icons/inv2.svg";
+import useStore from "../../../data/Data.js";
+
+import Sidebar from "../../../components/Sidebar.jsx";
+import Navbar from "../../../components/Navbar.jsx";
+import icons from "../../../assets/icons/icon.jsx";
 
 function InvRekap() {
   const { data, fetchData } = useStore();
 
-  const filteredInv = data.filter(
-    (item) => item.status === "rusak ringan" || item.status === "rusak berat"
+  const filteredInv = data.filter((item) => item.status === "rusak ringan");
+  const filterPCRusak = data.filter(
+    (item) => item.status === "rusak ringan" && item.category === "PC"
   );
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -32,7 +31,7 @@ function InvRekap() {
           <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md ">
             <div className=" h-10 flex flex-row justify-between items-center">
               <div className="flex flex-row gap-4 ">
-                <img src={logoRekap} className="w-[25px] " />
+                <img src={icons.rekapPC} className="w-[25px] " />
                 <div className="p-1 font-semibold text-xl ">
                   Rekap Inventaris
                 </div>
@@ -106,7 +105,7 @@ function InvRekap() {
           {/* row 1 */}
           <div className=" w-1/2 px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
             <div className=" h-10 flex flex-row gap-4">
-              <img src={logoInputPC} className="w-[25px] " />
+              <img src={icons.inputPC} className="w-[25px] " />
               <div className="p-1 font-semibold text-xl ">Barang Pinjam</div>
             </div>
             <div className="overflow-x-auto relative ">
@@ -128,16 +127,16 @@ function InvRekap() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredInv.map((data, index) => (
+                  {filteredInv.map((inv, index) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
                         {index + 1}
                       </td>
                       <td scope="col" className="px-6 py-3">
-                        {data.Name}
+                        {inv.name}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.Status}
+                        {inv.status}
                       </td>
                       <td
                         scope="col"
@@ -145,16 +144,16 @@ function InvRekap() {
                       >
                         <p
                           className={`${
-                            data.Status === "baik"
+                            data.status === "baik"
                               ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                              : data.Status === "rusak ringan"
+                              : data.status === "rusak ringan"
                               ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                              : data.Status === "rusak berat"
+                              : data.status === "rusak berat"
                               ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
                               : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
                           }`}
                         >
-                          {data.Status}
+                          {inv.status}
                         </p>
                       </td>
                     </tr>
@@ -166,7 +165,7 @@ function InvRekap() {
           {/* row 2 */}
           <div className="w-1/2  px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
             <div className=" h-10 flex flex-row gap-4">
-              <img src={logoInputPC} className="w-[35px] " />
+              <img src={icons.inputPC} className="w-[35px] " />
               <div className="p-1 font-semibold text-xl ">Barang Dipinjam</div>
             </div>
             <div className="overflow-x-auto relative ">
@@ -188,16 +187,16 @@ function InvRekap() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredInv.map((data, index) => (
+                  {filteredInv.map((inv, index) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
                         {index + 1}
                       </td>
                       <td scope="col" className="px-6 py-3">
-                        {data.name}
+                        {inv.name}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.status}
+                        {inv.status}
                       </td>
                       <td
                         scope="col"
@@ -207,14 +206,14 @@ function InvRekap() {
                           className={`${
                             data.status === "baik"
                               ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                              : data.status === "rusak ringan"
+                              : inv.status === "rusak ringan"
                               ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                              : data.status === "rusak berat"
+                              : inv.status === "rusak berat"
                               ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
                               : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
                           }`}
                         >
-                          {data.status}
+                          {inv.status}
                         </p>
                       </td>
                     </tr>
@@ -229,7 +228,7 @@ function InvRekap() {
           <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md">
             <div className="h-10 flex flex-row justify-between items-center">
               <div className="flex flex-row gap-4 ">
-                <img src={logoInput} className="w-[25px] " />
+                <img src={icons.inputPC} className="w-[25px] " />
                 <div className="p-1 font-semibold text-xl ">Komputer Rusak</div>
               </div>
             </div>
@@ -258,38 +257,37 @@ function InvRekap() {
                     <th scope="col" className="px-1 py-3 ">
                       Penyimpanan
                     </th>
-
                     <th scope="col" className="px-1 py-3">
                       Kategori
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredInv.map((data, index) => (
+                  {filterPCRusak.map((inv, index) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
                         {index + 1}
                       </td>
                       <td scope="col" className="px-4 py-3">
-                        {data.name}
+                        {inv.name}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.pc.cpu}
+                        {inv.pc.cpu}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.pc.mobo}
+                        {inv.pc.mobo}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.pc.ram}
+                        {inv.pc.ram}
                       </td>
                       <td scope="col" className="px-3 py-3">
-                        {data.pc.gpu}
+                        {inv.pc.gpu}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.pc.storage}
+                        {inv.pc.storage}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {data.pc.category}
+                        {inv.pc.category}
                       </td>
                     </tr>
                   ))}

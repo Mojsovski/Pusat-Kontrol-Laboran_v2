@@ -1,22 +1,17 @@
 import React from "react";
 import { useEffect } from "react";
-import Sidebar from "../../components/Sidebar";
-import Navbar from "../../components/Navbar";
 import { Link } from "react-router-dom";
 
-import useStore from "../../data/Data.js";
+import useStore from "../../../data/Data.js";
 
-import logoInputPC from "../../assets/icons/pcinput.svg";
-import logoEditPC from "../../assets/icons/pcedit.svg";
-import logoVerifikasi from "../../assets/icons/verifikasi.svg";
-import logoRekap from "../../assets/icons/inv2.svg";
-
-import logoBandwidth from "../../assets/icons/jaringan.svg";
+import Sidebar from "../../../components/Sidebar";
+import Navbar from "../../../components/Navbar";
+import icons from "../../../assets/icons/icon.jsx";
 
 function InvHome() {
   const { data, fetchData } = useStore();
 
-  const filterDefaultSpec = data.filter((item) => item.default === "yes");
+  const filterDefaultPC = data.filter((item) => item.default === "yes");
   const filterNonPC = data.filter((item) => item.category === "Non PC");
 
   useEffect(() => {
@@ -34,34 +29,30 @@ function InvHome() {
           <div className="w-96 h-10 gap-3 bg space-y-7 relative">
             <Link
               to={"/inventaris/input"}
-              // onClick={increasePopulation}
               className="relative w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
             >
-              <img src={logoInputPC} className="w-[19px] " />
+              <img src={icons.inputPC} className="w-[19px] " />
               Input Inventaris Lab
             </Link>
             <Link
               to={"/inventaris/input"}
-              // onClick={increasePopulation}
               className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
             >
-              <img src={logoEditPC} className="w-[21px] " />
+              <img src={icons.editPC} className="w-[21px] " />
               Edit Inventaris Lab
             </Link>
             <Link
               to={"/inventaris/input"}
-              // onClick={increasePopulation}
               className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
             >
-              <img src={logoVerifikasi} className="w-[19px] " />
+              <img src={icons.verifikasiPC} className="w-[19px] " />
               Verifikasi Bulanan
             </Link>
             <Link
               to={"/inventaris/input"}
-              // onClick={increasePopulation}
               className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
             >
-              <img src={logoInputPC} className="w-[19px]" />
+              <img src={icons.inputPC} className="w-[19px]" />
               Input Inventaris
             </Link>
           </div>
@@ -70,7 +61,7 @@ function InvHome() {
           <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md ">
             <div className=" h-10 flex flex-row justify-between items-center">
               <div className="flex flex-row gap-4 ">
-                <img src={logoRekap} className="w-[25px] " />
+                <img src={icons.rekapPC} className="w-[25px] " />
                 <div className="p-1 font-semibold text-xl ">
                   Rekap Inventaris
                 </div>
@@ -155,7 +146,7 @@ function InvHome() {
           <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md ">
             <div className=" h-10 flex flex-row justify-between items-center">
               <div className="flex flex-row gap-4 ">
-                <img src={logoRekap} className="w-[25px] " />
+                <img src={icons.rekapPC} className="w-[25px] " />
                 <div className="p-1 font-semibold text-xl ">
                   Spesifikasi Komputer Utama
                 </div>
@@ -202,7 +193,7 @@ function InvHome() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filterDefaultSpec.map((inv, index) => (
+                  {filterDefaultPC.map((inv, index) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
                         {index + 1}
@@ -240,7 +231,7 @@ function InvHome() {
         {/* <div className="flex gap-5 relative  ">
           <div className="w-full h-[277px] px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
             <div className=" h-10 flex flex-row gap-4">
-              <img src={logoRekap} className="w-[35px] " />
+              <img src={icons.rekapPC} className="w-[35px] " />
               <div className="p-1 font-semibold text-xl ">Rekap</div>
             </div>
             <div className="h-32 text-center text-8xl flex justify-center items-center ">
@@ -263,7 +254,7 @@ function InvHome() {
           {/* row 1 */}
           <div className=" w-1/2  px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
             <div className=" h-10 flex flex-row gap-4">
-              <img src={logoRekap} className="w-[25px] " />
+              <img src={icons.rekapPC} className="w-[25px] " />
               <div className="p-1 font-semibold text-lg flex items-center">
                 Barang Non Komputer
               </div>
@@ -326,7 +317,7 @@ function InvHome() {
           {/* row 2 */}
           <div className="w-1/2  px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
             <div className=" h-10 flex flex-row gap-4">
-              <img src={logoRekap} className="w-[25px] " />
+              <img src={icons.rekapPC} className="w-[25px] " />
               <div className="p-1 font-semibold text-xl ">Rekap</div>
             </div>
           </div>
