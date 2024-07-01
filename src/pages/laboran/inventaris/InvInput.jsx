@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import useStore from "../../../data/Data.js";
@@ -8,7 +8,11 @@ import Navbar from "../../../components/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
 
 function InvInput() {
-  const { formData, updateFormData, submitForm } = useStore();
+  const { formData, updateFormData, submitForm, resetFormData } = useStore();
+
+  useEffect(() => {
+    resetFormData(); // Reset formData ketika komponen dimuat
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

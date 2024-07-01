@@ -39,6 +39,20 @@ const useStore = create((set) => ({
     }
   },
 
+  fetchDataById: async (id) => {
+    try {
+      const { data, error } = await supabase
+        .from("inv5")
+        .select("*")
+        .eq("id", id)
+        .single();
+      if (error) throw error;
+      set({ formData: data });
+    } catch (error) {
+      console.error("Error fetching data by ID:", error.message);
+    }
+  },
+
   submitForm: async () => {
     const { formData } = useStore.getState();
     formData.id = uuidv4();
@@ -84,6 +98,18 @@ const useStore = create((set) => ({
           },
         };
       }
+    }),
+
+  resetFormData: () =>
+    set({
+      formData: {
+        id: "",
+        name: "",
+        default: "",
+        status: "",
+        category: "",
+        pc: {},
+      },
     }),
 }));
 

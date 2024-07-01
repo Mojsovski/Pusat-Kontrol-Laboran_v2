@@ -144,11 +144,11 @@ function InvRekap() {
                       >
                         <p
                           className={`${
-                            data.status === "baik"
+                            inv.status === "baik"
                               ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                              : data.status === "rusak ringan"
+                              : inv.status === "rusak ringan"
                               ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                              : data.status === "rusak berat"
+                              : inv.status === "rusak berat"
                               ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
                               : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
                           }`}
@@ -204,7 +204,7 @@ function InvRekap() {
                       >
                         <p
                           className={`${
-                            data.status === "baik"
+                            inv.status === "baik"
                               ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
                               : inv.status === "rusak ringan"
                               ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "

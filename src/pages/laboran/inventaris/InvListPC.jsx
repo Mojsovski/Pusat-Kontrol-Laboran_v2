@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import useStore from "../../../data/Data.js";
 
@@ -67,7 +68,7 @@ function InvListPC() {
               </thead>
               <tbody>
                 {filterPC.map((inv, index) => (
-                  <tr>
+                  <tr key={inv.id}>
                     <td scope="col" className="px-1 py-3">
                       {index + 1}
                     </td>
@@ -109,9 +110,12 @@ function InvListPC() {
                     </td>
                     <td className="px-1 py-3 ">
                       <div className="w-full flex justify-center">
-                        <button className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-full shadow">
+                        <Link
+                          to={`/inventaris/detail/${inv.id}`}
+                          className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-full shadow"
+                        >
                           detail
-                        </button>
+                        </Link>
                       </div>
                     </td>
                   </tr>
