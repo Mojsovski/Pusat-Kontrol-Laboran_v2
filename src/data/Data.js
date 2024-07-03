@@ -65,6 +65,20 @@ const useStore = create((set) => ({
     }
   },
 
+  updateForm: async () => {
+    const { formData } = useStore.getState();
+    try {
+      const { data, error } = await supabase
+        .from("inv5")
+        .update(formData)
+        .eq("id", formData.id);
+      if (error) throw error;
+      console.log("Form updated successfully:", data);
+    } catch (error) {
+      console.error("Error updating form:", error.message);
+    }
+  },
+
   authData: async () => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword;

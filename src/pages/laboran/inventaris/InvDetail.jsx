@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
+
 import useStore from "../../../data/Data.js";
 
 import Sidebar from "../../../components/Sidebar";
@@ -9,7 +10,7 @@ import icons from "../../../assets/icons/icon.jsx";
 function InvDetail() {
   const { id } = useParams(); // Ambil ID dari parameter URL
   const navigate = useNavigate();
-  const { fetchDataById, formData, updateFormData } = useStore();
+  const { fetchDataById, formData } = useStore();
 
   useEffect(() => {
     if (id) {
@@ -83,12 +84,12 @@ function InvDetail() {
                 </div>
               </div>
               <div className="pt-10 flex justify-start">
-                <button
-                  type="submit"
+                <Link
+                  to={`/inventaris/edit/${formData.id}`}
                   className="px-16 py-2 shadow-lg rounded-3xl bg-[#fdcd49] text-black"
                 >
                   edit
-                </button>
+                </Link>
               </div>
             </div>
             {/* row 2 */}

@@ -11,7 +11,9 @@ import icons from "../../../assets/icons/icon.jsx";
 function InvListPC() {
   const { data, fetchData } = useStore();
 
-  const filterPC = data.filter((item) => item.category === "PC");
+  const filterPC = data
+    .filter((item) => item.category === "PC")
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   useEffect(() => {
     fetchData();

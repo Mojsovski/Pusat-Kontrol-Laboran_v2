@@ -11,7 +11,7 @@ function InvInput() {
   const { formData, updateFormData, submitForm, resetFormData } = useStore();
 
   useEffect(() => {
-    resetFormData(); // Reset formData ketika komponen dimuat
+    resetFormData();
   }, []);
 
   const handleChange = (e) => {
