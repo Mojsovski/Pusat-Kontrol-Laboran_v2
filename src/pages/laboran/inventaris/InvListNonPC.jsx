@@ -1,23 +1,35 @@
 import React from "react";
-import useStore from "../../data/Data";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
-import Sidebar from "../../components/Sidebar";
-import Navbar from "../../components/Navbar";
+import useStore from "../../../data/Data.js";
+
+import Sidebar from "../../../components/Sidebar.jsx";
+import Navbar from "../../../components/Navbar.jsx";
 import icons from "../../../assets/icons/icon.jsx";
 
-function InvListPC() {
-  const inv = useStore((state) => state.inv);
+function InvListNonPC() {
+  const { data, fetchData } = useStore();
+
+  const filterPC = data
+    .filter((item) => item.category === "Non PC")
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="h-screen bg-[#C4C4C4] relative  ">
       <Sidebar />
       <Navbar title="Inventaris" />
-      <div className=" pr-10 py-28 pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4] relative ">
+      <div className=" pr-10 py-28 pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4] relative">
         <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md">
           <div className="h-10 flex flex-row gap-5 items-center">
             <div className="flex flex-row gap-4 ">
               <img src={icons.inputPC} className="w-[25px] " />
               <div className="p-1 font-semibold text-xl ">
-                Daftar Inventaris
+                Daftar Inventaris Non Komputer
               </div>
             </div>
           </div>
@@ -32,21 +44,8 @@ function InvListPC() {
                   <th scope="col" className="px-4 py-3 ">
                     Nama
                   </th>
-                  <th scope="col" className="px-4 py-3 ">
-                    Prosessor
-                  </th>
-                  <th scope="col" className="px-1 py-3 ">
-                    RAM
-                  </th>
-                  <th scope="col" className="px-3 py-3">
-                    Kartu grafis
-                  </th>
-                  <th scope="col" className="px-1 py-3 ">
-                    Penyimpanan
-                  </th>
-
                   <th scope="col" className="px-1 py-3">
-                    Kategori
+                    Jumlah
                   </th>
                   <th scope="col" className="px-1 py-3 ">
                     Kondisi
@@ -57,28 +56,16 @@ function InvListPC() {
                 </tr>
               </thead>
               <tbody>
-                {inv.map((data) => (
-                  <tr>
+                {filterPC.map((inv, index) => (
+                  <tr key={inv.id}>
                     <td scope="col" className="px-1 py-3">
-                      {data.id}
+                      {index + 1}
                     </td>
                     <td scope="col" className="px-4 py-3">
-                      {data.invNama}
-                    </td>
-                    <td scope="col" className="px-4 py-3">
-                      {data.invCPU}
+                      {inv.name}
                     </td>
                     <td scope="col" className="px-1 py-3">
-                      {data.invRAM}
-                    </td>
-                    <td scope="col" className="px-3 py-3">
-                      {data.invGPU}
-                    </td>
-                    <td scope="col" className="px-1 py-3">
-                      {data.invStorage}
-                    </td>
-                    <td scope="col" className="px-1 py-3">
-                      {data.invCategory}
+                      {/* {inv.pc.category} */}
                     </td>
                     <td
                       scope="col"
@@ -86,23 +73,26 @@ function InvListPC() {
                     >
                       <p
                         className={`${
-                          data.invStatus === "baik"
+                          inv.status === "baik"
                             ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                            : data.invStatus === "rusak ringan"
+                            : inv.status === "rusak ringan"
                             ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                            : data.invStatus === "rusak berat"
+                            : inv.status === "rusak berat"
                             ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
                             : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
                         }`}
                       >
-                        {data.invStatus}
+                        {inv.status}
                       </p>
                     </td>
                     <td className="px-1 py-3 ">
                       <div className="w-full flex justify-center">
-                        <button className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-full shadow">
-                          detail
-                        </button>
+                        <Link
+                          to={`/inventaris/edit/${inv.id}`}
+                          className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-full shadow"
+                        >
+                          edit
+                        </Link>
                       </div>
                     </td>
                   </tr>
@@ -116,4 +106,4 @@ function InvListPC() {
   );
 }
 
-export default InvListPC;
+export default InvListNonPC;

@@ -1,13 +1,3 @@
-// import { create } from "zustand";
-// import data from "./data1.json";
-
-// const useStore = create((set) => ({
-//   // inv: data.invPC,
-//   inv: data.inv,
-// }));
-
-// export default useStore;
-
 import { create } from "zustand";
 import { createClient } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
@@ -27,7 +17,9 @@ const useStore = create((set) => ({
     pc: [],
   },
 
-  // setCategory: (invtype) => set(() => ({ category: invtype })), // Fungsi untuk mengupdate jenisBarang
+  // ~~~Inventaris PC~~~
+
+  // Fetch data
 
   fetchData: async () => {
     try {
@@ -53,6 +45,8 @@ const useStore = create((set) => ({
     }
   },
 
+  // Create Data
+
   submitForm: async () => {
     const { formData } = useStore.getState();
     formData.id = uuidv4();
@@ -65,6 +59,8 @@ const useStore = create((set) => ({
     }
   },
 
+  // Update Data
+
   updateForm: async () => {
     const { formData } = useStore.getState();
     try {
@@ -76,6 +72,22 @@ const useStore = create((set) => ({
       console.log("Form updated successfully:", data);
     } catch (error) {
       console.error("Error updating form:", error.message);
+    }
+  },
+
+  // Delete data
+
+  deleteForm: async () => {
+    const { formData } = useStore.getState();
+    try {
+      const { data, error } = await supabase
+        .from("inv5")
+        .delete()
+        .eq("id", formData.id);
+      if (error) throw error;
+      console.log("Form deleted successfully:", data);
+    } catch (error) {
+      console.error("Error deleting form:", error.message);
     }
   },
 

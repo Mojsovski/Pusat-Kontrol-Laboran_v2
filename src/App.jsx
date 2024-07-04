@@ -8,6 +8,7 @@ import InvListPC from "./pages/laboran/inventaris/InvListPC";
 import InvRekap from "./pages/laboran/inventaris/InvRekap";
 import InvDetail from "./pages/laboran/inventaris/InvDetail";
 import InvEdit from "./pages/laboran/inventaris/InvEdit";
+import InvListNonPC from "./pages/laboran/inventaris/InvListNonPC";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/inventaris/input" element={<InvInput />} />
       <Route path="/inventaris/rekap" element={<InvRekap />} />
       <Route path="/inventaris/list-PC" element={<InvListPC />} />
+      <Route path="/inventaris/list-nonpc" element={<InvListNonPC />} />
       <Route path="/inventaris/detail/:id" element={<InvDetail />} />
       <Route path="/inventaris/edit/:id" element={<InvEdit />} />
     </Routes>

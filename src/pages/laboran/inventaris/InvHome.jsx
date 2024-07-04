@@ -35,7 +35,7 @@ function InvHome() {
               Input Inventaris Lab
             </Link>
             <Link
-              to={"/inventaris/input"}
+              to={"/inventaris/list-nonpc"}
               className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
             >
               <img src={icons.editPC} className="w-[21px] " />

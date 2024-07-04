@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import useStore from "../../../data/Data.js";
 
@@ -8,6 +9,7 @@ import Navbar from "../../../components/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
 
 function InvInput() {
+  const navigate = useNavigate();
   const { formData, updateFormData, submitForm, resetFormData } = useStore();
 
   useEffect(() => {
@@ -19,9 +21,23 @@ function InvInput() {
     updateFormData(name, value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmitPC = async (e) => {
     e.preventDefault();
     await submitForm();
+    navigate("/inventaris/list-PC");
+    Swal.fire({
+      title: "Berhasil!",
+      text: "Data inventaris sudah ditambahkan",
+      icon: "success",
+      timer: 850,
+      showConfirmButton: false,
+    });
+  };
+
+  const handleSubmitNonPC = async (e) => {
+    e.preventDefault();
+    await submitForm();
+    navigate("/inventaris/list-PC");
   };
 
   return (
@@ -164,10 +180,10 @@ function InvInput() {
                       className="block text-base pl-4  bg-white w-full h-full rounded-3xl focus:outline-none "
                     >
                       <option value="">kategori pc</option>
-                      <option value="Cilent">Cilent</option>
-                      <option value="Dosen">Dosen</option>
-                      <option value="Laboran">Laboran</option>
-                      <option value="Cadangan">Cadangan</option>
+                      <option value="client">client</option>
+                      <option value="dosen">dosen</option>
+                      <option value="laboran">laboran</option>
+                      <option value="cadangan">cadangan</option>
                     </select>
                   </div>
                 </div>
@@ -241,14 +257,16 @@ function InvInput() {
                     />
                   </div>
                 </div>
-                <div className="pt-10 flex justify-end" onClick={handleSubmit}>
-                  <Link
-                    to={"/inventaris/list-PC"}
-                    type="submit"
-                    className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
-                  >
-                    Input
-                  </Link>
+                <div className="pt-10 flex justify-end">
+                  <div className="pt-7 flex justify-end">
+                    <button
+                      onClick={handleSubmitPC}
+                      type="submit"
+                      className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
+                    >
+                      Input
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -289,14 +307,14 @@ function InvInput() {
                     </select>
                   </div>
                 </div>
-                <div className="pt-7 flex justify-end" onClick={handleSubmit}>
-                  <Link
-                    to={"/inventaris/list-PC"}
+                <div className="pt-7 flex justify-end">
+                  <button
+                    onClick={handleSubmitNonPC}
                     type="submit"
                     className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
                   >
                     Input
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
