@@ -13,13 +13,17 @@ import warningImage from "../assets/images/warningOut.svg";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 
+import { useAuthStore } from "../data/Auth";
+
 const Sidebar = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const handleLogout = useAuthStore((state) => state.handleLogout); // Get handleLogout from useAuthStore
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
-  const handleLogout = () => {
+
+  const confirmLogout = () => {
     Swal.fire({
       title: "Yakin Mau Keluar?",
       text: "Semoga Kembali lagi! Jangan lupa simpan perubahan kamu",
@@ -40,7 +44,8 @@ const Sidebar = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.clear();
+        handleLogout();
+        // localStorage.clear();
         window.location.href = "/";
         Swal.fire("Berhasil Keluar!", "", "success");
       }
@@ -122,7 +127,7 @@ const Sidebar = () => {
               <Link
                 to=""
                 className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group] "
-                onClick={handleLogout} // Add onClick event for logout
+                onClick={confirmLogout} // Add onClick event for logout
               >
                 <img src={logoLogOut} className="w-[30px] h-8" />
                 <span className="flex-1 ms-3 whitespace-nowrap text-[#E6E6E6]">

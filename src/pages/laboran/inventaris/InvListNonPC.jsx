@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import useStore from "../../../data/Data.js";
 
@@ -9,11 +10,37 @@ import Navbar from "../../../components/Navbar.jsx";
 import icons from "../../../assets/icons/icon.jsx";
 
 function InvListNonPC() {
-  const { data, fetchData } = useStore();
+  const navigate = useNavigate();
+  const { data, fetchData, deleteForm } = useStore();
 
   const filterPC = data
     .filter((item) => item.category === "Non PC")
     .sort((a, b) => a.name.localeCompare(b.name));
+
+  const handleDeleteInv = (id) => {
+    Swal.fire({
+      title: "Apa kamu yakin?",
+      text: "Kamu tidak dapat mengembalikan ini!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "batal",
+      confirmButtonText: "Ya, hapus inventaris!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteForm(id);
+        Swal.fire({
+          title: "Terhapus!",
+          text: "Inventaris sudah terhapus.",
+          icon: "success",
+          timer: 700,
+          showConfirmButton: false,
+        });
+        navigate("/inventaris/list-nonpc");
+      }
+    });
+  };
 
   useEffect(() => {
     fetchData();
@@ -47,7 +74,7 @@ function InvListNonPC() {
                   <th scope="col" className="px-1 py-3">
                     Jumlah
                   </th>
-                  <th scope="col" className="px-1 py-3 ">
+                  <th scope="col" className="px-3 py-3 ">
                     Kondisi
                   </th>
                   <th scope="col" className="px-1 py-3">
@@ -61,15 +88,15 @@ function InvListNonPC() {
                     <td scope="col" className="px-1 py-3">
                       {index + 1}
                     </td>
-                    <td scope="col" className="px-4 py-3">
+                    <td scope="col" className="px-4 py-3 ">
                       {inv.name}
                     </td>
                     <td scope="col" className="px-1 py-3">
-                      {/* {inv.pc.category} */}
+                      {inv.quantity}
                     </td>
                     <td
                       scope="col"
-                      className="px-1 py-3 flex items-center justify-center"
+                      className="px-3 py-3 flex items-center justify-center"
                     >
                       <p
                         className={`${
@@ -86,13 +113,23 @@ function InvListNonPC() {
                       </p>
                     </td>
                     <td className="px-1 py-3 ">
-                      <div className="w-full flex justify-center">
-                        <Link
-                          to={`/inventaris/edit/${inv.id}`}
-                          className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-full shadow"
-                        >
-                          edit
-                        </Link>
+                      <div className="flex">
+                        <div className="w-full flex justify-center">
+                          <Link
+                            to={`/inventaris/edit/${inv.id}`}
+                            className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-full shadow"
+                          >
+                            edit
+                          </Link>
+                        </div>
+                        <div className="w-full flex justify-center">
+                          <button
+                            onClick={() => handleDeleteInv(inv.id)}
+                            className="bg-red-500 text-white py-1 w-20  items-center flex justify-center rounded-full shadow"
+                          >
+                            hapus
+                          </button>
+                        </div>
                       </div>
                     </td>
                   </tr>

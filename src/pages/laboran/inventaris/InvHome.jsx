@@ -11,7 +11,7 @@ import icons from "../../../assets/icons/icon.jsx";
 function InvHome() {
   const { data, fetchData } = useStore();
 
-  const filterDefaultPC = data.filter((item) => item.default === "yes");
+  const filterDefaultPC = data.filter((item) => item.primaryItem === true);
   const filterNonPC = data.filter((item) => item.category === "Non PC");
 
   useEffect(() => {
@@ -147,7 +147,7 @@ function InvHome() {
             <div className=" h-10 flex flex-row justify-between items-center">
               <div className="flex flex-row gap-4 ">
                 <img src={icons.rekapPC} className="w-[25px] " />
-                <div className="p-1 font-semibold text-xl ">
+                <div className="p-1 font-semibold text-lg ">
                   Spesifikasi Komputer Utama
                 </div>
               </div>
@@ -252,12 +252,22 @@ function InvHome() {
         {/* column 4 */}
         <div className=" flex gap-5 relative  ">
           {/* row 1 */}
-          <div className=" w-1/2  px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
-            <div className=" h-10 flex flex-row gap-4">
-              <img src={icons.rekapPC} className="w-[25px] " />
-              <div className="p-1 font-semibold text-lg flex items-center">
-                Barang Non Komputer
+          <div className=" w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
+            <div className=" h-10 flex flex-row justify-between items-center">
+              <div className="flex flex-row gap-4 ">
+                <img src={icons.rekapPC} className="w-[25px] " />
+                <div className="p-1 font-semibold text-lg ">
+                  Barang Non Komputer
+                </div>
               </div>
+              <Link
+                to={"/inventaris/list-nonpc"}
+                className="px-5 h-6 rounded-2xl bg-[#F5BD45] flex items-center shadow"
+              >
+                <div className="  text-black text-xs font-medium  ">
+                  selengkapnya
+                </div>
+              </Link>
             </div>
             {/* table */}
             <div className="overflow-x-auto relative ">
@@ -288,7 +298,7 @@ function InvHome() {
                         {inv.name}
                       </td>
                       <td scope="col" className="px-1 py-3">
-                        {index + 1}
+                        {inv.quantity}
                       </td>
                       <td
                         scope="col"
@@ -315,7 +325,7 @@ function InvHome() {
             </div>
           </div>
           {/* row 2 */}
-          <div className="w-1/2  px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
+          <div className="w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
             <div className=" h-10 flex flex-row gap-4">
               <img src={icons.rekapPC} className="w-[25px] " />
               <div className="p-1 font-semibold text-xl ">Rekap</div>

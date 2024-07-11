@@ -37,7 +37,14 @@ function InvInput() {
   const handleSubmitNonPC = async (e) => {
     e.preventDefault();
     await submitForm();
-    navigate("/inventaris/list-PC");
+    navigate("/inventaris/list-nonpc");
+    Swal.fire({
+      title: "Berhasil!",
+      text: "Data inventaris sudah ditambahkan",
+      icon: "success",
+      timer: 850,
+      showConfirmButton: false,
+    });
   };
 
   return (
@@ -276,21 +283,35 @@ function InvInput() {
               {/* row 1 */}
               <div className="space-y-6">
                 <div className="my-2">
-                  <label className="px-3 font-medium ">Nama Komputer</label>
+                  <label className="px-3 font-medium ">Nama barang</label>
                   <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                     <input
                       type="text"
                       id="name"
                       name="name"
                       className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
-                      placeholder="contoh : D2I-01"
+                      placeholder="contoh : obeng"
                       value={formData.name}
                       onChange={handleChange}
                     />
                   </div>
                 </div>
                 <div className="my-2">
-                  <label className="px-3 font-medium">Kondisi Barang</label>
+                  <label className="px-3 font-medium ">Jumlah Barang</label>
+                  <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
+                    <input
+                      type="text"
+                      id="quantity"
+                      name="quantity"
+                      className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
+                      placeholder="contoh : 1"
+                      value={formData.quantity}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="my-2">
+                  <label className="px-3 font-medium">Kondisi barang</label>
                   <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                     <select
                       value={formData.status}

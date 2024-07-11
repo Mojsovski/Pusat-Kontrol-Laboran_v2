@@ -1,5 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
+import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/login/LoginPage";
 import Home from "./pages/laboran/home/Home";
 import InvHome from "./pages/laboran/inventaris/InvHome";
@@ -9,19 +8,76 @@ import InvRekap from "./pages/laboran/inventaris/InvRekap";
 import InvDetail from "./pages/laboran/inventaris/InvDetail";
 import InvEdit from "./pages/laboran/inventaris/InvEdit";
 import InvListNonPC from "./pages/laboran/inventaris/InvListNonPC";
+import ProtectedRoute from "./router/ProtectedRoute";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/inventaris" element={<InvHome />} />
-      <Route path="/inventaris/input" element={<InvInput />} />
-      <Route path="/inventaris/rekap" element={<InvRekap />} />
-      <Route path="/inventaris/list-PC" element={<InvListPC />} />
-      <Route path="/inventaris/list-nonpc" element={<InvListNonPC />} />
-      <Route path="/inventaris/detail/:id" element={<InvDetail />} />
-      <Route path="/inventaris/edit/:id" element={<InvEdit />} />
+      <Route
+        path="/home"
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/inventaris"
+        element={
+          <ProtectedRoute>
+            <InvHome />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/inventaris/input"
+        element={
+          <ProtectedRoute>
+            <InvInput />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/inventaris/rekap"
+        element={
+          <ProtectedRoute>
+            <InvRekap />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/inventaris/list-PC"
+        element={
+          <ProtectedRoute>
+            <InvListPC />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/inventaris/list-nonpc"
+        element={
+          <ProtectedRoute>
+            <InvListNonPC />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/inventaris/detail/:id"
+        element={
+          <ProtectedRoute>
+            <InvDetail />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/inventaris/edit/:id"
+        element={
+          <ProtectedRoute>
+            <InvEdit />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }

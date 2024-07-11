@@ -11,9 +11,10 @@ const useStore = create((set) => ({
   formData: {
     id: "",
     name: "",
-    default: "",
+    primaryItem: false, // Change to boolean
     status: "",
     category: "",
+    quantity: "",
     pc: [],
   },
 
@@ -77,13 +78,10 @@ const useStore = create((set) => ({
 
   // Delete data
 
-  deleteForm: async () => {
-    const { formData } = useStore.getState();
+  deleteForm: async (id) => {
+    // Accept ID as parameter
     try {
-      const { data, error } = await supabase
-        .from("inv5")
-        .delete()
-        .eq("id", formData.id);
+      const { data, error } = await supabase.from("inv5").delete().eq("id", id); // Use the ID here
       if (error) throw error;
       console.log("Form deleted successfully:", data);
     } catch (error) {
@@ -131,9 +129,10 @@ const useStore = create((set) => ({
       formData: {
         id: "",
         name: "",
-        default: "",
+        primaryItem: false,
         status: "",
         category: "",
+        quantity: "",
         pc: {},
       },
     }),

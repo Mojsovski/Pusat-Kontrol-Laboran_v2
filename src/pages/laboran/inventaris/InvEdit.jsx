@@ -44,7 +44,7 @@ function InvEdit() {
       confirmButtonText: "Ya, hapus inventaris!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await deleteForm();
+        await deleteForm(id);
         Swal.fire({
           title: "Terhapus!",
           text: "Inventaris sudah terhapus.",

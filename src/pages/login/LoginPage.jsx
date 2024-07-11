@@ -1,66 +1,31 @@
-// import { useState } from "react";
-// import { supabase } from "../../data/supabaseClient";
+import { create } from "zustand";
+import { Link, useNavigate } from "react-router-dom";
 
-// export default function Auth() {
-//   const [loading, setLoading] = useState(false);
-//   const [email, setEmail] = useState("");
+import { useAuthStore } from "../../data/Auth";
 
-//   const handleLogin = async (event) => {
-//     event.preventDefault();
-
-//     setLoading(true);
-//     const { error } = await supabase.auth.signInWithOtp({ email });
-
-//     if (error) {
-//       alert(error.error_description || error.message);
-//     } else {
-//       alert("Check your email for the login link!");
-//     }
-//     setLoading(false);
-//   };
-
-//   return (
-//     <div className="row flex flex-center">
-//       <div className="col-6 form-widget">
-//         <h1 className="header">Supabase + React</h1>
-//         <p className="description">
-//           Sign in via magic link with your email below
-//         </p>
-//         <form className="form-widget" onSubmit={handleLogin}>
-//           <div>
-//             <input
-//               className="inputField"
-//               type="email"
-//               placeholder="Your email"
-//               value={email}
-//               required={true}
-//               onChange={(e) => setEmail(e.target.value)}
-//             />
-//           </div>
-//           <div>
-//             <button className={"button block"} disabled={loading}>
-//               {loading ? <span>Loading</span> : <span>Send magic link</span>}
-//             </button>
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }
-
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import LoginBG from "../../assets/images/login.jpg";
 import UdinusLogo from "../../assets/images/UdinusLogo.png";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
-function LoginPage() {
-  const [showPassword, setShowPassword] = useState("false");
+const useHidePsw = create((set) => ({
+  hidePassword: true,
+  changeVisiblePwd: () =>
+    set((state) => ({ hidePassword: !state.hidePassword })),
+}));
 
-  const togglePasswordViibility = () => {
-    setShowPassword(!showPassword);
+function LoginPage() {
+  const { email, password, error, setEmail, setPassword, handleLogin } =
+    useAuthStore();
+  const { hidePassword, changeVisiblePwd } = useHidePsw();
+  const navigate = useNavigate();
+
+  const onLogin = async () => {
+    const user = await handleLogin();
+    if (user) {
+      navigate("/inventaris");
+    }
   };
 
   return (
@@ -78,7 +43,6 @@ function LoginPage() {
               <h3 className="text-3xl font">Pusat Kontrol Laboran</h3>
               <h3 className="text-2xl">Laboratorium Komputer</h3>
             </div>
-
             <div className="my-2">
               <label className="ml-3 mb-1">Username</label>
               <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
@@ -87,20 +51,26 @@ function LoginPage() {
                   id="username"
                   className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
                   placeholder="NIM/NPP"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-
               <div className="my-2">
                 <label className="ml-3 mb-1">Password</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white flex">
                   <input
-                    type={showPassword ? "password" : "text"}
-                    id="username"
+                    type={hidePassword ? "password" : "text"}
+                    id="password"
                     className="block text-base pl-4 py-3 w-96 h-10 rounded-3xl focus:outline-none bg-white"
                     placeholder="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
-                  <div onClick={togglePasswordViibility} className=" px-5 py-2">
-                    {showPassword ? (
+                  <div
+                    onClick={changeVisiblePwd}
+                    className=" px-5 py-2 cursor-pointer"
+                  >
+                    {hidePassword ? (
                       <VisibilityOffIcon
                         fontSize="medium"
                         className="text-gray-600"
@@ -114,12 +84,14 @@ function LoginPage() {
                   </div>
                 </div>
               </div>
+              {error && <div className="text-red-500">{error}</div>}
               <div className="my-8">
-                <Link to={"/home"}>
-                  <button className=" w-96 h-10 shadow-lg rounded-3xl bg-blue-800 text-white">
-                    Masuk
-                  </button>
-                </Link>
+                <button
+                  onClick={onLogin}
+                  className=" w-96 h-10 shadow-lg rounded-3xl bg-blue-800 text-white"
+                >
+                  Masuk
+                </button>
               </div>
             </div>
           </div>
