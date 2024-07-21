@@ -9,15 +9,26 @@ import Navbar from "../../../components/Navbar.jsx";
 import icons from "../../../assets/icons/icon.jsx";
 
 function InvRekap() {
-  const { data, fetchData } = useStore();
+  const { inv, invpc, fetchData, fetchDataNonPC } = useStore();
 
-  const filteredInv = data.filter((item) => item.status === "rusak ringan");
-  const filterPCRusak = data.filter(
-    (item) => item.status === "rusak ringan" && item.category === "PC"
-  );
+  const filteredInv = inv.filter((item) => item.status === "rusak ringan");
+  const filterPCRusak = invpc.filter((item) => item.status === "rusak ringan");
+  const countClient = invpc.filter(
+    (item) => item.pc.category === "client"
+  ).length;
+  const countDosen = invpc.filter(
+    (item) => item.pc.category === "dosen"
+  ).length;
+  const countLaboran = invpc.filter(
+    (item) => item.pc.category === "laboran"
+  ).length;
+  const countCadangan = invpc.filter(
+    (item) => item.pc.category === "cadangan"
+  ).length;
 
   useEffect(() => {
     fetchData();
+    fetchDataNonPC();
   }, []);
 
   return (
@@ -61,10 +72,10 @@ function InvRekap() {
                   </div>
                 </div>
                 <div className="space-y-5">
-                  <div className=" text-base font-semibold">30</div>
-                  <div className="text-base font-semibold">30</div>
-                  <div className="text-base font-semibold">30</div>
-                  <div className="text-base font-semibold">30</div>
+                  <div className=" text-base font-semibold">{countClient}</div>
+                  <div className="text-base font-semibold">{countDosen}</div>
+                  <div className="text-base font-semibold">{countLaboran}</div>
+                  <div className="text-base font-semibold">{countCadangan}</div>
                 </div>
               </div>
               <div className="flex justify-start gap-3">
@@ -82,7 +93,7 @@ function InvRekap() {
                   <div className=" text-base font-semibold">30</div>
                   <div className="text-base font-semibold">30</div>
                   <div className="text-base font-semibold">30</div>
-                  <div className="text-base font-semibold">30</div>
+                  <div className="text-base font-semibold">{invpc.length}</div>
                 </div>
               </div>
             </div>

@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import LoginPage from "./pages/login/LoginPage";
 import Home from "./pages/laboran/home/Home";
 import InvHome from "./pages/laboran/inventaris/InvHome";

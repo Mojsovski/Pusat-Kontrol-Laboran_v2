@@ -8,13 +8,13 @@ import Navbar from "../../../components/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
 
 function InvDetail() {
-  const { id } = useParams(); // Ambil ID dari parameter URL
+  const { id } = useParams();
   const navigate = useNavigate();
-  const { fetchDataById, formData } = useStore();
+  const { fetchDataById, formPC } = useStore();
 
   useEffect(() => {
     if (id) {
-      fetchDataById(id); // Panggil fungsi untuk mengambil data berdasarkan ID
+      fetchDataById(id);
     }
   }, [id]);
 
@@ -39,7 +39,7 @@ function InvDetail() {
                 <label className="px-3 font-medium ">Nama Komputer</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                    {formData.name}
+                    {formPC.name}
                   </div>
                 </div>
               </div>
@@ -47,7 +47,7 @@ function InvDetail() {
                 <label className="px-3 font-medium ">Prosessor</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                    {formData.pc.cpu}
+                    {formPC.pc.cpu}
                   </div>
                 </div>
               </div>
@@ -55,7 +55,7 @@ function InvDetail() {
                 <label className="px-3 font-medium ">Motherboard</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                    {formData.pc.mobo}
+                    {formPC.pc.mobo}
                   </div>
                 </div>
               </div>
@@ -63,7 +63,7 @@ function InvDetail() {
                 <label className="px-3 font-medium ">RAM</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                    {formData.pc.ram}
+                    {formPC.pc.ram}
                   </div>
                 </div>
               </div>
@@ -71,7 +71,7 @@ function InvDetail() {
                 <label className="px-3 font-medium ">Kartu Grafis</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                    {formData.pc.gpu}
+                    {formPC.pc.gpu}
                   </div>
                 </div>
               </div>
@@ -79,13 +79,13 @@ function InvDetail() {
                 <label className="px-3 font-medium ">Kondisi barang</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                    {formData.status}
+                    {formPC.status}
                   </div>
                 </div>
               </div>
               <div className="pt-10 flex justify-start">
                 <Link
-                  to={`/inventaris/edit/${formData.id}`}
+                  to={`/inventaris/edit/${formPC.id}`}
                   className="px-16 py-2 shadow-lg rounded-3xl bg-[#fdcd49] text-black"
                 >
                   edit
@@ -98,7 +98,7 @@ function InvDetail() {
                 <label className="px-3 font-medium ">Kategori komputer</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                    {formData.pc.category}
+                    {formPC.pc.category}
                   </div>
                 </div>
               </div>
@@ -106,7 +106,7 @@ function InvDetail() {
                 <label className="px-3 font-medium ">Penyimpanan</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                    {formData.pc.storage}
+                    {formPC.pc.storage}
                   </div>
                 </div>
               </div>
@@ -114,7 +114,7 @@ function InvDetail() {
                 <label className="px-3 font-medium ">Keyboard</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                    {formData.pc.keyboard}
+                    {formPC.pc.keyboard}
                   </div>
                 </div>
               </div>
@@ -122,7 +122,7 @@ function InvDetail() {
                 <label className="px-3 font-medium ">Mouse</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                    {formData.pc.mouse}
+                    {formPC.pc.mouse}
                   </div>
                 </div>
               </div>
@@ -130,7 +130,7 @@ function InvDetail() {
                 <label className="px-3 font-medium ">Monitor</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                    {formData.pc.monitor}
+                    {formPC.pc.monitor}
                   </div>
                 </div>
               </div>
@@ -138,7 +138,7 @@ function InvDetail() {
                 <label className="px-3 font-medium ">Power supplu</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                    {formData.pc.psu}
+                    {formPC.pc.psu}
                   </div>
                 </div>
               </div>

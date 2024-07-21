@@ -11,11 +11,9 @@ import icons from "../../../assets/icons/icon.jsx";
 
 function InvListNonPC() {
   const navigate = useNavigate();
-  const { data, fetchData, deleteForm } = useStore();
+  const { inv, fetchDataNonPC, deleteFormNonPC } = useStore();
 
-  const filterPC = data
-    .filter((item) => item.category === "Non PC")
-    .sort((a, b) => a.name.localeCompare(b.name));
+  const filterPC = inv.sort((a, b) => a.name.localeCompare(b.name));
 
   const handleDeleteInv = (id) => {
     Swal.fire({
@@ -29,7 +27,7 @@ function InvListNonPC() {
       confirmButtonText: "Ya, hapus inventaris!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await deleteForm(id);
+        await deleteFormNonPC(id);
         Swal.fire({
           title: "Terhapus!",
           text: "Inventaris sudah terhapus.",
@@ -43,7 +41,7 @@ function InvListNonPC() {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchDataNonPC();
   }, []);
 
   return (

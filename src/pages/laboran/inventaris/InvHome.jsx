@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import useStore from "../../../data/Data.js";
 
@@ -9,13 +9,13 @@ import Navbar from "../../../components/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
 
 function InvHome() {
-  const { data, fetchData } = useStore();
+  const { inv, invpc, fetchData, fetchDataNonPC } = useStore();
 
-  const filterDefaultPC = data.filter((item) => item.primaryItem === true);
-  const filterNonPC = data.filter((item) => item.category === "Non PC");
+  const filterDefaultPC = invpc.filter((item) => item.primaryItem === true);
 
   useEffect(() => {
     fetchData();
+    fetchDataNonPC();
   }, []);
 
   return (
@@ -289,7 +289,7 @@ function InvHome() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filterNonPC.map((inv, index) => (
+                  {inv.map((inv, index) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
                         {index + 1}

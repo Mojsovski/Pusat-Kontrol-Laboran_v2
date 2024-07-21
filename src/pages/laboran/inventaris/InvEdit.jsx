@@ -11,12 +11,12 @@ import icons from "../../../assets/icons/icon.jsx";
 function InvEdit() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { fetchDataById, formData, updateFormData, updateForm, deleteForm } =
+  const { fetchDataById, formPC, updateFormPC, updateForm, deleteForm } =
     useStore();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    updateFormData(name, value);
+    updateFormPC(name, value);
   };
 
   const handleUpdateInv = async (e) => {
@@ -73,7 +73,7 @@ function InvEdit() {
             <div className="flex flex-row gap-4 ">
               <img src={icons.inputPC} className="w-[25px] " />
               <div className="p-1 font-semibold text-xl ">
-                Edit Inventaris PC {formData.name}
+                Edit Inventaris PC {formPC.name}
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@ function InvEdit() {
                     name="name"
                     className="block text-base pl-4 p-3 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none "
                     placeholder="contoh : D2I-01"
-                    value={formData.name}
+                    value={formPC.name}
                     onChange={handleChange}
                     readOnly
                   />
@@ -104,7 +104,7 @@ function InvEdit() {
                     name="pc.cpu"
                     className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
                     placeholder="contoh : Intel Core i3-10105F"
-                    value={formData.pc.cpu}
+                    value={formPC.pc.cpu}
                     onChange={handleChange}
                   />
                 </div>
@@ -113,7 +113,7 @@ function InvEdit() {
                 <label className="px-3 font-medium">Motherboard</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <input
-                    value={formData.pc.mobo}
+                    value={formPC.pc.mobo}
                     onChange={handleChange}
                     type="text"
                     id="pc.mobo"
@@ -127,7 +127,7 @@ function InvEdit() {
                 <label className="px-3 font-medium">RAM</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <input
-                    value={formData.pc.ram}
+                    value={formPC.pc.ram}
                     onChange={handleChange}
                     type="text"
                     id="pc.ram"
@@ -141,7 +141,7 @@ function InvEdit() {
                 <label className="px-3 font-medium ">Kartu Grafis</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <input
-                    value={formData.pc.gpu}
+                    value={formPC.pc.gpu}
                     onChange={handleChange}
                     type="text"
                     id="pc.gpu"
@@ -155,7 +155,7 @@ function InvEdit() {
                 <label className="px-3 font-medium">Kondisi Barang</label>
                 <div className="  h-10 shadow-lg rounded-3xl bg-white">
                   <select
-                    value={formData.status}
+                    value={formPC.status}
                     onChange={handleChange}
                     type="text"
                     id="status"
@@ -184,7 +184,7 @@ function InvEdit() {
                 <label className="px-3 font-medium">Kategori Komputer</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <select
-                    value={formData.pc.category}
+                    value={formPC.pc.category}
                     onChange={handleChange}
                     type="text"
                     id="pc.category"
@@ -203,7 +203,7 @@ function InvEdit() {
                 <label className="px-3 font-medium ">Penyimpanan</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <input
-                    value={formData.pc.storage}
+                    value={formPC.pc.storage}
                     onChange={handleChange}
                     type="text"
                     id="pc.storage"
@@ -217,7 +217,7 @@ function InvEdit() {
                 <label className="px-3 font-medium ">Keyboard</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <input
-                    value={formData.pc.keyboard}
+                    value={formPC.pc.keyboard}
                     onChange={handleChange}
                     type="text"
                     id="pc.keyboard"
@@ -231,7 +231,7 @@ function InvEdit() {
                 <label className="px-3 font-medium">Mouse</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <input
-                    value={formData.pc.mouse}
+                    value={formPC.pc.mouse}
                     onChange={handleChange}
                     type="text"
                     id="pc.mouse"
@@ -245,7 +245,7 @@ function InvEdit() {
                 <label className="px-3 font-medium ">Monitor</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <input
-                    value={formData.pc.monitor}
+                    value={formPC.pc.monitor}
                     onChange={handleChange}
                     type="text"
                     id="pc.monitor"
@@ -259,7 +259,7 @@ function InvEdit() {
                 <label className="px-3 font-medium">Power Supply</label>
                 <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                   <input
-                    value={formData.pc.psu}
+                    value={formPC.pc.psu}
                     onChange={handleChange}
                     type="text"
                     id="pc.psu"
@@ -275,7 +275,7 @@ function InvEdit() {
                   type="submit"
                   className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
                 >
-                  Edit Inventaris {formData.name}
+                  Edit Inventaris {formPC.name}
                 </button>
               </div>
             </div>
