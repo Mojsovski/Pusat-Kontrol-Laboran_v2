@@ -1,14 +1,20 @@
-import { useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/login/LoginPage";
 import Home from "./pages/laboran/home/Home";
 import InvHome from "./pages/laboran/inventaris/InvHome";
 import InvInput from "./pages/laboran/inventaris/InvInput";
+import InvList from "./pages/laboran/inventaris/InvList";
 import InvListPC from "./pages/laboran/inventaris/InvListPC";
 import InvRekap from "./pages/laboran/inventaris/InvRekap";
 import InvDetail from "./pages/laboran/inventaris/InvDetail";
 import InvEdit from "./pages/laboran/inventaris/InvEdit";
+import Setting from "./pages/laboran/setting/Setting";
 import InvListNonPC from "./pages/laboran/inventaris/InvListNonPC";
+import ChangeAccount from "./pages/laboran/setting/ChangeAccount";
+import Users from "./pages/laboran/setting/Users";
+import SignUp from "./pages/laboran/setting/SignUp";
+
 import ProtectedRoute from "./router/ProtectedRoute";
 
 function App() {
@@ -56,6 +62,14 @@ function App() {
         }
       />
       <Route
+        path="/inventaris/listinventaris"
+        element={
+          <ProtectedRoute>
+            <InvList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/inventaris/list-nonpc"
         element={
           <ProtectedRoute>
@@ -76,6 +90,38 @@ function App() {
         element={
           <ProtectedRoute>
             <InvEdit />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/user"
+        element={
+          <ProtectedRoute>
+            <Setting />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/user/setting"
+        element={
+          <ProtectedRoute>
+            <ChangeAccount />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/users"
+        element={
+          <ProtectedRoute>
+            <Users />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <ProtectedRoute>
+            <SignUp />
           </ProtectedRoute>
         }
       />

@@ -108,7 +108,7 @@ export const useAuthStore = create((set, get) => ({
         const user = JSON.parse(sessionStorage.getItem("user"));
         set({ user, error: null });
       } else {
-        set({ user: null, error: "Session expired" });
+        set({ user: null, error: "session sudah habis, silahkan login lagi" });
       }
     }
   },

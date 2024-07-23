@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import iconNotif from "../assets/icon/notifications_active.svg";
-import iconSms from "../assets/icon/textsms.svg";
+
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const Navbar = ({ title, showButtonBack }) => {

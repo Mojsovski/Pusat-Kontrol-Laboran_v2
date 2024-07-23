@@ -3,8 +3,8 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 
 import useStore from "../../../data/Data.js";
 
-import Sidebar from "../../../components/Sidebar";
-import Navbar from "../../../components/Navbar";
+import Sidebar from "../../../components/global/Sidebar";
+import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
 
 function InvDetail() {

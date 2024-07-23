@@ -4,8 +4,8 @@ import Swal from "sweetalert2";
 
 import useStore from "../../../data/Data.js";
 
-import Sidebar from "../../../components/Sidebar.jsx";
-import Navbar from "../../../components/Navbar.jsx";
+import Sidebar from "../../../components/global/Sidebar";
+import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
 
 function InvEdit() {

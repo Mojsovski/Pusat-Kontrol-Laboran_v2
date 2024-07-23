@@ -1,6 +1,6 @@
 import React from "react";
-import Sidebar from "../../../components/Sidebar";
-import Navbar from "../../../components/Navbar";
+import Sidebar from "../../../components/global/Sidebar";
+import Navbar from "../../../components/global/Navbar";
 
 import iconPlotLaboran from "../../../assets/icons/icon1.svg";
 import logoBandwidth from "../../../assets/icons/jaringan.svg";

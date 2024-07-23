@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import Logotype from "../assets/images/UdinusLogo.png";
-import logoHome from "../assets/icons/home.svg";
-import logoInventaris from "../assets/icons/inv.svg";
-import logoJaringan from "../assets/icons/jaringan.svg";
-import logoPelaporan from "../assets/icons/pelaporan.svg";
+import Logotype from "../../assets/images/UdinusLogo.png";
+import logoHome from "../../assets/icons/home.svg";
+import logoInventaris from "../../assets/icons/inv.svg";
+import logoJaringan from "../../assets/icons/jaringan.svg";
+import logoPelaporan from "../../assets/icons/pelaporan.svg";
 
-import logoLogOut from "../assets/icon/Logout.svg";
-import logoSetting from "../assets/icon/settings.svg";
-import warningImage from "../assets/images/warningOut.svg";
+import logoLogOut from "../../assets/icon/Logout.svg";
+import logoSetting from "../../assets/icon/settings.svg";
+import warningImage from "../../assets/images/warningOut.svg";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 
-import { useAuthStore } from "../data/Auth";
+import { useAuthStore } from "../../data/Auth";
 
 const Sidebar = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -75,38 +75,38 @@ const Sidebar = () => {
           <ul className="space-y-2 font-medium text-xl">
             <li>
               <Link
-                to={"/home"}
-                className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
-              >
-                <img src={logoHome} className="w-[30px] h-8 " />
-                <span className="ms-3 justify-center">Menu Utama</span>
-              </Link>
-            </li>
-            <li>
-              <Link
                 to={"/inventaris"}
                 className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
               >
-                <img src={logoInventaris} className="w-[30px] h-8 " />
-                <span className="ms-3 justify-center">Inventaris</span>
+                <img src={logoHome} className="w-[30px] h-8 " />
+                <span className="ms-3 justify-center">Dashboard</span>
               </Link>
             </li>
             <li>
               <Link
-                to={"/jaringan"}
+                to={"/inventaris/listinventaris"}
+                className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
+              >
+                <img src={logoInventaris} className="w-[30px] h-8 " />
+                <span className="ms-3 justify-center">List Inventaris</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/inventaris/rekap"}
                 className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
               >
                 <img src={logoJaringan} className="w-[30px] h-8 " />
-                <span className="ms-3 justify-center">Jaringan</span>
+                <span className="ms-3 justify-center">Rekap Inventaris</span>
               </Link>
             </li>
             <li>
               <Link
-                to={"/jaringan"}
+                to={"/users"}
                 className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
               >
                 <img src={logoPelaporan} className="w-[30px] h-8 " />
-                <span className="ms-3 justify-center">Pelaporan</span>
+                <span className="ms-3 justify-center">Kelola Akun</span>
               </Link>
             </li>
           </ul>
@@ -116,7 +116,7 @@ const Sidebar = () => {
           <ul className="space-y-2 font-medium">
             <li>
               <Link
-                to={"/superAdmin/pengaturan"}
+                to={"/user"}
                 className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
               >
                 <img src={logoSetting} className="w-[30px] h-8 " />

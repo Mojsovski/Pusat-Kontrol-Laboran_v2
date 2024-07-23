@@ -4,8 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 
 import useStore from "../../../data/Data.js";
 
-import Sidebar from "../../../components/Sidebar";
-import Navbar from "../../../components/Navbar";
+import Sidebar from "../../../components/global/Sidebar";
+import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
 
 function InvHome() {
@@ -26,7 +26,7 @@ function InvHome() {
         {/* column 1 */}
         <div className="flex gap-5 relative">
           {/* button */}
-          <div className="w-96 h-10 gap-3 bg space-y-7 relative">
+          <div className="w-96 h-10  space-y-7 relative">
             <Link
               to={"/inventaris/input"}
               className="relative w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
