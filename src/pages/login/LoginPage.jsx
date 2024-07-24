@@ -16,8 +16,7 @@ const useHidePsw = create((set) => ({
 }));
 
 function LoginPage() {
-  const { email, password, error, setEmail, setPassword, handleLogin } =
-    useAuthStore();
+  const { formData, setFormData, error, handleLogin } = useAuthStore();
   const { hidePassword, changeVisiblePwd } = useHidePsw();
   const navigate = useNavigate();
 
@@ -26,6 +25,11 @@ function LoginPage() {
     if (user) {
       navigate("/inventaris");
     }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ [name]: value });
   };
 
   return (
@@ -49,10 +53,11 @@ function LoginPage() {
                 <input
                   type="text"
                   id="username"
+                  name="email"
                   className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
                   placeholder="NIM/NPP"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </div>
               <div className="my-2">
@@ -61,10 +66,11 @@ function LoginPage() {
                   <input
                     type={hidePassword ? "password" : "text"}
                     id="password"
+                    name="password"
                     className="block text-base pl-4 py-3 w-96 h-10 rounded-3xl focus:outline-none bg-white"
                     placeholder="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={formData.password}
+                    onChange={handleChange}
                   />
                   <div
                     onClick={changeVisiblePwd}

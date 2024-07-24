@@ -3,15 +3,15 @@ import { useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-import useStore from "../../data/Data.js";
+import useProfileStore from "../../data/Users.js";
 
 import icons from "../../assets/icons/icon.jsx";
 
 function UsersTable() {
   const navigate = useNavigate();
-  const { inv, fetchDataNonPC, deleteFormNonPC } = useStore();
+  const { user, fetchProfile } = useProfileStore();
 
-  const filterPC = inv.sort((a, b) => a.name.localeCompare(b.name));
+  const filterUsers = user.sort((a, b) => a.name.localeCompare(b.name));
 
   const handleDeleteInv = (id) => {
     Swal.fire({
@@ -39,7 +39,7 @@ function UsersTable() {
   };
 
   useEffect(() => {
-    fetchDataNonPC();
+    fetchProfile();
   }, []);
 
   return (
@@ -69,26 +69,26 @@ function UsersTable() {
             </tr>
           </thead>
           <tbody>
-            {filterPC.map((inv, index) => (
-              <tr key={inv.id}>
+            {filterUsers.map((user, index) => (
+              <tr key={user.id}>
                 <td scope="col" className="px-1 py-3">
                   {index + 1}
                 </td>
                 <td scope="col" className="px-4 py-3 ">
-                  {inv.name}
+                  {user.name}
                 </td>
                 <td scope="col" className="px-3 py-3">
-                  {inv.quantity}
+                  {user.email}
                 </td>
                 <td scope="col" className="px-1 py-3">
-                  {inv.quantity}
+                  {user.role}
                 </td>
                 <td scope="col" className="px-1 py-3">
-                  {inv.quantity}
+                  {user.room}
                 </td>
                 <td className="px-1 py-3  ">
                   <button
-                    onClick={() => handleDeleteInv(inv.id)}
+                    // onClick={() => handleDeleteInv(inv.id)}
                     className="bg-[#fdcd49] text-black py-1 w-20 text-center rounded-full shadow"
                   >
                     hapus

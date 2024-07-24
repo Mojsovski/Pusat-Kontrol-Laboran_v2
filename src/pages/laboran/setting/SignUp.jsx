@@ -1,11 +1,40 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
+import { useAuthStore } from "../../../data/Auth";
 
 import Sidebar from "../../../components/global/Sidebar.jsx";
 import Navbar from "../../../components/global/Navbar.jsx";
 import icons from "../../../assets/icons/icon.jsx";
 
 function SignUp() {
+  const navigate = useNavigate();
+  const { formData, setFormData, handleSignup, resetFormSignUp } =
+    useAuthStore();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const confirmSignUp = async (e) => {
+    e.preventDefault();
+    await handleSignup();
+    navigate("/users");
+    Swal.fire({
+      title: "Berhasil!",
+      text: "Akun sudah ditambahkan",
+      icon: "success",
+      timer: 850,
+      showConfirmButton: false,
+    });
+  };
+
+  useEffect(() => {
+    resetFormSignUp();
+  }, []);
+
   return (
     <div className="h-screen bg-[#C4C4C4] relative  ">
       <Sidebar />
@@ -18,10 +47,10 @@ function SignUp() {
               <div className="p-1 font-semibold text-xl ">Register Akun</div>
             </div>
           </div>
-          <div className="flex flex-row my-7 mx-5 justify-between">
+          <div className="flex flex-row my-7 mx-5 justify-between space-x-3">
             {/* col 1 */}
             <div className="w-1/4 flex flex-col items-center space-y-4">
-              <div className="w-3/4 flex items-center space-y-8 ">
+              <div className="space-y-8 ">
                 <img
                   className=" size-52 rounded-full object-cover"
                   src="https://mahasiswa.dinus.ac.id/images/foto/A/A12/2020/A12.2020.06406.jpg"
@@ -47,8 +76,8 @@ function SignUp() {
                   id="name"
                   name="name"
                   placeholder="contoh : Freddy Sambo"
-                  //   value={formInv.quantity}
-                  //   onChange={handleChange}
+                  value={formData.name}
+                  onChange={handleChange}
                 />
               </div>
               <div className="h-10 px-7 shadow-lg rounded-3xl flex flex-row justify-between items-center bg-[#fbfbfb]">
@@ -56,11 +85,11 @@ function SignUp() {
                 <input
                   type="text"
                   className="w-64 text-end"
-                  id="NPP"
-                  name="NPP"
+                  id="npp"
+                  name="npp"
                   placeholder="ketik di sini"
-                  //   value={formInv.quantity}
-                  //   onChange={handleChange}
+                  value={formData.npp}
+                  onChange={handleChange}
                 />
               </div>
               <div className="h-10 px-7 shadow-lg rounded-3xl flex flex-row justify-between items-center bg-[#fbfbfb]">
@@ -71,8 +100,8 @@ function SignUp() {
                   id="phone_number"
                   name="phone_number"
                   placeholder="ketik di sini"
-                  //   value={formInv.quantity}
-                  //   onChange={handleChange}
+                  value={formData.phone_number}
+                  onChange={handleChange}
                 />
               </div>
               <div className="h-10 px-7 shadow-lg rounded-3xl flex flex-row justify-between items-center bg-[#fbfbfb]">
@@ -83,8 +112,8 @@ function SignUp() {
                   id="address"
                   name="address"
                   placeholder="ketik di sini"
-                  //   value={formInv.quantity}
-                  //   onChange={handleChange}
+                  value={formData.address}
+                  onChange={handleChange}
                 />
               </div>
               <div className="h-10 px-7 shadow-lg rounded-3xl flex flex-row justify-between items-center bg-[#fbfbfb]">
@@ -95,8 +124,8 @@ function SignUp() {
                   id="role"
                   name="role"
                   placeholder="ketik di sini"
-                  //   value={formInv.quantity}
-                  //   onChange={handleChange}
+                  value={formData.role}
+                  onChange={handleChange}
                 />
               </div>
               <div className="h-10 px-7 shadow-lg rounded-3xl flex flex-row justify-between items-center bg-[#fbfbfb]">
@@ -109,8 +138,8 @@ function SignUp() {
                   id="room"
                   name="room"
                   placeholder="ketik di sini"
-                  //   value={formInv.quantity}
-                  //   onChange={handleChange}
+                  value={formData.room}
+                  onChange={handleChange}
                 />
               </div>
 
@@ -122,8 +151,8 @@ function SignUp() {
                   id="email"
                   name="email"
                   placeholder="ketik di sini"
-                  //   value={formInv.quantity}
-                  //   onChange={handleChange}
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </div>
               <div className="h-10 px-7 shadow-lg rounded-3xl flex flex-row justify-between items-center bg-[#fbfbfb]">
@@ -134,19 +163,20 @@ function SignUp() {
                   id="password"
                   name="password"
                   placeholder="ketik di sini"
-                  //   value={formInv.quantity}
-                  //   onChange={handleChange}
+                  value={formData.password}
+                  onChange={handleChange}
                 />
               </div>
             </div>
           </div>
           <div className="mx-7 my-10">
             <div className=" flex items-center justify-end">
-              <Link to={"/users"}>
-                <button className="w-40 h-10 py-2 shadow-lg rounded-3xl bg-blue-800 hover:bg-blue-700 text-white">
-                  buat akun!
-                </button>
-              </Link>
+              <button
+                onClick={confirmSignUp}
+                className="w-40 h-10 py-2 shadow-lg rounded-3xl bg-blue-800 hover:bg-blue-700 text-white"
+              >
+                buat akun!
+              </button>
             </div>
           </div>
         </div>

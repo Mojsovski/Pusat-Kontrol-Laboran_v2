@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../../../data/Auth";
 
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
 
 function Setting() {
+  const { user, checkAuth } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
   return (
     <div className="h-screen bg-[#C4C4C4] relative  ">
       <Sidebar />
@@ -28,9 +35,11 @@ function Setting() {
               />
               <div className="space-y-3">
                 <div className=" text-3xl font-semibold">
-                  Amratta Tegar Lazuardy
+                  {user?.user_metadata?.name || "Nama Pengguna"}
                 </div>
-                <div className="text-lg font-semibold ">0686.89.2024.064</div>
+                <div className="text-lg font-semibold ">
+                  {user?.user_metadata?.npp || "NPP"}
+                </div>
               </div>
             </div>
             <div className="w-1/4 flex items-center justify-end">
@@ -46,23 +55,31 @@ function Setting() {
           <div className="m-7 flex flex-col space-y-3">
             <div className="h-10 px-7 shadow-lg rounded-3xl flex flex-row justify-between items-center bg-[#efefef]">
               <div className="text-start font-semibold">Email</div>
-              <div className="text-end">amrattategar30@gmail.com</div>
+              <div className="text-end">{user?.email || "Email"}</div>
             </div>
             <div className="h-10 px-7 shadow-lg rounded-3xl flex flex-row justify-between items-center bg-[#efefef]">
               <div className="text-start font-semibold">Ruang Laboratorium</div>
-              <div className="text-end">D.2.I</div>
+              <div className="text-end">
+                {user?.user_metadata?.room || "Ruang"}
+              </div>
             </div>
             <div className="h-10 px-7 shadow-lg rounded-3xl flex flex-row justify-between items-center bg-[#efefef]">
               <div className="text-start font-semibold">Status</div>
-              <div className="text-end">laboran magang</div>
+              <div className="text-end">
+                {user?.user_metadata?.role || "Status"}
+              </div>
             </div>
             <div className="h-10 px-7 shadow-lg rounded-3xl flex flex-row justify-between items-center bg-[#efefef]">
               <div className="text-start font-semibold">Nomer Handphone</div>
-              <div className="text-end">amrattategar30@gmail.com</div>
+              <div className="text-end">
+                {user?.user_metadata?.phone_number || "Nomor HP"}
+              </div>
             </div>
             <div className="h-10 px-7 shadow-lg rounded-3xl flex flex-row justify-between items-center bg-[#efefef]">
               <div className="text-start font-semibold">Alamat</div>
-              <div className="text-end">Semarang, Jawa Tengah</div>
+              <div className="text-end">
+                {user?.user_metadata?.address || "Alamat"}
+              </div>
             </div>
           </div>
         </div>

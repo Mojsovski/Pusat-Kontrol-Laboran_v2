@@ -45,7 +45,7 @@ const Sidebar = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         handleLogout();
-        // localStorage.clear();
+        localStorage.clear();
         window.location.href = "/";
         Swal.fire("Berhasil Keluar!", "", "success");
       }

@@ -1,9 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../data/Auth";
 
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const Navbar = ({ title, showButtonBack }) => {
+  const { user } = useAuthStore();
   const navigate = useNavigate();
   return (
     <nav className="fixed inset-x-0 sm:ml-[300px] bg-gray-200 border-gray-200 shadow-md z-50">
@@ -23,7 +25,7 @@ const Navbar = ({ title, showButtonBack }) => {
         <div className="flex md:order-2 gap-8  ">
           <button
             type="button"
-            className="flex text-sm w-48 rounded-2xl bg-white  "
+            className="flex text-sm  rounded-2xl bg-white  "
             aria-expanded="false"
             data-dropdown-toggle="dropdown-user"
           >
@@ -32,7 +34,9 @@ const Navbar = ({ title, showButtonBack }) => {
               src="https://mahasiswa.dinus.ac.id/images/foto/A/A12/2020/A12.2020.06406.jpg"
               alt="user photo"
             />
-            <span className="p-2 font-medium flex ">Amratta Tegar L</span>
+            <span className="p-2 font-medium flex ">
+              {user.user_metadata.name}
+            </span>
           </button>
         </div>
       </div>
