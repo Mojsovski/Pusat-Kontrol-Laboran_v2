@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { create } from "zustand";
+import { useAuthStore } from "../../../data/Auth";
+import useStore from "../../../data/Data";
 
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
@@ -13,7 +15,18 @@ const useCategory = create((set) => ({
 }));
 
 function InvInput() {
+  const { updateFormPC, updateFormInv, resetForm } = useStore();
+  const { user } = useAuthStore((state) => ({ user: state.user }));
   const { selectedCategory, setSelectedCategory } = useCategory();
+
+  useEffect(() => {
+    resetForm();
+    setSelectedCategory("");
+    if (user) {
+      updateFormPC("room", user.user_metadata.room);
+      updateFormInv("room", user.user_metadata.room);
+    }
+  }, [user]);
 
   return (
     <div className="h-screen bg-[#C4C4C4] relative  ">

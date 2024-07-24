@@ -2,14 +2,19 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useStore from "../../data/Data.js";
+import { useAuthStore } from "../../data/Auth";
 
 function TableInputNonPC() {
   const navigate = useNavigate();
   const { formInv, updateFormInv, submitFormNonPC, resetFormInv } = useStore();
+  const { user } = useAuthStore((state) => ({ user: state.user }));
 
   useEffect(() => {
     resetFormInv();
-  }, []);
+    if (user) {
+      updateFormInv("room", user.user_metadata.room);
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -78,6 +83,21 @@ function TableInputNonPC() {
                 <option value="rusak ringan">rusak ringan</option>
                 <option value="rusak berat">rusak berat</option>
               </select>
+            </div>
+          </div>
+          <div className="my-2">
+            <label className="px-3 font-medium">Ruang Laboratorium</label>
+            <div className=" w-96 h-10 shadow-lg rounded-3xl ">
+              <input
+                value={formInv.room}
+                onChange={handleChange}
+                type="text"
+                id="room"
+                name="room"
+                className="block text-base pl-4 p-3 bg-[#e6e6e6] w-full h-full rounded-3xl focus:outline-none "
+                placeholder="contoh : D.2.C"
+                readOnly
+              />
             </div>
           </div>
           <div className="pt-7 flex justify-end">

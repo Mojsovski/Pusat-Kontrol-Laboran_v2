@@ -14,7 +14,7 @@ const useStore = create((set) => ({
     id: "",
     name: "",
     status: "",
-    room_lab: "",
+    room: "",
     primaryItem: false,
     pc: {},
   },
@@ -23,7 +23,7 @@ const useStore = create((set) => ({
     name: "",
     status: "",
     quantity: "",
-    room_lab: "",
+    room: "",
   },
 
   // ~~~Inventaris PC~~~
@@ -224,7 +224,7 @@ const useStore = create((set) => ({
         id: "",
         name: "",
         status: "",
-        room_lab: "",
+        room: "",
         primaryItem: false,
         pc: {},
       },
@@ -237,7 +237,20 @@ const useStore = create((set) => ({
         name: "",
         status: "",
         quantity: "",
-        room_lab: "",
+        room: "",
+      },
+    }),
+
+  resetForm: () =>
+    set({
+      formPC: {
+        id: "",
+        name: "",
+        status: "",
+        quantity: "",
+        room: "",
+        primaryItem: false,
+        pc: {},
       },
     }),
 }));

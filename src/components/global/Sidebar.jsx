@@ -18,6 +18,7 @@ import { useAuthStore } from "../../data/Auth";
 const Sidebar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const handleLogout = useAuthStore((state) => state.handleLogout); // Get handleLogout from useAuthStore
+  const { user } = useAuthStore((state) => ({ user: state.user })); // Get user from store
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -100,15 +101,17 @@ const Sidebar = () => {
                 <span className="ms-3 justify-center">Rekap Inventaris</span>
               </Link>
             </li>
-            <li>
-              <Link
-                to={"/users"}
-                className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
-              >
-                <img src={logoPelaporan} className="w-[30px] h-8 " />
-                <span className="ms-3 justify-center">Kelola Akun</span>
-              </Link>
-            </li>
+            {user?.user_metadata?.role === "admin" ? (
+              <li>
+                <Link
+                  to={"/users"}
+                  className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
+                >
+                  <img src={logoPelaporan} className="w-[30px] h-8 " />
+                  <span className="ms-3 justify-center">Kelola Akun</span>
+                </Link>
+              </li>
+            ) : null}
           </ul>
         </div>
 

@@ -2,14 +2,19 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useStore from "../../data/Data";
+import { useAuthStore } from "../../data/Auth";
 
 function TableInputPC() {
   const navigate = useNavigate();
   const { formPC, updateFormPC, submitForm, resetFormPC } = useStore();
+  const { user } = useAuthStore((state) => ({ user: state.user }));
 
   useEffect(() => {
     resetFormPC();
-  }, []);
+    if (user) {
+      updateFormPC("room", user.user_metadata.room);
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -103,46 +108,7 @@ function TableInputPC() {
               />
             </div>
           </div>
-          <div className="my-2">
-            <label className="px-3 font-medium">Kondisi Barang</label>
-            <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
-              <select
-                value={formPC.status}
-                onChange={handleChange}
-                type="text"
-                id="status"
-                name="status"
-                className="block text-base pl-4  bg-white w-full h-full rounded-3xl focus:outline-none "
-              >
-                <option value="">kondisi komputer saat ini</option>
-                <option value="baik">baik</option>
-                <option value="rusak ringan">rusak ringan</option>
-                <option value="rusak berat">rusak berat</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        {/* row 2 */}
-        <div className="space-y-6">
-          <div className="my-2">
-            <label className="px-3 font-medium">Kategori Komputer</label>
-            <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
-              <select
-                value={formPC.pc.category}
-                onChange={handleChange}
-                type="text"
-                id="pc.category"
-                name="pc.category"
-                className="block text-base pl-4  bg-white w-full h-full rounded-3xl focus:outline-none "
-              >
-                <option value="">kategori pc</option>
-                <option value="client">client</option>
-                <option value="dosen">dosen</option>
-                <option value="laboran">laboran</option>
-                <option value="cadangan">cadangan</option>
-              </select>
-            </div>
-          </div>
+
           <div className="my-2">
             <label className="px-3 font-medium ">Penyimpanan</label>
             <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
@@ -213,17 +179,72 @@ function TableInputPC() {
               />
             </div>
           </div>
-          <div className="pt-10 flex justify-end">
-            <div className="pt-7 flex justify-end">
-              <button
-                onClick={handleSubmitPC}
-                type="submit"
-                className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
+        </div>
+        {/* row 2 */}
+        <div className="space-y-6">
+          <div className="my-2">
+            <label className="px-3 font-medium">Kategori Komputer</label>
+            <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
+              <select
+                value={formPC.pc.category}
+                onChange={handleChange}
+                type="text"
+                id="pc.category"
+                name="pc.category"
+                className="block text-base pl-4  bg-white w-full h-full rounded-3xl focus:outline-none "
               >
-                Input
-              </button>
+                <option value="">kategori pc</option>
+                <option value="client">client</option>
+                <option value="dosen">dosen</option>
+                <option value="laboran">laboran</option>
+                <option value="cadangan">cadangan</option>
+              </select>
             </div>
           </div>
+          <div className="my-2">
+            <label className="px-3 font-medium">Kondisi Barang</label>
+            <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
+              <select
+                value={formPC.status}
+                onChange={handleChange}
+                type="text"
+                id="status"
+                name="status"
+                className="block text-base pl-4  bg-white w-full h-full rounded-3xl focus:outline-none "
+              >
+                <option value="">kondisi komputer saat ini</option>
+                <option value="baik">baik</option>
+                <option value="rusak ringan">rusak ringan</option>
+                <option value="rusak berat">rusak berat</option>
+              </select>
+            </div>
+          </div>
+          <div className="my-2">
+            <label className="px-3 font-medium">Ruang Laboratorium</label>
+            <div className=" w-96 h-10 shadow-lg rounded-3xl ">
+              <input
+                value={formPC.room}
+                onChange={handleChange}
+                type="text"
+                id="room"
+                name="room"
+                className="block text-base pl-4 p-3 bg-[#e6e6e6] w-full h-full rounded-3xl focus:outline-none "
+                placeholder="contoh : D.2.C"
+                readOnly
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="pt-10 flex justify-end">
+        <div className="pt-7 flex justify-end">
+          <button
+            onClick={handleSubmitPC}
+            type="submit"
+            className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
+          >
+            Input
+          </button>
         </div>
       </div>
     </>

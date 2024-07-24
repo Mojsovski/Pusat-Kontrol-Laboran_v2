@@ -4,14 +4,19 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import useStore from "../../data/Data.js";
+import { useAuthStore } from "../../data/Auth";
 
 import icons from "../../assets/icons/icon.jsx";
 
 function TableListInv() {
   const navigate = useNavigate();
   const { inv, fetchDataNonPC, deleteFormNonPC } = useStore();
+  const { user } = useAuthStore((state) => ({ user: state.user }));
 
-  const filterPC = inv.sort((a, b) => a.name.localeCompare(b.name));
+  const filterUser = inv.filter(
+    (inv) => inv.room === user?.user_metadata?.room
+  );
+  const filterSort = filterUser.sort((a, b) => a.name.localeCompare(b.name));
 
   const handleDeleteInv = (id) => {
     Swal.fire({
@@ -66,7 +71,7 @@ function TableListInv() {
             </tr>
           </thead>
           <tbody>
-            {filterPC.map((inv, index) => (
+            {filterSort.map((inv, index) => (
               <tr key={inv.id}>
                 <td scope="col" className="px-1 py-3">
                   {index + 1}
