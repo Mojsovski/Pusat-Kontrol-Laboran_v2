@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import useStore from "../../../data/Data.js";
+import { useAuthStore } from "../../../data/Auth.js";
 
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
@@ -10,8 +11,43 @@ import icons from "../../../assets/icons/icon.jsx";
 
 function InvHome() {
   const { inv, invpc, fetchData, fetchDataNonPC } = useStore();
+  const { user } = useAuthStore.getState();
 
-  const filterDefaultPC = invpc.filter((item) => item.primaryItem === true);
+  const filterPrimaryPC = invpc.filter(
+    (item) => item.primaryItem === true && item.room === user.user_metadata.room
+  );
+
+  const filterNonPC = inv.filter(
+    (item) => item.room === user.user_metadata.room
+  );
+  const limitInv = filterNonPC.slice(0, 3);
+
+  const countCategory = (category) =>
+    invpc.filter(
+      (item) =>
+        item.pc.category === category && item.room === user.user_metadata.room
+    ).length;
+  const countClient = countCategory("client");
+  const countDosen = countCategory("dosen");
+  const countLaboran = countCategory("laboran");
+  const countCadangan = countCategory("cadangan");
+
+  const countStatus = (status) =>
+    invpc.filter(
+      (item) => item.status === status && item.room === user.user_metadata.room
+    ).length;
+  const countPinjam = countStatus("pinjam");
+  const countDipinjam = countStatus("dipinjam");
+
+  const countRusak = invpc.filter(
+    (item) =>
+      (item.status === "rusak ringan" || item.status === "rusak berat") &&
+      item.room === user.user_metadata.room
+  ).length;
+
+  const countTotal = invpc.filter(
+    (item) => item.room === user.user_metadata.room
+  ).length;
 
   useEffect(() => {
     fetchData();
@@ -21,7 +57,7 @@ function InvHome() {
   return (
     <div className="h-screen bg-[#C4C4C4] relative  ">
       <Sidebar />
-      <Navbar title="Inventaris" />
+      <Navbar title="Dashboard" />
       <div className=" pr-10 py-28 pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4] relative space-y-6">
         {/* column 1 */}
         <div className="flex gap-5 relative">
@@ -77,52 +113,51 @@ function InvHome() {
             </div>
             {/* table */}
             <div className="py-5 gap-7 px-5 h-[169px]  text-8xl flex flex-row justify-between items-start">
+              {/*  1 */}
               <div className="flex justify-start gap-3">
                 <div className="space-y-5">
-                  <div className=" text-base font-semibold">PC Cilent</div>
-                  <div className="text-base font-semibold">PC Dosen</div>
-                  <div className="text-base font-semibold">PC Laboran</div>
+                  <div className=" text-base font-semibold">
+                    Komputer Cilent
+                  </div>
+                  <div className="text-base font-semibold">Komputer Dosen</div>
+                  <div className="text-base font-semibold">
+                    Komputer Laboran
+                  </div>
                 </div>
                 <div className="space-y-5">
-                  <div className=" text-base font-semibold">:</div>
-                  <div className="text-base font-semibold">:</div>
-                  <div className="text-base font-semibold">:</div>
-                </div>
-                <div className="space-y-5">
-                  <div className=" text-base font-semibold">30</div>
-                  <div className="text-base font-semibold">30</div>
-                  <div className="text-base font-semibold">30</div>
+                  <div className=" text-base font-semibold">{countClient}</div>
+                  <div className="text-base font-semibold">{countDosen}</div>
+                  <div className="text-base font-semibold">{countLaboran}</div>
                 </div>
               </div>
+              {/*  2 */}
               <div className="flex justify-start gap-3">
                 <div className="space-y-5">
-                  <div className=" text-base font-semibold">PC Cadangan</div>
-                  <div className="text-base font-semibold">PC Rusak</div>
+                  <div className="text-base font-semibold">
+                    Komputer Cadangan
+                  </div>
+                  <div className=" text-base font-semibold">Komputer Rusak</div>
                 </div>
                 <div className="space-y-5">
-                  <div className=" text-base font-semibold">:</div>
-                  <div className="text-base font-semibold">:</div>
-                </div>
-                <div className="space-y-5">
-                  <div className=" text-base font-semibold">30</div>
-                  <div className="text-base font-semibold">30</div>
+                  <div className="text-base font-semibold">{countCadangan}</div>
+                  <div className=" text-base font-semibold">{countRusak}</div>
                 </div>
               </div>
+              {/*  3 */}
               <div className="flex justify-start gap-3">
                 <div className="space-y-5">
-                  <div className=" text-base font-semibold">PC Pinjam</div>
-                  <div className="text-base font-semibold">PC Dipinjam</div>
+                  <div className=" text-base font-semibold">
+                    Komputer Pinjam
+                  </div>
+                  <div className="text-base font-semibold">
+                    Komputer Dipinjam
+                  </div>
                   <div className="text-base font-semibold">Total PC</div>
                 </div>
                 <div className="space-y-5">
-                  <div className=" text-base font-semibold">:</div>
-                  <div className="text-base font-semibold">:</div>
-                  <div className="text-base font-semibold">:</div>
-                </div>
-                <div className="space-y-5">
-                  <div className=" text-base font-semibold">30</div>
-                  <div className="text-base font-semibold">30</div>
-                  <div className="text-base font-semibold">30</div>
+                  <div className="text-base font-semibold">{countPinjam}</div>
+                  <div className="text-base font-semibold">{countDipinjam}</div>
+                  <div className="text-base font-semibold">{countTotal}</div>
                 </div>
               </div>
             </div>
@@ -193,7 +228,7 @@ function InvHome() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filterDefaultPC.map((inv, index) => (
+                  {filterPrimaryPC.map((inv, index) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
                         {index + 1}
@@ -289,7 +324,7 @@ function InvHome() {
                   </tr>
                 </thead>
                 <tbody>
-                  {inv.map((inv, index) => (
+                  {limitInv.map((inv, index) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
                         {index + 1}
@@ -312,6 +347,10 @@ function InvHome() {
                               ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
                               : inv.status === "rusak berat"
                               ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
+                              : inv.status === "pinjam"
+                              ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
+                              : inv.status === "dipinjam"
+                              ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
                               : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
                           }`}
                         >
@@ -325,12 +364,12 @@ function InvHome() {
             </div>
           </div>
           {/* row 2 */}
-          <div className="w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
+          {/* <div className="w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
             <div className=" h-10 flex flex-row gap-4">
               <img src={icons.rekapPC} className="w-[25px] " />
               <div className="p-1 font-semibold text-xl ">Rekap</div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

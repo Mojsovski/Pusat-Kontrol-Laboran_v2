@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
-import TableListPC from "../../../components/laboran/TableListPC.jsx";
+import TableListPC from "../../../components/admin/TableListPC.jsx";
 
-function InvListPC() {
+function InvAdminListPC() {
   return (
     <div className="h-screen bg-[#C4C4C4] relative  ">
       <Sidebar />
@@ -21,7 +21,7 @@ function InvListPC() {
               </div>
             </div>
             <Link
-              to={"/inventaris/input"}
+              to={"/admin/inventaris/input"}
               className="px-5 h-6 rounded-2xl bg-blue-800 hover:bg-blue-700 flex items-center shadow"
             >
               <div className="  text-white text-xs font-medium  ">
@@ -37,4 +37,4 @@ function InvListPC() {
   );
 }
 
-export default InvListPC;
+export default InvAdminListPC;

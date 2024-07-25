@@ -24,7 +24,7 @@ function TableInputNonPC() {
   const handleSubmitNonPC = async (e) => {
     e.preventDefault();
     await submitFormNonPC();
-    navigate("/inventaris/list-nonpc");
+    navigate("/admin/inventaris/list-nonpc");
     Swal.fire({
       title: "Berhasil!",
       text: "Data inventaris sudah ditambahkan",

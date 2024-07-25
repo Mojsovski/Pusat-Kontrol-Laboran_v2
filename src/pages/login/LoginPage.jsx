@@ -23,7 +23,11 @@ function LoginPage() {
   const onLogin = async () => {
     const user = await handleLogin();
     if (user) {
-      navigate("/inventaris");
+      if (user.role === "admin") {
+        navigate("/admin/home");
+      } else {
+        navigate("/inventaris");
+      }
     }
   };
 

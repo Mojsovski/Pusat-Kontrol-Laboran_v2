@@ -1,24 +1,50 @@
-import React from "react";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import useStore from "../../data/Data.js";
 import { useAuthStore } from "../../data/Auth";
 
 import icons from "../../assets/icons/icon.jsx";
 
-function TableListPC() {
-  const { invpc, fetchData } = useStore();
+function TableListInv() {
+  const navigate = useNavigate();
+  const { inv, fetchDataNonPC, deleteFormNonPC } = useStore();
   const { user } = useAuthStore((state) => ({ user: state.user }));
 
-  // Filter based on user's room
-  const filterUser = invpc.filter(
+  const filterUser = inv.filter(
     (inv) => inv.room === user?.user_metadata?.room
   );
-  const filterPC = filterUser.sort((a, b) => a.name.localeCompare(b.name));
+  const filterSort = filterUser.sort((a, b) => a.name.localeCompare(b.name));
+
+  const handleDeleteInv = (id) => {
+    Swal.fire({
+      title: "Apa kamu yakin?",
+      text: "Kamu tidak dapat mengembalikan ini!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "batal",
+      confirmButtonText: "Ya, hapus inventaris!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteFormNonPC(id);
+        await fetchDataNonPC();
+        Swal.fire({
+          title: "Terhapus!",
+          text: "Inventaris sudah terhapus.",
+          icon: "success",
+          timer: 700,
+          showConfirmButton: false,
+        });
+        navigate("/admin/inventaris/list-nonpc");
+      }
+    });
+  };
 
   useEffect(() => {
-    fetchData();
+    fetchDataNonPC();
   }, []);
 
   return (
@@ -33,23 +59,10 @@ function TableListPC() {
               <th scope="col" className="px-4 py-3 ">
                 Nama
               </th>
-              <th scope="col" className="px-4 py-3 ">
-                Prosessor
-              </th>
-              <th scope="col" className="px-1 py-3 ">
-                RAM
-              </th>
-              <th scope="col" className="px-3 py-3">
-                Kartu grafis
-              </th>
-              <th scope="col" className="px-1 py-3 ">
-                Penyimpanan
-              </th>
-
               <th scope="col" className="px-1 py-3">
-                Kategori
+                Jumlah
               </th>
-              <th scope="col" className="px-1 py-3 ">
+              <th scope="col" className="px-3 py-3 ">
                 Kondisi
               </th>
               <th scope="col" className="px-1 py-3">
@@ -58,32 +71,20 @@ function TableListPC() {
             </tr>
           </thead>
           <tbody>
-            {filterPC.map((inv, index) => (
+            {filterSort.map((inv, index) => (
               <tr key={inv.id}>
                 <td scope="col" className="px-1 py-3">
                   {index + 1}
                 </td>
-                <td scope="col" className="px-4 py-3">
+                <td scope="col" className="px-4 py-3 ">
                   {inv.name}
                 </td>
-                <td scope="col" className="px-4 py-3">
-                  {inv.pc.cpu}
-                </td>
                 <td scope="col" className="px-1 py-3">
-                  {inv.pc.ram}
-                </td>
-                <td scope="col" className="px-3 py-3">
-                  {inv.pc.gpu}
-                </td>
-                <td scope="col" className="px-1 py-3">
-                  {inv.pc.storage}
-                </td>
-                <td scope="col" className="px-1 py-3">
-                  {inv.pc.category}
+                  {inv.quantity}
                 </td>
                 <td
                   scope="col"
-                  className="px-1 py-3 flex items-center justify-center"
+                  className="px-3 py-3 flex items-center justify-center"
                 >
                   <p
                     className={`${
@@ -104,13 +105,23 @@ function TableListPC() {
                   </p>
                 </td>
                 <td className="px-1 py-3 ">
-                  <div className="w-full flex justify-center">
-                    <Link
-                      to={`/inventaris/detail/${inv.id}`}
-                      className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-full shadow"
-                    >
-                      detail
-                    </Link>
+                  <div className="flex">
+                    <div className="w-full flex justify-center">
+                      <Link
+                        to={`/admin/inventaris/edit/${inv.id}`}
+                        className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-full shadow"
+                      >
+                        edit
+                      </Link>
+                    </div>
+                    <div className="w-full flex justify-center">
+                      <button
+                        onClick={() => handleDeleteInv(inv.id)}
+                        className="bg-red-500 text-white py-1 w-20  items-center flex justify-center rounded-full shadow"
+                      >
+                        hapus
+                      </button>
+                    </div>
                   </div>
                 </td>
               </tr>
@@ -122,4 +133,4 @@ function TableListPC() {
   );
 }
 
-export default TableListPC;
+export default TableListInv;

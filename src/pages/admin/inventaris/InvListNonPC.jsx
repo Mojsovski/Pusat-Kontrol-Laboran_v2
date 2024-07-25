@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+import useStore from "../../../data/Data.js";
 import { Link } from "react-router-dom";
 
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
-import TableListPC from "../../../components/laboran/TableListPC.jsx";
+import TableListInv from "../../../components/admin/TableListInv.jsx";
 
-function InvListPC() {
+function InvAdminListNonPC() {
+  const { fetchDataNonPC, deleteFormNonPC } = useStore();
+  useEffect(() => {
+    fetchDataNonPC();
+  }, []);
+
   return (
     <div className="h-screen bg-[#C4C4C4] relative  ">
       <Sidebar />
@@ -17,11 +23,11 @@ function InvListPC() {
             <div className="flex flex-row gap-4 ">
               <img src={icons.inputPC} className="w-[25px] " />
               <div className="p-1 font-semibold text-xl ">
-                Daftar Inventaris
+                Daftar Inventaris Non Komputer
               </div>
             </div>
             <Link
-              to={"/inventaris/input"}
+              to={"/admin/inventaris/input"}
               className="px-5 h-6 rounded-2xl bg-blue-800 hover:bg-blue-700 flex items-center shadow"
             >
               <div className="  text-white text-xs font-medium  ">
@@ -30,11 +36,11 @@ function InvListPC() {
             </Link>
           </div>
           {/* table */}
-          <TableListPC />
+          <TableListInv />
         </div>
       </div>
     </div>
   );
 }
 
-export default InvListPC;
+export default InvAdminListNonPC;

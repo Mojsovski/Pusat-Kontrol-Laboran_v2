@@ -1,8 +1,8 @@
 import React from "react";
 
-import Sidebar from "../../../components/global/Sidebar";
-import Navbar from "../../../components/global/Navbar";
-import icons from "../../../assets/icons/icon.jsx";
+import Sidebar from "../../components/global/Sidebar";
+import Navbar from "../../components/global/Navbar";
+import icons from "../../assets/icons/icon.jsx";
 
 function ChangeAccount() {
   return (

@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuthStore } from "../../../data/Auth";
+import { useAuthStore } from "../../data/Auth";
 
-import Sidebar from "../../../components/global/Sidebar";
-import Navbar from "../../../components/global/Navbar";
-import icons from "../../../assets/icons/icon.jsx";
+import Sidebar from "../../components/global/Sidebar";
+import Navbar from "../../components/global/Navbar";
+import icons from "../../assets/icons/icon.jsx";
 
 function Setting() {
   const { user, checkAuth } = useAuthStore();

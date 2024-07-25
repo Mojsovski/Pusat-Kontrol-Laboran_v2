@@ -7,7 +7,7 @@ import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
 
-function InvDetail() {
+function InvAdminDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { fetchDataById, formPC } = useStore();
@@ -85,7 +85,7 @@ function InvDetail() {
               </div>
               <div className="pt-10 flex justify-start">
                 <Link
-                  to={`/inventaris/editpc/${formPC.id}`}
+                  to={`/admin/inventaris/editpc/${formPC.id}`}
                   className="px-16 py-2 shadow-lg rounded-3xl bg-[#fdcd49] text-black"
                 >
                   edit
@@ -159,4 +159,4 @@ function InvDetail() {
   );
 }
 
-export default InvDetail;
+export default InvAdminDetail;

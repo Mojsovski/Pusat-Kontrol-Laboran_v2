@@ -76,7 +76,11 @@ const Sidebar = () => {
           <ul className="space-y-2 font-medium text-xl">
             <li>
               <Link
-                to={"/inventaris"}
+                to={
+                  user?.user_metadata?.role === "admin"
+                    ? "/admin/home"
+                    : "/inventaris"
+                }
                 className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
               >
                 <img src={logoHome} className="w-[30px] h-8 " />
@@ -85,7 +89,11 @@ const Sidebar = () => {
             </li>
             <li>
               <Link
-                to={"/inventaris/listinventaris"}
+                to={
+                  user?.user_metadata?.role === "admin"
+                    ? "/admin/inventaris/listinventaris"
+                    : "/inventaris/listinventaris"
+                }
                 className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
               >
                 <img src={logoInventaris} className="w-[30px] h-8 " />
@@ -94,7 +102,11 @@ const Sidebar = () => {
             </li>
             <li>
               <Link
-                to={"/inventaris/rekap"}
+                to={
+                  user?.user_metadata?.role === "admin"
+                    ? "/admin/inventaris/rekap"
+                    : "/inventaris/rekap"
+                }
                 className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
               >
                 <img src={logoJaringan} className="w-[30px] h-8 " />

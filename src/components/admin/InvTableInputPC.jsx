@@ -24,7 +24,7 @@ function TableInputPC() {
   const handleSubmitPC = async (e) => {
     e.preventDefault();
     await submitForm();
-    navigate("/inventaris/list-PC");
+    navigate("/admin/inventaris/list-PC");
     Swal.fire({
       title: "Berhasil!",
       text: "Data inventaris sudah ditambahkan",

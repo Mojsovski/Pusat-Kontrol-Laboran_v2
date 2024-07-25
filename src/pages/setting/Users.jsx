@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import Sidebar from "../../../components/global/Sidebar";
-import Navbar from "../../../components/global/Navbar";
-import icons from "../../../assets/icons/icon.jsx";
-import UsersTable from "../../../components/laboran/UsersTable.jsx";
+import Sidebar from "../../components/global/Sidebar";
+import Navbar from "../../components/global/Navbar";
+import icons from "../../assets/icons/icon.jsx";
+import UsersTable from "../../components/setting/UsersTable.jsx";
 
 function Users() {
   return (

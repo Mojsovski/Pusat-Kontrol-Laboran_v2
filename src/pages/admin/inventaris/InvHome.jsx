@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import useStore from "../../../data/Data.js";
 import { useAuthStore } from "../../../data/Auth.js";
@@ -9,24 +9,19 @@ import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
 
-function InvRekap() {
+function InvAdminHome() {
   const { inv, invpc, fetchData, fetchDataNonPC } = useStore();
   const { user } = useAuthStore.getState();
 
-  //filter
-  const filterStatus = (status) =>
-    invpc.filter(
-      (item) => item.status === status && item.room === user.user_metadata.room
-    );
-  const filterPinjam = filterStatus("pinjam");
-  const filterDipinjam = filterStatus("dipinjam");
-  const filterRusak = invpc.filter(
-    (item) =>
-      (item.status === "rusak ringan" || item.status === "rusak berat") &&
-      item.room === user.user_metadata.room
+  const filterPrimaryPC = invpc.filter(
+    (item) => item.primaryItem === true && item.room === user.user_metadata.room
   );
 
-  // count inv pc
+  const filterNonPC = inv.filter(
+    (item) => item.room === user.user_metadata.room
+  );
+  const limitInv = filterNonPC.slice(0, 3);
+
   const countCategory = (category) =>
     invpc.filter(
       (item) =>
@@ -62,10 +57,42 @@ function InvRekap() {
   return (
     <div className="h-screen bg-[#C4C4C4] relative  ">
       <Sidebar />
-      <Navbar title="Rekap Inventaris" />
+      <Navbar title="Dashboard" />
       <div className=" pr-10 py-28 pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4] relative space-y-6">
-        {/* Column 1 */}
+        {/* column 1 */}
         <div className="flex gap-5 relative">
+          {/* button */}
+          <div className="w-96 h-10  space-y-7 relative">
+            <Link
+              to={"/inventaris/input"}
+              className="relative w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
+            >
+              <img src={icons.inputPC} className="w-[19px] " />
+              Input Inventaris Lab
+            </Link>
+            <Link
+              to={"/inventaris/list-nonpc"}
+              className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
+            >
+              <img src={icons.editPC} className="w-[21px] " />
+              Edit Inventaris Lab
+            </Link>
+            <Link
+              to={"/inventaris/input"}
+              className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
+            >
+              <img src={icons.verifikasiPC} className="w-[19px] " />
+              Verifikasi Bulanan
+            </Link>
+            <Link
+              to={"/inventaris/input"}
+              className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
+            >
+              <img src={icons.inputPC} className="w-[19px]" />
+              Input Inventaris
+            </Link>
+          </div>
+
           {/* card 1*/}
           <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md ">
             <div className=" h-10 flex flex-row justify-between items-center">
@@ -75,9 +102,17 @@ function InvRekap() {
                   Rekap Inventaris
                 </div>
               </div>
+              <Link
+                to={"/admin/inventaris/rekap"}
+                className="px-5 h-6 rounded-2xl bg-[#F5BD45] flex items-center shadow"
+              >
+                <div className="  text-black text-xs font-medium  ">
+                  selengkapnya
+                </div>
+              </Link>
             </div>
             {/* table */}
-            <div className="py-8 gap-7 px-10  text-8xl flex flex-row justify-between items-start">
+            <div className="py-5 gap-7 px-5 h-[169px]  text-8xl flex flex-row justify-between items-start">
               {/*  1 */}
               <div className="flex justify-start gap-3">
                 <div className="space-y-5">
@@ -140,41 +175,169 @@ function InvRekap() {
             </div>
           </div>
         </div>
-        {/* Column 2 */}
-        <div className=" flex gap-5 relative ">
-          {/* row 1 */}
-          <div className=" w-1/2 px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
-            <div className=" h-10 flex flex-row gap-4">
-              <img src={icons.inputPC} className="w-[25px] " />
-              <div className="p-1 font-semibold text-xl ">Pinjam Komputer</div>
+
+        {/* column 2 */}
+        <div className="flex gap-5 relative  ">
+          <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md ">
+            <div className=" h-10 flex flex-row justify-between items-center">
+              <div className="flex flex-row gap-4 ">
+                <img src={icons.rekapPC} className="w-[25px] " />
+                <div className="p-1 font-semibold text-lg ">
+                  Spesifikasi Komputer Utama
+                </div>
+              </div>
+              <Link
+                to={"/admin/inventaris/list-PC"}
+                className="px-5 h-6 rounded-2xl bg-[#F5BD45] flex items-center shadow"
+              >
+                <div className="  text-black text-xs font-medium  ">
+                  selengkapnya
+                </div>
+              </Link>
             </div>
+            {/* table */}
             <div className="overflow-x-auto relative ">
               <table className="w-full text-sm  rtl:text-right text-center ">
-                <thead className=" text-center">
+                <thead className="text-center">
                   <tr>
                     <th scope="col" className="px-1 py-3  ">
                       No
                     </th>
-                    <th scope="col" className="px-10 py-3 ">
+                    <th scope="col" className="px-4 py-3 ">
                       Nama
                     </th>
-                    <th scope="col" className="px-6 py-3 ">
-                      Keterangan
+                    <th scope="col" className="px-1 py-3 ">
+                      Prosessor
+                    </th>
+                    <th scope="col" className="px-1 py-3 ">
+                      Motherboard
+                    </th>
+                    <th scope="col" className="px-1 py-3 ">
+                      RAM
+                    </th>
+                    <th scope="col" className="px-3 py-3">
+                      Kartu grafis
+                    </th>
+                    <th scope="col" className="px-1 py-3 ">
+                      Penyimpanan
+                    </th>
+
+                    <th scope="col" className="px-1 py-3">
+                      Kategori
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filterPinjam.map((inv, index) => (
+                  {filterPrimaryPC.map((inv, index) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
                         {index + 1}
                       </td>
-                      <td scope="col" className="px-6 py-3">
+                      <td scope="col" className="px-4 py-3">
                         {inv.name}
+                      </td>
+                      <td scope="col" className="px-1 py-3">
+                        {inv.pc.cpu}
+                      </td>
+                      <td scope="col" className="px-1 py-3">
+                        {inv.pc.mobo}
+                      </td>
+                      <td scope="col" className="px-1 py-3">
+                        {inv.pc.ram}
+                      </td>
+                      <td scope="col" className="px-3 py-3">
+                        {inv.pc.gpu}
+                      </td>
+                      <td scope="col" className="px-1 py-3">
+                        {inv.pc.storage}
+                      </td>
+                      <td scope="col" className="px-1 py-3">
+                        {inv.pc.category}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        {/* column 3 */}
+        {/* <div className="flex gap-5 relative  ">
+          <div className="w-full h-[277px] px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
+            <div className=" h-10 flex flex-row gap-4">
+              <img src={icons.rekapPC} className="w-[35px] " />
+              <div className="p-1 font-semibold text-xl ">Rekap</div>
+            </div>
+            <div className="h-32 text-center text-8xl flex justify-center items-center ">
+              D.2.I
+            </div>
+            <div className="h-10 text-center text-base flex justify-center items-center ">
+              Shift : Siang (14.00-21.00)
+            </div>
+            <div className="h-9 flex justify-center items-center">
+              <div className="w-36 h-7 py-1 rounded-2xl bg-[#07AC22]">
+                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
+                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
+              </div>
+            </div>
+          </div>
+        </div> */}
+
+        {/* column 4 */}
+        <div className=" flex gap-5 relative  ">
+          {/* row 1 */}
+          <div className=" w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
+            <div className=" h-10 flex flex-row justify-between items-center">
+              <div className="flex flex-row gap-4 ">
+                <img src={icons.rekapPC} className="w-[25px] " />
+                <div className="p-1 font-semibold text-lg ">
+                  Barang Non Komputer
+                </div>
+              </div>
+              <Link
+                to={"/admin/inventaris/list-nonpc"}
+                className="px-5 h-6 rounded-2xl bg-[#F5BD45] flex items-center shadow"
+              >
+                <div className="  text-black text-xs font-medium  ">
+                  selengkapnya
+                </div>
+              </Link>
+            </div>
+            {/* table */}
+            <div className="overflow-x-auto relative ">
+              <table className="w-full text-sm  rtl:text-right text-center ">
+                <thead className="text-center">
+                  <tr>
+                    <th scope="col" className="px-1 py-3  ">
+                      No
+                    </th>
+                    <th scope="col" className="px-7 py-3 ">
+                      Nama
+                    </th>
+                    <th scope="col" className="px-1 py-3 ">
+                      Jumlah
+                    </th>
+                    <th scope="col" className=" py-3 ">
+                      Kondisi
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {limitInv.map((inv, index) => (
+                    <tr>
+                      <td scope="col" className="px-1 py-3">
+                        {index + 1}
+                      </td>
+                      <td scope="col" className="px-7 py-3">
+                        {inv.name}
+                      </td>
+                      <td scope="col" className="px-1 py-3">
+                        {inv.quantity}
                       </td>
                       <td
                         scope="col"
-                        className="px-1 py-3 flex items-center justify-center"
+                        className="py-3 flex items-center justify-center "
                       >
                         <p
                           className={`${
@@ -201,151 +364,16 @@ function InvRekap() {
             </div>
           </div>
           {/* row 2 */}
-          <div className="w-1/2  px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
+          {/* <div className="w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
             <div className=" h-10 flex flex-row gap-4">
-              <img src={icons.inputPC} className="w-[35px] " />
-              <div className="p-1 font-semibold text-xl ">
-                Komputer Dipinjam
-              </div>
+              <img src={icons.rekapPC} className="w-[25px] " />
+              <div className="p-1 font-semibold text-xl ">Rekap</div>
             </div>
-            <div className="overflow-x-auto relative ">
-              <table className="w-full text-sm  rtl:text-right text-center ">
-                <thead className=" text-center">
-                  <tr>
-                    <th scope="col" className="px-1 py-3  ">
-                      No
-                    </th>
-                    <th scope="col" className="px-10 py-3 ">
-                      Nama
-                    </th>
-                    <th scope="col" className="px-1 py-3 ">
-                      Keterangan
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filterDipinjam.map((inv, index) => (
-                    <tr>
-                      <td scope="col" className="px-1 py-3">
-                        {index + 1}
-                      </td>
-                      <td scope="col" className="px-6 py-3">
-                        {inv.name}
-                      </td>
-
-                      <td
-                        scope="col"
-                        className="px-1 py-3 flex items-center justify-center"
-                      >
-                        <p
-                          className={`${
-                            inv.status === "baik"
-                              ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                              : inv.status === "rusak ringan"
-                              ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                              : inv.status === "rusak berat"
-                              ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                              : inv.status === "pinjam"
-                              ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                              : inv.status === "dipinjam"
-                              ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                              : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
-                          }`}
-                        >
-                          {inv.status}
-                        </p>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        {/* Column 3 */}
-        <div className="flex gap-5 relative">
-          <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md">
-            <div className="h-10 flex flex-row justify-between items-center">
-              <div className="flex flex-row gap-4 ">
-                <img src={icons.inputPC} className="w-[25px] " />
-                <div className="p-1 font-semibold text-xl ">Komputer Rusak</div>
-              </div>
-            </div>
-            <div className="overflow-x-auto relative ">
-              <table className="w-full text-sm  rtl:text-right text-center ">
-                <thead className="text-center">
-                  <tr>
-                    <th scope="col" className="px-1 py-3  ">
-                      No
-                    </th>
-                    <th scope="col" className="px-4 py-3 ">
-                      Nama
-                    </th>
-                    <th scope="col" className="px-1 py-3 ">
-                      Prosessor
-                    </th>
-                    <th scope="col" className="px-1 py-3">
-                      Kategori
-                    </th>
-                    <th scope="col" className="px-1 py-3">
-                      Kondisi
-                    </th>
-                    <th scope="col" className="px-1 py-3">
-                      Keterangan
-                    </th>
-                  </tr>
-                </thead>
-                <tbody clas>
-                  {filterRusak.map((inv, index) => (
-                    <tr>
-                      <td scope="col" className="px-1 py-3">
-                        {index + 1}
-                      </td>
-                      <td scope="col" className="px-4 py-3">
-                        {inv.name}
-                      </td>
-                      <td scope="col" className="px-1 py-3">
-                        {inv.pc.cpu}
-                      </td>
-                      <td scope="col" className="px-1 py-3">
-                        {inv.pc.category}
-                      </td>
-                      <td
-                        scope="col"
-                        className="px-1 py-3 flex items-center justify-center"
-                      >
-                        <p
-                          className={`${
-                            inv.status === "baik"
-                              ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                              : inv.status === "rusak ringan"
-                              ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                              : inv.status === "rusak berat"
-                              ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                              : inv.status === "pinjam"
-                              ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                              : inv.status === "dipinjam"
-                              ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                              : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
-                          }`}
-                        >
-                          {inv.status}
-                        </p>
-                      </td>
-                      <td scope="col" className="px-1 py-3">
-                        {inv.pc.category}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
   );
 }
 
-export default InvRekap;
+export default InvAdminHome;

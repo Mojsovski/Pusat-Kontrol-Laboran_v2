@@ -8,7 +8,7 @@ import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
 
-function InvEditPC() {
+function InvAdminEditPC() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { fetchDataById, formPC, updateFormPC, updateForm, deleteForm } =
@@ -22,7 +22,7 @@ function InvEditPC() {
   const handleUpdateInv = async (e) => {
     e.preventDefault();
     await updateForm();
-    navigate("/inventaris/list-PC");
+    navigate("/admin/inventaris/list-PC");
     Swal.fire({
       title: "Berhasil!",
       text: "Data inventaris sudah berubah",
@@ -52,7 +52,7 @@ function InvEditPC() {
           timer: 700,
           showConfirmButton: false,
         });
-        navigate("/inventaris/list-PC");
+        navigate("/admin/inventaris/list-PC");
       }
     });
   };
@@ -288,4 +288,4 @@ function InvEditPC() {
   );
 }
 
-export default InvEditPC;
+export default InvAdminEditPC;

@@ -1,6 +1,5 @@
-import React from "react";
-import { useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import useStore from "../../data/Data.js";
@@ -31,6 +30,7 @@ function TableListInv() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await deleteFormNonPC(id);
+        await fetchDataNonPC();
         Swal.fire({
           title: "Terhapus!",
           text: "Inventaris sudah terhapus.",
@@ -94,6 +94,10 @@ function TableListInv() {
                         ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
                         : inv.status === "rusak berat"
                         ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
+                        : inv.status === "pinjam"
+                        ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
+                        : inv.status === "dipinjam"
+                        ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
                         : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
                     }`}
                   >

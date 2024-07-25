@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-import { useAuthStore } from "../../../data/Auth";
+import { useAuthStore } from "../../data/Auth.js";
 
-import Sidebar from "../../../components/global/Sidebar.jsx";
-import Navbar from "../../../components/global/Navbar.jsx";
-import icons from "../../../assets/icons/icon.jsx";
+import Sidebar from "../../components/global/Sidebar.jsx";
+import Navbar from "../../components/global/Navbar.jsx";
+import icons from "../../assets/icons/icon.jsx";
 
 function SignUp() {
   const navigate = useNavigate();

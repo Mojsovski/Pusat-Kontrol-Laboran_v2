@@ -106,7 +106,7 @@ function TableListPC() {
                 <td className="px-1 py-3 ">
                   <div className="w-full flex justify-center">
                     <Link
-                      to={`/inventaris/detail/${inv.id}`}
+                      to={`/admin/inventaris/detail/${inv.id}`}
                       className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-full shadow"
                     >
                       detail

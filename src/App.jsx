@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/login/LoginPage";
 import Home from "./pages/laboran/home/Home";
+//laboran
 import InvHome from "./pages/laboran/inventaris/InvHome";
 import InvInput from "./pages/laboran/inventaris/InvInput";
 import InvList from "./pages/laboran/inventaris/InvList";
@@ -9,11 +10,23 @@ import InvListPC from "./pages/laboran/inventaris/InvListPC";
 import InvRekap from "./pages/laboran/inventaris/InvRekap";
 import InvDetail from "./pages/laboran/inventaris/InvDetail";
 import InvEdit from "./pages/laboran/inventaris/InvEdit";
-import Setting from "./pages/laboran/setting/Setting";
+import InvEditPC from "./pages/laboran/inventaris/InvEditPC";
 import InvListNonPC from "./pages/laboran/inventaris/InvListNonPC";
-import ChangeAccount from "./pages/laboran/setting/ChangeAccount";
-import Users from "./pages/laboran/setting/Users";
-import SignUp from "./pages/laboran/setting/SignUp";
+//admin
+import InvAdminHome from "./pages/admin/inventaris/InvHome";
+import InvAdminInput from "./pages/admin/inventaris/InvInput";
+import InvAdminList from "./pages/admin/inventaris/InvList";
+import InvAdminListPC from "./pages/admin/inventaris/InvListPC";
+import InvAdminRekap from "./pages/admin/inventaris/InvRekap";
+import InvAdminDetail from "./pages/admin/inventaris/InvDetail";
+import InvAdminEdit from "./pages/admin/inventaris/InvEdit";
+import InvAdminEditPC from "./pages/admin/inventaris/InvEditPC";
+import InvAdminListNonPC from "./pages/admin/inventaris/InvListNonPC";
+//setting
+import Setting from "./pages/setting/Setting";
+import ChangeAccount from "./pages/setting/ChangeAccount";
+import Users from "./pages/setting/Users";
+import SignUp from "./pages/setting/SignUp";
 
 import ProtectedRoute from "./router/ProtectedRoute";
 
@@ -21,6 +34,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
+      {/* Role Laboran */}
       <Route
         path="/home"
         element={
@@ -94,21 +108,88 @@ function App() {
         }
       />
       <Route
-        path="/user"
+        path="/inventaris/editpc/:id"
         element={
           <ProtectedRoute>
-            <Setting />
+            <InvEditPC />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Role Admin */}
+      <Route
+        path="/admin/home"
+        element={
+          <ProtectedRoute>
+            <InvAdminHome />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/user/setting"
+        path="/admin/inventaris/input"
         element={
           <ProtectedRoute>
-            <ChangeAccount />
+            <InvAdminInput />
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/admin/inventaris/rekap"
+        element={
+          <ProtectedRoute>
+            <InvAdminRekap />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/inventaris/list-PC"
+        element={
+          <ProtectedRoute>
+            <InvAdminListPC />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/inventaris/listinventaris"
+        element={
+          <ProtectedRoute>
+            <InvAdminList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/inventaris/list-nonpc"
+        element={
+          <ProtectedRoute>
+            <InvAdminListNonPC />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/inventaris/detail/:id"
+        element={
+          <ProtectedRoute>
+            <InvAdminDetail />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/inventaris/edit/:id"
+        element={
+          <ProtectedRoute>
+            <InvAdminEdit />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/inventaris/editpc/:id"
+        element={
+          <ProtectedRoute>
+            <InvAdminEditPC />
+          </ProtectedRoute>
+        }
+      />
+      {/* user management */}
       <Route
         path="/users"
         element={
@@ -122,6 +203,22 @@ function App() {
         element={
           <ProtectedRoute>
             <SignUp />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/user"
+        element={
+          <ProtectedRoute>
+            <Setting />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/user/setting"
+        element={
+          <ProtectedRoute>
+            <ChangeAccount />
           </ProtectedRoute>
         }
       />
