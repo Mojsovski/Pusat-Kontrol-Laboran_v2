@@ -22,7 +22,7 @@ function InvAdminEditPC() {
   const handleUpdateInv = async (e) => {
     e.preventDefault();
     await updateForm();
-    navigate("/admin/inventaris/list-PC");
+    navigate(-1);
     Swal.fire({
       title: "Berhasil!",
       text: "Data inventaris sudah berubah",

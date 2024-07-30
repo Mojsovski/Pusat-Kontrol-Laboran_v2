@@ -30,7 +30,7 @@ function Setting() {
             <div className="w-3/4 flex items-center space-x-8">
               <img
                 className=" size-40 rounded-full object-cover"
-                src="https://mahasiswa.dinus.ac.id/images/foto/A/A12/2020/A12.2020.06406.jpg"
+                src="https://static.vecteezy.com/system/resources/thumbnails/005/129/844/small_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg"
                 alt="user photo"
               />
               <div className="space-y-3">

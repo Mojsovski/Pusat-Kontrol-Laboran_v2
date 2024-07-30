@@ -3,19 +3,12 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import useStore from "../../data/Data.js";
-import { useAuthStore } from "../../data/Auth";
 
 import icons from "../../assets/icons/icon.jsx";
 
 function TableListPC() {
   const { invpc, fetchData } = useStore();
-  const { user } = useAuthStore((state) => ({ user: state.user }));
-
-  // Filter based on user's room
-  const filterUser = invpc.filter(
-    (inv) => inv.room === user?.user_metadata?.room
-  );
-  const filterPC = filterUser.sort((a, b) => a.name.localeCompare(b.name));
+  const filterPC = invpc.sort((a, b) => a.name.localeCompare(b.name));
 
   useEffect(() => {
     fetchData();

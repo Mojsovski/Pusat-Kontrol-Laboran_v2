@@ -27,7 +27,7 @@ function InvAdminEdit() {
   const handleUpdateInv = async (e) => {
     e.preventDefault();
     await updateFormNonPC();
-    navigate("/admin/inventaris/list-nonpc");
+    navigate(-1);
     Swal.fire({
       title: "Berhasil!",
       text: "Data inventaris sudah berubah",
@@ -57,7 +57,6 @@ function InvAdminEdit() {
           timer: 700,
           showConfirmButton: false,
         });
-        navigate("/admin/inventaris/list-nonpc");
       }
     });
   };

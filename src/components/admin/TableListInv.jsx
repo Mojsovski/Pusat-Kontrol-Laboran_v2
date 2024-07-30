@@ -3,19 +3,14 @@ import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import useStore from "../../data/Data.js";
-import { useAuthStore } from "../../data/Auth";
 
 import icons from "../../assets/icons/icon.jsx";
 
 function TableListInv() {
   const navigate = useNavigate();
   const { inv, fetchDataNonPC, deleteFormNonPC } = useStore();
-  const { user } = useAuthStore((state) => ({ user: state.user }));
 
-  const filterUser = inv.filter(
-    (inv) => inv.room === user?.user_metadata?.room
-  );
-  const filterSort = filterUser.sort((a, b) => a.name.localeCompare(b.name));
+  const filterSort = inv.sort((a, b) => a.room.localeCompare(b.room));
 
   const handleDeleteInv = (id) => {
     Swal.fire({
@@ -63,6 +58,9 @@ function TableListInv() {
                 Jumlah
               </th>
               <th scope="col" className="px-3 py-3 ">
+                Ruang
+              </th>
+              <th scope="col" className="px-3 py-3 ">
                 Kondisi
               </th>
               <th scope="col" className="px-1 py-3">
@@ -81,6 +79,9 @@ function TableListInv() {
                 </td>
                 <td scope="col" className="px-1 py-3">
                   {inv.quantity}
+                </td>
+                <td scope="col" className="px-1 py-3">
+                  {inv.room}
                 </td>
                 <td
                   scope="col"

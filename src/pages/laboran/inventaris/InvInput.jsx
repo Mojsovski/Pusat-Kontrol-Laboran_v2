@@ -6,8 +6,8 @@ import useStore from "../../../data/Data";
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
-import TableInputNonPC from "../../../components/laboran/InvTableInput.jsx";
-import TableInputPC from "../../../components/laboran/InvTableInputPC.jsx";
+import FormInputNonPC from "../../../components/laboran/FormInput.jsx";
+import FormInputPC from "../../../components/laboran/FormInputPC.jsx";
 
 const useCategory = create((set) => ({
   selectedCategory: "",
@@ -59,8 +59,8 @@ function InvInput() {
             </div>
           </div>
 
-          {selectedCategory === "PC" && <TableInputPC />}
-          {selectedCategory === "Non PC" && <TableInputNonPC />}
+          {selectedCategory === "PC" && <FormInputPC />}
+          {selectedCategory === "Non PC" && <FormInputNonPC />}
         </div>
       </div>
     </div>

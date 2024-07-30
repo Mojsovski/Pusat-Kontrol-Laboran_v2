@@ -23,10 +23,12 @@ function LoginPage() {
   const onLogin = async () => {
     const user = await handleLogin();
     if (user) {
-      if (user.role === "admin") {
+      if (user.user_metadata.role === "admin") {
         navigate("/admin/home");
-      } else {
+      } else if (user.user_metadata.role === "laboran") {
         navigate("/inventaris");
+      } else {
+        navigate("/unauthenticated");
       }
     }
   };
@@ -52,14 +54,14 @@ function LoginPage() {
               <h3 className="text-2xl">Laboratorium Komputer</h3>
             </div>
             <div className="my-2">
-              <label className="ml-3 mb-1">Username</label>
+              <label className="ml-3 mb-1">Email</label>
               <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
                 <input
                   type="text"
-                  id="username"
+                  id="email"
                   name="email"
                   className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
-                  placeholder="NIM/NPP"
+                  placeholder="admin@gmail.com"
                   value={formData.email}
                   onChange={handleChange}
                 />

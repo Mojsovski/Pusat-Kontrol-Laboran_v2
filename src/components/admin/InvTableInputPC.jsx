@@ -24,7 +24,7 @@ function TableInputPC() {
   const handleSubmitPC = async (e) => {
     e.preventDefault();
     await submitForm();
-    navigate("/admin/inventaris/list-PC");
+    navigate(-1);
     Swal.fire({
       title: "Berhasil!",
       text: "Data inventaris sudah ditambahkan",
@@ -223,17 +223,32 @@ function TableInputPC() {
           </div>
           <div className="my-2">
             <label className="px-3 font-medium">Ruang Laboratorium</label>
-            <div className=" w-96 h-10 shadow-lg rounded-3xl ">
-              <input
+            <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
+              <select
                 value={formPC.room}
                 onChange={handleChange}
                 type="text"
                 id="room"
                 name="room"
-                className="block text-base pl-4 p-3 bg-[#e6e6e6] w-full h-full rounded-3xl focus:outline-none "
-                placeholder="contoh : D.2.C"
-                readOnly
-              />
+                className="block text-base pl-4  bg-white w-full h-full rounded-3xl focus:outline-none "
+              >
+                <option value="">pilih ruang laboratorium</option>
+                <option value="D.2.A">D.2.A</option>
+                <option value="D.2.B">D.2.B</option>
+                <option value="D.2.C">D.2.C</option>
+                <option value="D.2.D">D.2.D</option>
+                <option value="D.2.E">D.2.E</option>
+                <option value="D.2.F">D.2.F</option>
+                <option value="D.2.G">D.2.G</option>
+                <option value="D.2.H">D.2.H</option>
+                <option value="D.2.I">D.2.I</option>
+                <option value="D.2.J">D.2.J</option>
+                <option value="D.2.K">D.2.K</option>
+                <option value="D.3.J">D.3.L</option>
+                <option value="D.3.J">D.3.M</option>
+                <option value="D.3.J">D.3.N</option>
+                <option value="UPT">UPT</option>
+              </select>
             </div>
           </div>
         </div>

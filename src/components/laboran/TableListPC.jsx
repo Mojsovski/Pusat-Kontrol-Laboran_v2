@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import useStore from "../../data/Data.js";
@@ -8,7 +7,7 @@ import { useAuthStore } from "../../data/Auth";
 import icons from "../../assets/icons/icon.jsx";
 
 function TableListPC() {
-  const { invpc, fetchData } = useStore();
+  const { invpc, fetchData, loading, error } = useStore();
   const { user } = useAuthStore((state) => ({ user: state.user }));
 
   // Filter based on user's room
@@ -19,7 +18,15 @@ function TableListPC() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <>

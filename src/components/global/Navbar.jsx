@@ -31,11 +31,11 @@ const Navbar = ({ title, showButtonBack }) => {
           >
             <img
               className="w-[35px] h-[35px] rounded-full object-cover"
-              src="https://mahasiswa.dinus.ac.id/images/foto/A/A12/2020/A12.2020.06406.jpg"
+              src="https://static.vecteezy.com/system/resources/thumbnails/005/129/844/small_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg"
               alt="user photo"
             />
             <span className="p-2 font-medium flex ">
-              {user.user_metadata.name}
+              {user.user_metadata.name} - {user.user_metadata.role}
             </span>
           </button>
         </div>

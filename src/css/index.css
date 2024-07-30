@@ -68,27 +68,27 @@ body {
   font-size: 24px;
 }
 
-.headline-1{
+.headline-1 {
   font-family: "MangoGrotesque", sans-serif;
   letter-spacing: 1px;
   line-height: 1;
 }
 
-.headline-2{
-  font-family: "MangoGrotesque", sans-serif;
-  letter-spacing: 1px;
-  line-height: 1;
-  font-size: 90px;
-}
-
-.headline-3{
+.headline-2 {
   font-family: "MangoGrotesque", sans-serif;
   letter-spacing: 1px;
   line-height: 1;
   font-size: 90px;
 }
 
-.headline-4{
+.headline-3 {
+  font-family: "MangoGrotesque", sans-serif;
+  letter-spacing: 1px;
+  line-height: 1;
+  font-size: 90px;
+}
+
+.headline-4 {
   font-family: "MangoGrotesque", sans-serif;
   letter-spacing: 1px;
   line-height: 1;

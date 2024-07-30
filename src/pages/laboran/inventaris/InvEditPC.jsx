@@ -11,7 +11,7 @@ import icons from "../../../assets/icons/icon.jsx";
 function InvEditPC() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { fetchDataById, formPC, updateFormPC, updateForm, deleteForm } =
+  const { ivnpc, fetchDataById, formPC, updateFormPC, updateForm, deleteForm } =
     useStore();
 
   const handleChange = (e) => {
@@ -87,11 +87,10 @@ function InvEditPC() {
                     type="text"
                     id="name"
                     name="name"
-                    className="block text-base pl-4 p-3 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none "
+                    className="block text-base pl-4 p-3  w-full h-full rounded-3xl focus:outline-none "
                     placeholder="contoh : D2I-01"
                     value={formPC.name}
                     onChange={handleChange}
-                    readOnly
                   />
                 </div>
               </div>

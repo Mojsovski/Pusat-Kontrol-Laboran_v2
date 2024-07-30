@@ -8,6 +8,7 @@ import { useAuthStore } from "../../../data/Auth.js";
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
+import ExportInv from "./InvExport.jsx";
 
 function InvHome() {
   const { inv, invpc, fetchData, fetchDataNonPC } = useStore();
@@ -55,47 +56,40 @@ function InvHome() {
   }, []);
 
   return (
-    <div className="h-screen bg-[#C4C4C4] relative  ">
+    <div className="w-full h-screen bg-[#C4C4C4]  ">
       <Sidebar />
       <Navbar title="Dashboard" />
-      <div className=" pr-10 py-28 pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4] relative space-y-6">
+      <div className=" pr-10 py-28 pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4] space-y-6">
         {/* column 1 */}
-        <div className="flex gap-5 relative">
+        <div className="h-[250px] flex space-x-4 relative">
           {/* button */}
-          <div className="w-96 h-10  space-y-7 relative">
+          <div className="w-3/12 flex flex-col justify-between  ">
             <Link
               to={"/inventaris/input"}
-              className="relative w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
+              className="w-[270px] h-[50px] rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row items-center justify-center gap-4 font-semibold"
             >
               <img src={icons.inputPC} className="w-[19px] " />
               Input Inventaris Lab
             </Link>
             <Link
               to={"/inventaris/list-nonpc"}
-              className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
+              className="w-[270px] h-[50px] rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row items-center justify-center gap-4 font-semibold"
             >
               <img src={icons.editPC} className="w-[21px] " />
               Edit Inventaris Lab
             </Link>
             <Link
-              to={"/inventaris/input"}
-              className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
+              to={"/downloadrekap"}
+              className="w-[270px] h-[50px] rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row items-center justify-center gap-4 font-semibold"
             >
               <img src={icons.verifikasiPC} className="w-[19px] " />
               Verifikasi Bulanan
             </Link>
-            <Link
-              to={"/inventaris/input"}
-              className="w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
-            >
-              <img src={icons.inputPC} className="w-[19px]" />
-              Input Inventaris
-            </Link>
           </div>
 
           {/* card 1*/}
-          <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md ">
-            <div className=" h-10 flex flex-row justify-between items-center">
+          <div className="w-9/12 px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md  ">
+            <div className=" flex flex-row justify-between items-center">
               <div className="flex flex-row gap-4 ">
                 <img src={icons.rekapPC} className="w-[25px] " />
                 <div className="p-1 font-semibold text-xl ">
@@ -112,10 +106,10 @@ function InvHome() {
               </Link>
             </div>
             {/* table */}
-            <div className="py-5 gap-7 px-5 h-[169px]  text-8xl flex flex-row justify-between items-start">
+            <div className="py-5 gap-7 px-5 h-[169px]  text-8xl flex flex-row justify-between items-start relative">
               {/*  1 */}
-              <div className="flex justify-start gap-3">
-                <div className="space-y-5">
+              <div className="flex justify-start gap-3 ">
+                <div className="space-y-5 ">
                   <div className=" text-base font-semibold">
                     Komputer Cilent
                   </div>
@@ -158,18 +152,6 @@ function InvHome() {
                   <div className="text-base font-semibold">{countPinjam}</div>
                   <div className="text-base font-semibold">{countDipinjam}</div>
                   <div className="text-base font-semibold">{countTotal}</div>
-                </div>
-              </div>
-            </div>
-            <div className=" flex justify-between ">
-              <div className="px-5 h-7 rounded-2xl bg-[#0F4C92] shadow flex items-center justify-center">
-                <div className=" text-center text-white text-xs  ">
-                  terakhir update : 14 Juni 2023
-                </div>
-              </div>
-              <div className="px-5 h-7 rounded-2xl bg-[#FF0000] shadow flex items-center justify-center ">
-                <div className=" text-center text-white text-xs ">
-                  belum verifikasi
                 </div>
               </div>
             </div>

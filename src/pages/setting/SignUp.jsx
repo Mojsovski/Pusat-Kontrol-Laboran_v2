@@ -53,18 +53,18 @@ function SignUp() {
               <div className="space-y-8 ">
                 <img
                   className=" size-52 rounded-full object-cover"
-                  src="https://mahasiswa.dinus.ac.id/images/foto/A/A12/2020/A12.2020.06406.jpg"
+                  src="https://static.vecteezy.com/system/resources/thumbnails/005/129/844/small_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg"
                   alt="user photo"
                 />
               </div>
-              <div className="w-28 flex flex-row items-center justify-center ">
+              {/* <div className="w-28 flex flex-row items-center justify-center ">
                 <Link
                   to={"/user/setting"}
                   className="w-32 h-10 py-2 shadow-lg rounded-3xl text-center bg-blue-800 hover:bg-blue-700 text-white"
                 >
                   edit profil
                 </Link>
-              </div>
+              </div> */}
             </div>
             {/* col 2 */}
             <div className="w-3/4 space-y-5">
@@ -118,7 +118,7 @@ function SignUp() {
               </div>
               <div className="h-10 px-7 shadow-lg rounded-3xl flex flex-row justify-between items-center bg-[#fbfbfb]">
                 <div className="text-start font-semibold">Status</div>
-                <input
+                <select
                   type="text"
                   className="w-64 text-end"
                   id="role"
@@ -126,13 +126,17 @@ function SignUp() {
                   placeholder="ketik di sini"
                   value={formData.role}
                   onChange={handleChange}
-                />
+                >
+                  <option value="">pilih role</option>
+                  <option value="laboran">laboran</option>
+                  <option value="admin">admin</option>
+                </select>
               </div>
               <div className="h-10 px-7 shadow-lg rounded-3xl flex flex-row justify-between items-center bg-[#fbfbfb]">
                 <div className="text-start font-semibold">
                   Ruang Laboratorium
                 </div>
-                <input
+                <select
                   type="text"
                   className="w-64 text-end"
                   id="room"
@@ -140,7 +144,24 @@ function SignUp() {
                   placeholder="ketik di sini"
                   value={formData.room}
                   onChange={handleChange}
-                />
+                >
+                  <option value="">pilih ruang laboratorium</option>
+                  <option value="D.2.A">D.2.A</option>
+                  <option value="D.2.B">D.2.B</option>
+                  <option value="D.2.C">D.2.C</option>
+                  <option value="D.2.D">D.2.D</option>
+                  <option value="D.2.E">D.2.E</option>
+                  <option value="D.2.F">D.2.F</option>
+                  <option value="D.2.G">D.2.G</option>
+                  <option value="D.2.H">D.2.H</option>
+                  <option value="D.2.I">D.2.I</option>
+                  <option value="D.2.J">D.2.J</option>
+                  <option value="D.2.K">D.2.K</option>
+                  <option value="D.3.J">D.3.L</option>
+                  <option value="D.3.J">D.3.M</option>
+                  <option value="D.3.J">D.3.N</option>
+                  <option value="UPT">UPT</option>
+                </select>
               </div>
 
               <div className="h-10 px-7 shadow-lg rounded-3xl flex flex-row justify-between items-center bg-[#fbfbfb]">

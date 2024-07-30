@@ -100,19 +100,27 @@ const Sidebar = () => {
                 <span className="ms-3 justify-center">List Inventaris</span>
               </Link>
             </li>
-            <li>
-              <Link
-                to={
-                  user?.user_metadata?.role === "admin"
-                    ? "/admin/inventaris/rekap"
-                    : "/inventaris/rekap"
-                }
-                className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
-              >
-                <img src={logoJaringan} className="w-[30px] h-8 " />
-                <span className="ms-3 justify-center">Rekap Inventaris</span>
-              </Link>
-            </li>
+            {user?.user_metadata?.role === "admin" ? (
+              <li>
+                <Link
+                  to={"/admin/inventaris/ruanglab"}
+                  className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
+                >
+                  <img src={logoJaringan} className="w-[30px] h-8 " />
+                  <span className="ms-3 justify-center">Rekap Ruang</span>
+                </Link>
+              </li>
+            ) : (
+              <li>
+                <Link
+                  to={"/inventaris/rekap"}
+                  className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
+                >
+                  <img src={logoJaringan} className="w-[30px] h-8 " />
+                  <span className="ms-3 justify-center">Rekap Inventaris</span>
+                </Link>
+              </li>
+            )}
             {user?.user_metadata?.role === "admin" ? (
               <li>
                 <Link

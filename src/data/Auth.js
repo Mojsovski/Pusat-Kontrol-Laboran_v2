@@ -68,15 +68,15 @@ export const signup = async (
   }
   const user = data.user;
 
-  // Auto authenticate the user after signup
-  const { data: loginData, error: loginError } =
-    await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-  if (loginError) {
-    throw loginError;
-  }
+  // // Auto authenticate the user after signup
+  // const { data: loginData, error: loginError } =
+  //   await supabase.auth.signInWithPassword({
+  //     email,
+  //     password,
+  //   });
+  // if (loginError) {
+  //   throw loginError;
+  // }
 
   const token = loginData.session.access_token; // Ambil token dari data sesi
   const decodedToken = jwtDecode(token); // Decode token untuk mendapatkan informasi tambahan

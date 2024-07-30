@@ -14,9 +14,11 @@ const useStore = create((set) => ({
     id: "",
     name: "",
     status: "",
+    condition: {},
     room: "",
     primaryItem: false,
     pc: {},
+    comment: "",
   },
   formInv: {
     id: "",
@@ -224,9 +226,11 @@ const useStore = create((set) => ({
         id: "",
         name: "",
         status: "",
+        condition: {},
         room: "",
         primaryItem: false,
         pc: {},
+        comment: "",
       },
     }),
   //Non PC
@@ -251,6 +255,8 @@ const useStore = create((set) => ({
         room: "",
         primaryItem: false,
         pc: {},
+        condition: {},
+        comment: "",
       },
     }),
 }));

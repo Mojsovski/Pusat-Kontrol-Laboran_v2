@@ -22,6 +22,11 @@ import InvAdminDetail from "./pages/admin/inventaris/InvDetail";
 import InvAdminEdit from "./pages/admin/inventaris/InvEdit";
 import InvAdminEditPC from "./pages/admin/inventaris/InvEditPC";
 import InvAdminListNonPC from "./pages/admin/inventaris/InvListNonPC";
+import InvRoom from "./pages/admin/inventaris/InvRoom";
+import InvAllRekap from "./pages/admin/inventaris/InvAllRekap";
+import InvAllListPC from "./pages/admin/inventaris/InvAllListPC";
+import InvAllListNonPC from "./pages/admin/inventaris/InvAllListNonPC";
+import ExportInv from "./pages/laboran/inventaris/InvExport";
 //setting
 import Setting from "./pages/setting/Setting";
 import ChangeAccount from "./pages/setting/ChangeAccount";
@@ -126,6 +131,14 @@ function App() {
         }
       />
       <Route
+        path="/admin/inventaris/ruanglab"
+        element={
+          <ProtectedRoute>
+            <InvRoom />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/admin/inventaris/input"
         element={
           <ProtectedRoute>
@@ -219,6 +232,39 @@ function App() {
         element={
           <ProtectedRoute>
             <ChangeAccount />
+          </ProtectedRoute>
+        }
+      />
+      {/* room */}
+      <Route
+        path="/admin/inventaris/rekap/:room"
+        element={
+          <ProtectedRoute>
+            <InvAllRekap />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/inventaris/listPC/:room"
+        element={
+          <ProtectedRoute>
+            <InvAllListPC />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/inventaris/list/:room"
+        element={
+          <ProtectedRoute>
+            <InvAllListNonPC />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/downloadrekap"
+        element={
+          <ProtectedRoute>
+            <ExportInv />
           </ProtectedRoute>
         }
       />

@@ -11,7 +11,7 @@ function UsersTable() {
   const navigate = useNavigate();
   const { user, fetchProfile } = useProfileStore();
 
-  const filterUsers = user.sort((a, b) => a.name.localeCompare(b.name));
+  const filterUsers = user.sort((a, b) => a.room.localeCompare(b.room));
 
   const handleDeleteInv = (id) => {
     Swal.fire({
@@ -33,7 +33,7 @@ function UsersTable() {
           timer: 700,
           showConfirmButton: false,
         });
-        navigate("/inventaris/list-nonpc");
+        navigate("/users");
       }
     });
   };
@@ -61,6 +61,9 @@ function UsersTable() {
                 Status
               </th>
               <th scope="col" className="px-1 py-3 ">
+                Nomer HP
+              </th>
+              <th scope="col" className="px-1 py-3 ">
                 Ruang Lab
               </th>
               <th scope="col" className="px-1 py-3">
@@ -82,6 +85,9 @@ function UsersTable() {
                 </td>
                 <td scope="col" className="px-1 py-3">
                   {user.role}
+                </td>
+                <td scope="col" className="px-1 py-3">
+                  {user.phone_number}
                 </td>
                 <td scope="col" className="px-1 py-3">
                   {user.room}

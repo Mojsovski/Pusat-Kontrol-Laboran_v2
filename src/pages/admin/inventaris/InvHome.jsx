@@ -13,41 +13,28 @@ function InvAdminHome() {
   const { inv, invpc, fetchData, fetchDataNonPC } = useStore();
   const { user } = useAuthStore.getState();
 
-  const filterPrimaryPC = invpc.filter(
-    (item) => item.primaryItem === true && item.room === user.user_metadata.room
-  );
+  const filterPrimaryPC = invpc.filter((item) => item.primaryItem === true);
 
-  const filterNonPC = inv.filter(
-    (item) => item.room === user.user_metadata.room
-  );
+  const filterNonPC = inv.filter((item) => item.room);
   const limitInv = filterNonPC.slice(0, 3);
 
-  const countCategory = (category) =>
-    invpc.filter(
-      (item) =>
-        item.pc.category === category && item.room === user.user_metadata.room
-    ).length;
-  const countClient = countCategory("client");
+  const countCategory = (room) =>
+    invpc.filter((item) => item.room === room).length;
+  const countClient = countCategory("D.2.I");
   const countDosen = countCategory("dosen");
   const countLaboran = countCategory("laboran");
   const countCadangan = countCategory("cadangan");
 
   const countStatus = (status) =>
-    invpc.filter(
-      (item) => item.status === status && item.room === user.user_metadata.room
-    ).length;
+    invpc.filter((item) => item.status === status).length;
   const countPinjam = countStatus("pinjam");
   const countDipinjam = countStatus("dipinjam");
 
   const countRusak = invpc.filter(
-    (item) =>
-      (item.status === "rusak ringan" || item.status === "rusak berat") &&
-      item.room === user.user_metadata.room
+    (item) => item.status === "rusak ringan" || item.status === "rusak berat"
   ).length;
 
-  const countTotal = invpc.filter(
-    (item) => item.room === user.user_metadata.room
-  ).length;
+  const countTotal = invpc.filter((item) => item.room).length;
 
   useEffect(() => {
     fetchData();
@@ -62,7 +49,7 @@ function InvAdminHome() {
         {/* column 1 */}
         <div className="flex gap-5 relative">
           {/* button */}
-          <div className="w-96 h-10  space-y-7 relative">
+          <div className="w-96 space-y-7 relative">
             <Link
               to={"/inventaris/input"}
               className="relative w-full h-12 rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row px-7 py-2 items-center gap-4 font-semibold"
@@ -112,17 +99,14 @@ function InvAdminHome() {
               </Link>
             </div>
             {/* table */}
-            <div className="py-5 gap-7 px-5 h-[169px]  text-8xl flex flex-row justify-between items-start">
+            <div className="py-5 gap-7 px-5  text-8xl flex flex-row justify-between items-start">
               {/*  1 */}
               <div className="flex justify-start gap-3">
                 <div className="space-y-5">
-                  <div className=" text-base font-semibold">
-                    Komputer Cilent
-                  </div>
-                  <div className="text-base font-semibold">Komputer Dosen</div>
-                  <div className="text-base font-semibold">
-                    Komputer Laboran
-                  </div>
+                  <div className=" text-base font-semibold">Komputer D.2.A</div>
+                  <div className="text-base font-semibold">Komputer D.2.B</div>
+                  <div className="text-base font-semibold">Komputer D.2.C</div>
+                  <div className="text-base font-semibold">Komputer D.2.D</div>
                 </div>
                 <div className="space-y-5">
                   <div className=" text-base font-semibold">{countClient}</div>
@@ -263,28 +247,6 @@ function InvAdminHome() {
         </div>
 
         {/* column 3 */}
-        {/* <div className="flex gap-5 relative  ">
-          <div className="w-full h-[277px] px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
-            <div className=" h-10 flex flex-row gap-4">
-              <img src={icons.rekapPC} className="w-[35px] " />
-              <div className="p-1 font-semibold text-xl ">Rekap</div>
-            </div>
-            <div className="h-32 text-center text-8xl flex justify-center items-center ">
-              D.2.I
-            </div>
-            <div className="h-10 text-center text-base flex justify-center items-center ">
-              Shift : Siang (14.00-21.00)
-            </div>
-            <div className="h-9 flex justify-center items-center">
-              <div className="w-36 h-7 py-1 rounded-2xl bg-[#07AC22]">
-                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
-                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
-        {/* column 4 */}
         <div className=" flex gap-5 relative  ">
           {/* row 1 */}
           <div className=" w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
@@ -363,13 +325,6 @@ function InvAdminHome() {
               </table>
             </div>
           </div>
-          {/* row 2 */}
-          {/* <div className="w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
-            <div className=" h-10 flex flex-row gap-4">
-              <img src={icons.rekapPC} className="w-[25px] " />
-              <div className="p-1 font-semibold text-xl ">Rekap</div>
-            </div>
-          </div> */}
         </div>
       </div>
     </div>
