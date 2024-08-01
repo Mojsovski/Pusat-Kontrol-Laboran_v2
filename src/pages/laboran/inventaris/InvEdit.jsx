@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 import useStore from "../../../data/Data.js";
 
@@ -157,7 +158,7 @@ function InvEdit() {
                   onClick={handleDeleteInv}
                   className="px-16 py-2 shadow-lg rounded-3xl bg-red-500 text-white"
                 >
-                  hapus
+                  <DeleteForeverRoundedIcon />
                 </button>
               </div>
               <div className="pt-10 flex justify-end">

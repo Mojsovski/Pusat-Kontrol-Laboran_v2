@@ -8,6 +8,7 @@ import UdinusLogo from "../../assets/images/UdinusLogo.png";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useEffect } from "react";
 
 const useHidePsw = create((set) => ({
   hidePassword: true,
@@ -37,6 +38,10 @@ function LoginPage() {
     const { name, value } = e.target;
     setFormData({ [name]: value });
   };
+
+  useEffect(() => {
+    document.title = "Login - Pusat Kontrol Laboran";
+  }, []);
 
   return (
     <>

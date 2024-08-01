@@ -1,16 +1,21 @@
 import React, { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
 
 import useStore from "../../data/Data.js";
 import { useAuthStore } from "../../data/Auth";
+import usePaginationStore from "../../data/Pagination.js";
 
 import icons from "../../assets/icons/icon.jsx";
+import Pagination from "../global/Pagination.jsx";
 
 function TableListInv() {
   const navigate = useNavigate();
   const { inv, fetchDataNonPC, deleteFormNonPC } = useStore();
   const { user } = useAuthStore((state) => ({ user: state.user }));
+  const { currentPage, itemsPerPage, setCurrentPage } = usePaginationStore();
 
   const filterUser = inv.filter(
     (inv) => inv.room === user?.user_metadata?.room
@@ -42,6 +47,10 @@ function TableListInv() {
       }
     });
   };
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filterSort.slice(indexOfFirstItem, indexOfLastItem);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     fetchDataNonPC();
@@ -109,17 +118,17 @@ function TableListInv() {
                     <div className="w-full flex justify-center">
                       <Link
                         to={`/inventaris/edit/${inv.id}`}
-                        className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-full shadow"
+                        className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-xl shadow"
                       >
-                        edit
+                        <EditRoundedIcon />
                       </Link>
                     </div>
                     <div className="w-full flex justify-center">
                       <button
                         onClick={() => handleDeleteInv(inv.id)}
-                        className="bg-red-500 text-white py-1 w-20  items-center flex justify-center rounded-full shadow"
+                        className="bg-red-500 hover:bg-red-400 text-white py-1 w-20  items-center flex justify-center rounded-xl shadow"
                       >
-                        hapus
+                        <DeleteForeverRoundedIcon />
                       </button>
                     </div>
                   </div>
@@ -128,6 +137,13 @@ function TableListInv() {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className=" flex justify-end">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={Math.ceil(filterSort.length / itemsPerPage)}
+          paginate={paginate}
+        />
       </div>
     </>
   );

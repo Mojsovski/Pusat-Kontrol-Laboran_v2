@@ -64,7 +64,7 @@ function ExportInv() {
           const imgData3 = canvas.toDataURL("image/png");
           const imgHeight3 = (canvas.height * imgWidth) / canvas.width;
           pdf.addImage(imgData3, "PNG", 10, 10, imgWidth, imgHeight3);
-          pdf.save("checklist.pdf");
+          pdf.save("Rekap Inventaris.pdf");
         });
       });
     });

@@ -36,12 +36,12 @@ function FormInputNonPC() {
 
   return (
     <>
-      <div className="px-11 flex flex-row justify-between my-3">
+      <div className="px-5 md:px-11 flex flex-col md:flex-row md:flex-auto justify-between my-3 sm:space-x-10">
         {/* row 1 */}
-        <div className="space-y-6">
+        <div className="space-y-7 md:space-y-6 sm:w-full md:w-[400px]">
           <div className="my-2">
             <label className="px-3 font-medium ">Nama barang</label>
-            <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
+            <div className=" h-10 shadow-lg rounded-3xl">
               <input
                 type="text"
                 id="name"
@@ -55,7 +55,7 @@ function FormInputNonPC() {
           </div>
           <div className="my-2">
             <label className="px-3 font-medium ">Jumlah Barang</label>
-            <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
+            <div className="  h-10 shadow-lg rounded-3xl bg-white">
               <input
                 type="text"
                 id="quantity"
@@ -69,7 +69,7 @@ function FormInputNonPC() {
           </div>
           <div className="my-2">
             <label className="px-3 font-medium">Kondisi barang</label>
-            <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
+            <div className="  h-10 shadow-lg rounded-3xl bg-white">
               <select
                 value={formInv.status}
                 onChange={handleChange}
@@ -89,7 +89,7 @@ function FormInputNonPC() {
           </div>
           <div className="my-2">
             <label className="px-3 font-medium">Ruang Laboratorium</label>
-            <div className=" w-96 h-10 shadow-lg rounded-3xl ">
+            <div className=" h-10 shadow-lg rounded-3xl ">
               <input
                 value={formInv.room}
                 onChange={handleChange}

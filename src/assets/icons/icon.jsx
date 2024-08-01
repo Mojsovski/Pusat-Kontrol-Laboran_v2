@@ -4,7 +4,9 @@ import verifikasiPC from "../icons/verifikasi.svg";
 import editPC from "../icons/pcedit.svg";
 import rekapPC from "../icons/inv2.svg";
 import bandwidth from "../icons/jaringan.svg";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
+const logoDelete = DeleteForeverRoundedIcon;
 const icons = {
   home,
   inputPC,
@@ -12,6 +14,7 @@ const icons = {
   editPC,
   rekapPC,
   bandwidth,
+  logoDelete,
 };
 
 export default icons;

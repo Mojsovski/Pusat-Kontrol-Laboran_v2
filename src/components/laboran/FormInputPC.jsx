@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import DrawIcon from "@mui/icons-material/Draw";
+
 import useStore from "../../data/Data";
 import { useAuthStore } from "../../data/Auth";
 
@@ -36,9 +38,9 @@ function FormInputPC() {
 
   return (
     <>
-      <div className="px-11 flex flex-row justify-between my-3 space-x-10">
+      <div className="px-5 lg:px-11 flex flex-col lg:flex-row lg:flex-auto justify-between my-3 lg:space-x-10">
         {/* row 1 */}
-        <div className="space-y-6 w-1/2">
+        <div className="space-y-7 md:space-y-6 lg:w-1/2">
           <div className="my-2">
             <label className="px-3 font-medium ">Nama Komputer</label>
             <div className=" h-10 shadow-lg rounded-3xl  ">
@@ -227,7 +229,7 @@ function FormInputPC() {
           </div>
         </div>
         {/* row 2 */}
-        <div className="space-y-6 w-1/2">
+        <div className="space-y-7 md:space-y-6 lg:w-1/2">
           <div className="my-2">
             <label className="px-3 font-medium">Kondisi Barang</label>
             <div className="  h-10 shadow-lg rounded-3xl bg-white">
@@ -436,7 +438,7 @@ function FormInputPC() {
           </div>
         </div>
       </div>
-      <div className="mb-3 px-11 pt-14 flex flex-row justify-end items-center space-x-5">
+      <div className="mb-3 px-11 pt-14 flex flex-col md:flex-row justify-end md:items-center md:space-x-5">
         <div className="flex items-center py-2 ">
           <div className="flex h-5">
             <input
@@ -460,9 +462,9 @@ function FormInputPC() {
         <button
           onClick={handleSubmitPC}
           type="submit"
-          className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
+          className="px-16 py-2 shadow-lg rounded-xl bg-blue-800 hover:bg-blue-600 text-white"
         >
-          Input
+          <DrawIcon /> Input
         </button>
       </div>
     </>

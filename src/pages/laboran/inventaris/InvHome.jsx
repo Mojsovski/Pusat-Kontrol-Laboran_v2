@@ -8,7 +8,6 @@ import { useAuthStore } from "../../../data/Auth.js";
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
-import ExportInv from "./InvExport.jsx";
 
 function InvHome() {
   const { inv, invpc, fetchData, fetchDataNonPC } = useStore();
@@ -53,114 +52,128 @@ function InvHome() {
   useEffect(() => {
     fetchData();
     fetchDataNonPC();
+    document.title = "Dashboard - Pusat Kontrol Laboran";
   }, []);
 
   return (
-    <div className="w-full h-screen bg-[#C4C4C4]  ">
+    <>
       <Sidebar />
       <Navbar title="Dashboard" />
-      <div className=" pr-10 py-28 pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4] space-y-6">
-        {/* column 1 */}
-        <div className="h-[250px] flex space-x-4 relative">
-          {/* button */}
-          <div className="w-3/12 flex flex-col justify-between  ">
-            <Link
-              to={"/inventaris/input"}
-              className="w-[270px] h-[50px] rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row items-center justify-center gap-4 font-semibold"
-            >
-              <img src={icons.inputPC} className="w-[19px] " />
-              Input Inventaris Lab
-            </Link>
-            <Link
-              to={"/inventaris/list-nonpc"}
-              className="w-[270px] h-[50px] rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row items-center justify-center gap-4 font-semibold"
-            >
-              <img src={icons.editPC} className="w-[21px] " />
-              Edit Inventaris Lab
-            </Link>
-            <Link
-              to={"/downloadrekap"}
-              className="w-[270px] h-[50px] rounded-3xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row items-center justify-center gap-4 font-semibold"
-            >
-              <img src={icons.verifikasiPC} className="w-[19px] " />
-              Verifikasi Bulanan
-            </Link>
-          </div>
-
-          {/* card 1*/}
-          <div className="w-9/12 px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md  ">
-            <div className=" flex flex-row justify-between items-center">
-              <div className="flex flex-row gap-4 ">
-                <img src={icons.rekapPC} className="w-[25px] " />
-                <div className="p-1 font-semibold text-xl ">
-                  Rekap Inventaris
-                </div>
-              </div>
+      <div className=" h-screen bg-[#C4C4C4]  ">
+        <div className=" px-5 md:pr-10 py-28 md:pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4] space-y-6">
+          {/* column 1 */}
+          <div className=" flex flex-col xl:flex-row gap-5  ">
+            {/* button */}
+            <div className="flex flex-col  justify-between space-y-3 ">
               <Link
-                to={"/inventaris/rekap"}
-                className="px-5 h-6 rounded-2xl bg-[#F5BD45] flex items-center shadow"
+                to={"/inventaris/input"}
+                className="xl:w-[270px]  h-[50px] rounded-xl bg-neutral-300  hover:bg-neutral-100 shadow-md flex flex-row items-center justify-center gap-4 font-semibold"
               >
-                <div className="  text-black text-xs font-medium  ">
-                  selengkapnya
-                </div>
+                <img src={icons.inputPC} className="md:w-[19px] w-[14px] " />
+                Input Inventaris Lab
+              </Link>
+              <Link
+                to={"/inventaris/list-nonpc"}
+                className="xl:w-[270px]  h-[50px] rounded-xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row items-center justify-center gap-4 font-semibold"
+              >
+                <img src={icons.editPC} className="w-[21px] " />
+                Edit Inventaris Lab
+              </Link>
+              <Link
+                to={"/downloadrekap"}
+                className="xl:w-[270px] h-[50px] rounded-xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row items-center justify-center gap-4 font-semibold"
+              >
+                <img src={icons.verifikasiPC} className="w-[19px] " />
+                Verifikasi Bulanan
               </Link>
             </div>
-            {/* table */}
-            <div className="py-5 gap-7 px-5 h-[169px]  text-8xl flex flex-row justify-between items-start relative">
-              {/*  1 */}
-              <div className="flex justify-start gap-3 ">
-                <div className="space-y-5 ">
-                  <div className=" text-base font-semibold">
-                    Komputer Cilent
-                  </div>
-                  <div className="text-base font-semibold">Komputer Dosen</div>
-                  <div className="text-base font-semibold">
-                    Komputer Laboran
+
+            {/* card 1*/}
+            <div className=" px-8 py-5 w-full bg-neutral-300 rounded-3xl shadow-md   ">
+              <div className=" flex flex-row justify-between items-center">
+                <div className="flex flex-row gap-4 ">
+                  <img src={icons.rekapPC} className="w-[25px] " />
+                  <div className="p-1 font-semibold text-xl ">
+                    Rekap Komputer
                   </div>
                 </div>
-                <div className="space-y-5">
-                  <div className=" text-base font-semibold">{countClient}</div>
-                  <div className="text-base font-semibold">{countDosen}</div>
-                  <div className="text-base font-semibold">{countLaboran}</div>
-                </div>
+                <Link
+                  to={"/inventaris/rekap"}
+                  className="px-5 h-6 rounded-2xl bg-[#F5BD45] flex items-center shadow"
+                >
+                  <div className="  text-black text-xs font-medium  ">
+                    selengkapnya
+                  </div>
+                </Link>
               </div>
-              {/*  2 */}
-              <div className="flex justify-start gap-3">
-                <div className="space-y-5">
-                  <div className="text-base font-semibold">
-                    Komputer Cadangan
+              {/* table */}
+              <div className="flex-col lg:flex-row py-5 gap-7 px-5 text-8xl flex  justify-between items-start relative ">
+                {/*  1 */}
+                <div className="flex justify-start gap-3 ">
+                  <div className="space-y-5 ">
+                    <div className="flex gap-2">
+                      <img src={icons.editPC} className="w-[25px] " />
+                      <h2 className=" text-base font-semibold">Cilent</h2>
+                    </div>
+                    <div className="flex gap-2">
+                      <img src={icons.editPC} className="w-[25px] " />
+                      <h2 className="text-base font-semibold">Dosen</h2>
+                    </div>
+                    <div className="flex gap-2">
+                      <img src={icons.editPC} className="w-[25px] " />
+                      <h2 className="text-base font-semibold">Laboran</h2>
+                    </div>
                   </div>
-                  <div className=" text-base font-semibold">Komputer Rusak</div>
-                </div>
-                <div className="space-y-5">
-                  <div className="text-base font-semibold">{countCadangan}</div>
-                  <div className=" text-base font-semibold">{countRusak}</div>
-                </div>
-              </div>
-              {/*  3 */}
-              <div className="flex justify-start gap-3">
-                <div className="space-y-5">
-                  <div className=" text-base font-semibold">
-                    Komputer Pinjam
+                  <div className="space-y-5">
+                    <h2 className=" text-base font-semibold">{countClient}</h2>
+                    <h2 className="text-base font-semibold">{countDosen}</h2>
+                    <h2 className="text-base font-semibold">{countLaboran}</h2>
                   </div>
-                  <div className="text-base font-semibold">
-                    Komputer Dipinjam
-                  </div>
-                  <div className="text-base font-semibold">Total PC</div>
                 </div>
-                <div className="space-y-5">
-                  <div className="text-base font-semibold">{countPinjam}</div>
-                  <div className="text-base font-semibold">{countDipinjam}</div>
-                  <div className="text-base font-semibold">{countTotal}</div>
+                {/*  2 */}
+                <div className="flex justify-start gap-3">
+                  <div className="space-y-5">
+                    <div className="flex gap-2">
+                      <img src={icons.editPC} className="w-[25px] " />
+                      <h2 className="text-base font-semibold">Cadangan</h2>
+                    </div>
+                    <div className="flex gap-2">
+                      <img src={icons.editPC} className="w-[25px] " />
+                      <h2 className="text-base font-semibold">Rusak</h2>
+                    </div>
+                  </div>
+                  <div className="space-y-5">
+                    <h2 className="text-base font-semibold">{countCadangan}</h2>
+                    <h2 className=" text-base font-semibold">{countRusak}</h2>
+                  </div>
+                </div>
+                {/*  3 */}
+                <div className="flex justify-start gap-3">
+                  <div className="space-y-5">
+                    <div className="flex gap-2">
+                      <img src={icons.editPC} className="w-[25px] " />
+                      <h2 className="text-base font-semibold">Pinjam</h2>
+                    </div>
+                    <div className="flex gap-2">
+                      <img src={icons.editPC} className="w-[25px] " />
+                      <h2 className="text-base font-semibold">Dipinjam</h2>
+                    </div>
+                    <div className="flex gap-2">
+                      <img src={icons.editPC} className="w-[25px] " />
+                      <h2 className="text-base font-semibold">Total PC</h2>
+                    </div>
+                  </div>
+                  <div className="space-y-5">
+                    <h2 className="text-base font-semibold">{countPinjam}</h2>
+                    <h2 className="text-base font-semibold">{countDipinjam}</h2>
+                    <h2 className="text-base font-semibold">{countTotal}</h2>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* column 2 */}
-        <div className="flex gap-5 relative  ">
-          <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md ">
+          {/* column 2 */}
+          <div className=" w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md ">
             <div className=" h-10 flex flex-row justify-between items-center">
               <div className="flex flex-row gap-4 ">
                 <img src={icons.rekapPC} className="w-[25px] " />
@@ -203,7 +216,6 @@ function InvHome() {
                     <th scope="col" className="px-1 py-3 ">
                       Penyimpanan
                     </th>
-
                     <th scope="col" className="px-1 py-3">
                       Kategori
                     </th>
@@ -242,10 +254,9 @@ function InvHome() {
               </table>
             </div>
           </div>
-        </div>
 
-        {/* column 3 */}
-        {/* <div className="flex gap-5 relative  ">
+          {/* column 3 */}
+          {/* <div className="flex gap-5 relative  ">
           <div className="w-full h-[277px] px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
             <div className=" h-10 flex flex-row gap-4">
               <img src={icons.rekapPC} className="w-[35px] " />
@@ -266,95 +277,96 @@ function InvHome() {
           </div>
         </div> */}
 
-        {/* column 4 */}
-        <div className=" flex gap-5 relative  ">
-          {/* row 1 */}
-          <div className=" w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
-            <div className=" h-10 flex flex-row justify-between items-center">
-              <div className="flex flex-row gap-4 ">
-                <img src={icons.rekapPC} className="w-[25px] " />
-                <div className="p-1 font-semibold text-lg ">
-                  Barang Non Komputer
+          {/* column 4 */}
+          <div className=" flex gap-5 relative  ">
+            {/* row 1 */}
+            <div className=" w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
+              <div className=" h-10 flex flex-row justify-between items-center">
+                <div className="flex flex-row gap-4 ">
+                  <img src={icons.rekapPC} className="w-[25px] " />
+                  <div className="p-1 font-semibold text-lg ">
+                    Barang Non Komputer
+                  </div>
                 </div>
+                <Link
+                  to={"/inventaris/list-nonpc"}
+                  className="px-5 h-6 rounded-2xl bg-[#F5BD45] flex items-center shadow"
+                >
+                  <div className="  text-black text-xs font-medium  ">
+                    selengkapnya
+                  </div>
+                </Link>
               </div>
-              <Link
-                to={"/inventaris/list-nonpc"}
-                className="px-5 h-6 rounded-2xl bg-[#F5BD45] flex items-center shadow"
-              >
-                <div className="  text-black text-xs font-medium  ">
-                  selengkapnya
-                </div>
-              </Link>
-            </div>
-            {/* table */}
-            <div className="overflow-x-auto relative ">
-              <table className="w-full text-sm  rtl:text-right text-center ">
-                <thead className="text-center">
-                  <tr>
-                    <th scope="col" className="px-1 py-3  ">
-                      No
-                    </th>
-                    <th scope="col" className="px-7 py-3 ">
-                      Nama
-                    </th>
-                    <th scope="col" className="px-1 py-3 ">
-                      Jumlah
-                    </th>
-                    <th scope="col" className=" py-3 ">
-                      Kondisi
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {limitInv.map((inv, index) => (
+              {/* table */}
+              <div className="overflow-x-auto relative ">
+                <table className="w-full text-sm  rtl:text-right text-center ">
+                  <thead className="text-center">
                     <tr>
-                      <td scope="col" className="px-1 py-3">
-                        {index + 1}
-                      </td>
-                      <td scope="col" className="px-7 py-3">
-                        {inv.name}
-                      </td>
-                      <td scope="col" className="px-1 py-3">
-                        {inv.quantity}
-                      </td>
-                      <td
-                        scope="col"
-                        className="py-3 flex items-center justify-center "
-                      >
-                        <p
-                          className={`${
-                            inv.status === "baik"
-                              ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                              : inv.status === "rusak ringan"
-                              ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                              : inv.status === "rusak berat"
-                              ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                              : inv.status === "pinjam"
-                              ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                              : inv.status === "dipinjam"
-                              ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                              : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
-                          }`}
-                        >
-                          {inv.status}
-                        </p>
-                      </td>
+                      <th scope="col" className="px-1 py-3  ">
+                        No
+                      </th>
+                      <th scope="col" className="px-7 py-3 ">
+                        Nama
+                      </th>
+                      <th scope="col" className="px-1 py-3 ">
+                        Jumlah
+                      </th>
+                      <th scope="col" className=" py-3 ">
+                        Kondisi
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {limitInv.map((inv, index) => (
+                      <tr>
+                        <td scope="col" className="px-1 py-3">
+                          {index + 1}
+                        </td>
+                        <td scope="col" className="px-7 py-3">
+                          {inv.name}
+                        </td>
+                        <td scope="col" className="px-1 py-3">
+                          {inv.quantity}
+                        </td>
+                        <td
+                          scope="col"
+                          className="py-3 flex items-center justify-center "
+                        >
+                          <p
+                            className={`${
+                              inv.status === "baik"
+                                ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
+                                : inv.status === "rusak ringan"
+                                ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
+                                : inv.status === "rusak berat"
+                                ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
+                                : inv.status === "pinjam"
+                                ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
+                                : inv.status === "dipinjam"
+                                ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
+                                : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
+                            }`}
+                          >
+                            {inv.status}
+                          </p>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
-          {/* row 2 */}
-          {/* <div className="w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
+            {/* row 2 */}
+            {/* <div className="w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
             <div className=" h-10 flex flex-row gap-4">
               <img src={icons.rekapPC} className="w-[25px] " />
               <div className="p-1 font-semibold text-xl ">Rekap</div>
             </div>
           </div> */}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
