@@ -80,10 +80,10 @@ function TableListInv() {
             </tr>
           </thead>
           <tbody>
-            {filterSort.map((inv, index) => (
+            {currentItems.map((inv, index) => (
               <tr key={inv.id}>
                 <td scope="col" className="px-1 py-3">
-                  {index + 1}
+                  {indexOfFirstItem + index + 1}
                 </td>
                 <td scope="col" className="px-4 py-3 ">
                   {inv.name}

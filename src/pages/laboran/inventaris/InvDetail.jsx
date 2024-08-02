@@ -13,15 +13,14 @@ function InvDetail() {
   const { fetchDataById, formPC } = useStore();
 
   function conditionPC(condition) {
-    switch (condition) {
-      case "baik":
-        return "bg-[#07AC22AB] my-1 w-20 text-white text-sm items-center flex justify-center rounded-full shadow";
-      case "rusak ringan":
-        return "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow";
-      case "rusak berat":
-        return "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow";
-      default:
-        return "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow";
+    if (condition === "baik") {
+      return "bg-[#07AC22AB] my-1 w-20 text-white text-sm items-center flex justify-center rounded-full shadow";
+    } else if (condition === "rusak ringan") {
+      return "bg-[#fdcd49] my-1 w-24 text-black text-sm items-center flex justify-center rounded-full shadow";
+    } else if (condition === "rusak berat") {
+      return "bg-[#FF0000] my-1 w-24 text-white text-sm items-center flex justify-center rounded-full shadow";
+    } else {
+      return "bg-[#FF0000] my-1 w-20 text-white text-sm items-center flex justify-center rounded-full shadow";
     }
   }
 
@@ -173,7 +172,7 @@ function InvDetail() {
                 <div className="my-2">
                   <div className="flex justify-between">
                     <label className="px-3 font-medium ">Monitor</label>
-                    <div className={conditionPC(formPC.condition.mobo)}>
+                    <div className={conditionPC(formPC.condition.monitor)}>
                       {formPC.condition.monitor}
                     </div>
                   </div>

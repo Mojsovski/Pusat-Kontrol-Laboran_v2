@@ -23,6 +23,22 @@ function FormInputNonPC() {
 
   const handleSubmitNonPC = async (e) => {
     e.preventDefault();
+    if (
+      !formInv.name ||
+      !formInv.quantity ||
+      !formInv.status ||
+      !formInv.room
+    ) {
+      Swal.fire({
+        title: "Gagal Input!",
+        text: "Isi form yang tersedia",
+        icon: "error",
+        timer: 850,
+        showConfirmButton: false,
+      });
+      return;
+    }
+
     await submitFormNonPC();
     navigate("/inventaris/list-nonpc");
     Swal.fire({
@@ -88,6 +104,20 @@ function FormInputNonPC() {
             </div>
           </div>
           <div className="my-2">
+            <label className="px-3 font-medium">Keterangan</label>
+            <div className=" h-10 shadow-lg rounded-3xl ">
+              <input
+                value={formInv.comment}
+                onChange={handleChange}
+                type="text"
+                id="comment"
+                name="comment"
+                className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
+                placeholder="diisi bila ada yang kondisi tertentu"
+              />
+            </div>
+          </div>
+          <div className="my-2">
             <label className="px-3 font-medium">Ruang Laboratorium</label>
             <div className=" h-10 shadow-lg rounded-3xl ">
               <input
@@ -102,16 +132,16 @@ function FormInputNonPC() {
               />
             </div>
           </div>
-          <div className="pt-7 flex justify-end">
-            <button
-              onClick={handleSubmitNonPC}
-              type="submit"
-              className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
-            >
-              Input
-            </button>
-          </div>
         </div>
+      </div>
+      <div className="px-5 pt-7 flex justify-end">
+        <button
+          onClick={handleSubmitNonPC}
+          type="submit"
+          className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
+        >
+          Input
+        </button>
       </div>
     </>
   );

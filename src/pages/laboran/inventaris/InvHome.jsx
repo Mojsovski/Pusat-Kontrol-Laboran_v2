@@ -99,7 +99,7 @@ function InvHome() {
                 </div>
                 <Link
                   to={"/inventaris/rekap"}
-                  className="px-5 h-6 rounded-2xl bg-[#F5BD45] flex items-center shadow"
+                  className="px-5 h-6 rounded-2xl bg-[#F5BD45] hover:bg-yellow-400 flex items-center shadow"
                 >
                   <div className="  text-black text-xs font-medium  ">
                     selengkapnya
@@ -183,7 +183,7 @@ function InvHome() {
               </div>
               <Link
                 to={"/inventaris/list-PC"}
-                className="px-5 h-6 rounded-2xl bg-[#F5BD45] flex items-center shadow"
+                className="px-5 h-6 rounded-2xl bg-[#F5BD45] hover:bg-yellow-400 flex items-center shadow"
               >
                 <div className="  text-black text-xs font-medium  ">
                   selengkapnya
@@ -290,7 +290,7 @@ function InvHome() {
                 </div>
                 <Link
                   to={"/inventaris/list-nonpc"}
-                  className="px-5 h-6 rounded-2xl bg-[#F5BD45] flex items-center shadow"
+                  className="px-5 h-6 rounded-2xl bg-[#F5BD45] hover:bg-yellow-400 flex items-center shadow"
                 >
                   <div className="  text-black text-xs font-medium  ">
                     selengkapnya

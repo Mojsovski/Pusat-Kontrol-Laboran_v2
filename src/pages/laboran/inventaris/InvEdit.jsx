@@ -27,6 +27,21 @@ function InvEdit() {
 
   const handleUpdateInv = async (e) => {
     e.preventDefault();
+    if (
+      !formInv.name ||
+      !formInv.quantity ||
+      !formInv.status ||
+      !formInv.room
+    ) {
+      Swal.fire({
+        title: "Gagal Input!",
+        text: "Isi form yang tersedia",
+        icon: "error",
+        timer: 850,
+        showConfirmButton: false,
+      });
+      return;
+    }
     await updateFormNonPC();
     navigate("/inventaris/list-nonpc");
     Swal.fire({
@@ -51,6 +66,7 @@ function InvEdit() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await deleteFormNonPC(id);
+        navigate(-1);
         Swal.fire({
           title: "Terhapus!",
           text: "Inventaris sudah terhapus.",
@@ -73,8 +89,8 @@ function InvEdit() {
     <>
       <Sidebar />
       <Navbar title="Inventaris" />
-      <div className="w-screen h-screen bg-[#C4C4C4] relative  ">
-        <div className=" pr-10 py-28 pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4] relative">
+      <div className=" h-screen bg-[#C4C4C4] relative  ">
+        <div className="  px-5 md:pr-10 py-28 md:pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4] space-y-6">
           <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md">
             <div className="h-10 flex flex-row justify-between items-center">
               <div className="flex flex-row gap-4 ">
@@ -84,12 +100,12 @@ function InvEdit() {
                 </div>
               </div>
             </div>
-            <div className="px-11 flex flex-row justify-between my-3">
+            <div className="px-5 lg:px-11 flex flex-col lg:w-[450px] lg:flex-auto justify-between my-3 lg:space-x-10">
               {/* row 1 */}
               <div className="space-y-6">
                 <div className="my-2">
                   <label className="px-3 font-medium ">Nama barang</label>
-                  <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
+                  <div className=" h-10 shadow-lg rounded-3xl bg-white">
                     <input
                       type="text"
                       id="name"
@@ -103,7 +119,7 @@ function InvEdit() {
                 </div>
                 <div className="my-2">
                   <label className="px-3 font-medium ">Jumlah Barang</label>
-                  <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
+                  <div className="h-10 shadow-lg rounded-3xl bg-white">
                     <input
                       type="text"
                       id="quantity"
@@ -117,7 +133,7 @@ function InvEdit() {
                 </div>
                 <div className="my-2">
                   <label className="px-3 font-medium">Kondisi barang</label>
-                  <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
+                  <div className=" h-10 shadow-lg rounded-3xl bg-white">
                     <select
                       value={formInv.status}
                       onChange={handleChange}
@@ -137,7 +153,7 @@ function InvEdit() {
                 </div>
                 <div className="my-2">
                   <label className="px-3 font-medium">Ruang Laboratorium</label>
-                  <div className=" w-96 h-10 shadow-lg rounded-3xl ">
+                  <div className="h-10 shadow-lg rounded-3xl ">
                     <input
                       value={formInv.room}
                       onChange={handleChange}
@@ -152,7 +168,7 @@ function InvEdit() {
                 </div>
               </div>
             </div>
-            <div className="px-11 flex flex-row justify-between my-3">
+            <div className="px-11 flex flex-col lg:flex-row justify-between items-center my-3">
               <div className="pt-10 flex justify-start">
                 <button
                   onClick={handleDeleteInv}

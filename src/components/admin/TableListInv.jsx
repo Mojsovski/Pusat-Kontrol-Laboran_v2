@@ -1,14 +1,19 @@
 import React, { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
 
 import useStore from "../../data/Data.js";
+import usePaginationStore from "../../data/Pagination.js";
 
 import icons from "../../assets/icons/icon.jsx";
+import Pagination from "../global/Pagination.jsx";
 
 function TableListInv() {
   const navigate = useNavigate();
   const { inv, fetchDataNonPC, deleteFormNonPC } = useStore();
+  const { currentPage, itemsPerPage, setCurrentPage } = usePaginationStore();
 
   const filterSort = inv.sort((a, b) => a.room.localeCompare(b.room));
 
@@ -42,6 +47,11 @@ function TableListInv() {
     fetchDataNonPC();
   }, []);
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filterSort.slice(indexOfFirstItem, indexOfLastItem);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <>
       <div className="overflow-x-auto relative ">
@@ -54,11 +64,11 @@ function TableListInv() {
               <th scope="col" className="px-4 py-3 ">
                 Nama
               </th>
+              <th scope="col" className="px-4 py-3 ">
+                Ruang
+              </th>
               <th scope="col" className="px-1 py-3">
                 Jumlah
-              </th>
-              <th scope="col" className="px-3 py-3 ">
-                Ruang
               </th>
               <th scope="col" className="px-3 py-3 ">
                 Kondisi
@@ -69,19 +79,19 @@ function TableListInv() {
             </tr>
           </thead>
           <tbody>
-            {filterSort.map((inv, index) => (
+            {currentItems.map((inv, index) => (
               <tr key={inv.id}>
                 <td scope="col" className="px-1 py-3">
-                  {index + 1}
+                  {indexOfFirstItem + index + 1}
                 </td>
                 <td scope="col" className="px-4 py-3 ">
                   {inv.name}
                 </td>
-                <td scope="col" className="px-1 py-3">
-                  {inv.quantity}
+                <td scope="col" className="px-4 py-3 ">
+                  {inv.room}
                 </td>
                 <td scope="col" className="px-1 py-3">
-                  {inv.room}
+                  {inv.quantity}
                 </td>
                 <td
                   scope="col"
@@ -110,17 +120,17 @@ function TableListInv() {
                     <div className="w-full flex justify-center">
                       <Link
                         to={`/admin/inventaris/edit/${inv.id}`}
-                        className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-full shadow"
+                        className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-xl shadow"
                       >
-                        edit
+                        <EditRoundedIcon />
                       </Link>
                     </div>
                     <div className="w-full flex justify-center">
                       <button
                         onClick={() => handleDeleteInv(inv.id)}
-                        className="bg-red-500 text-white py-1 w-20  items-center flex justify-center rounded-full shadow"
+                        className="bg-red-500 hover:bg-red-400 text-white py-1 w-20  items-center flex justify-center rounded-xl shadow"
                       >
-                        hapus
+                        <DeleteForeverRoundedIcon />
                       </button>
                     </div>
                   </div>
@@ -129,6 +139,13 @@ function TableListInv() {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className=" flex justify-end">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={Math.ceil(filterSort.length / itemsPerPage)}
+          paginate={paginate}
+        />
       </div>
     </>
   );

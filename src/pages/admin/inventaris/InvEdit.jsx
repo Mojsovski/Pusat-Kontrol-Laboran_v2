@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 import useStore from "../../../data/Data.js";
 
@@ -27,6 +28,21 @@ function InvAdminEdit() {
   const handleUpdateInv = async (e) => {
     e.preventDefault();
     await updateFormNonPC();
+    if (
+      !formInv.name ||
+      !formInv.quantity ||
+      !formInv.status ||
+      !formInv.room
+    ) {
+      Swal.fire({
+        title: "Gagal Input!",
+        text: "Isi form yang tersedia",
+        icon: "error",
+        timer: 850,
+        showConfirmButton: false,
+      });
+      return;
+    }
     navigate(-1);
     Swal.fire({
       title: "Berhasil!",
@@ -50,6 +66,7 @@ function InvAdminEdit() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await deleteFormNonPC(id);
+        navigate(-1);
         Swal.fire({
           title: "Terhapus!",
           text: "Inventaris sudah terhapus.",
@@ -68,109 +85,111 @@ function InvAdminEdit() {
   }, [id]);
 
   return (
-    <div className="h-screen bg-[#C4C4C4] relative  ">
+    <>
       <Sidebar />
       <Navbar title="Inventaris" />
-      <div className=" pr-10 py-28 pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4] relative">
-        <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md">
-          <div className="h-10 flex flex-row justify-between items-center">
-            <div className="flex flex-row gap-4 ">
-              <img src={icons.inputPC} className="w-[25px] " />
-              <div className="p-1 font-semibold text-xl ">
-                Edit Inventaris {formInv.name}
-              </div>
-            </div>
-          </div>
-          <div className="px-11 flex flex-row justify-between my-3">
-            {/* row 1 */}
-            <div className="space-y-6">
-              <div className="my-2">
-                <label className="px-3 font-medium ">Nama barang</label>
-                <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
-                    placeholder="contoh : obeng"
-                    value={formInv.name}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-              <div className="my-2">
-                <label className="px-3 font-medium ">Jumlah Barang</label>
-                <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
-                  <input
-                    type="text"
-                    id="quantity"
-                    name="quantity"
-                    className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
-                    placeholder="contoh : 1"
-                    value={formInv.quantity}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-              <div className="my-2">
-                <label className="px-3 font-medium">Kondisi barang</label>
-                <div className=" w-96 h-10 shadow-lg rounded-3xl bg-white">
-                  <select
-                    value={formInv.status}
-                    onChange={handleChange}
-                    type="text"
-                    id="status"
-                    name="status"
-                    className="block text-base pl-4  bg-white w-full h-full rounded-3xl focus:outline-none "
-                  >
-                    <option value="">kondisi barang saat ini</option>
-                    <option value="baik">baik</option>
-                    <option value="rusak ringan">rusak ringan</option>
-                    <option value="rusak berat">rusak berat</option>
-                    <option value="pinjam">pinjam</option>
-                    <option value="dipinjam">dipinjam</option>
-                  </select>
-                </div>
-              </div>
-              <div className="my-2">
-                <label className="px-3 font-medium">Ruang Laboratorium</label>
-                <div className=" w-96 h-10 shadow-lg rounded-3xl ">
-                  <input
-                    value={formInv.room}
-                    onChange={handleChange}
-                    type="text"
-                    id="room"
-                    name="room"
-                    className="block text-base pl-4 p-3 bg-[#e6e6e6] w-full h-full rounded-3xl focus:outline-none "
-                    placeholder="contoh : D.2.C"
-                    readOnly
-                  />
+      <div className=" h-screen bg-[#C4C4C4] relative  ">
+        <div className="  px-5 md:pr-10 py-28 md:pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4] space-y-6">
+          <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md">
+            <div className="h-10 flex flex-row justify-between items-center">
+              <div className="flex flex-row gap-4 ">
+                <img src={icons.inputPC} className="w-[25px] " />
+                <div className="p-1 font-semibold text-xl ">
+                  Edit Inventaris {formInv.name}
                 </div>
               </div>
             </div>
-          </div>
-          <div className="px-11 flex flex-row justify-between my-3">
-            <div className="pt-10 flex justify-start">
-              <button
-                onClick={handleDeleteInv}
-                className="px-16 py-2 shadow-lg rounded-3xl bg-red-500 text-white"
-              >
-                hapus
-              </button>
+            <div className="px-5 lg:px-11 flex flex-col lg:w-[450px] lg:flex-auto justify-between my-3 lg:space-x-10">
+              {/* row 1 */}
+              <div className="space-y-6">
+                <div className="my-2">
+                  <label className="px-3 font-medium ">Nama barang</label>
+                  <div className=" h-10 shadow-lg rounded-3xl bg-white">
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
+                      placeholder="contoh : obeng"
+                      value={formInv.name}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="my-2">
+                  <label className="px-3 font-medium ">Jumlah Barang</label>
+                  <div className="h-10 shadow-lg rounded-3xl bg-white">
+                    <input
+                      type="text"
+                      id="quantity"
+                      name="quantity"
+                      className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
+                      placeholder="contoh : 1"
+                      value={formInv.quantity}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="my-2">
+                  <label className="px-3 font-medium">Kondisi barang</label>
+                  <div className=" h-10 shadow-lg rounded-3xl bg-white">
+                    <select
+                      value={formInv.status}
+                      onChange={handleChange}
+                      type="text"
+                      id="status"
+                      name="status"
+                      className="block text-base pl-4  bg-white w-full h-full rounded-3xl focus:outline-none "
+                    >
+                      <option value="">kondisi barang saat ini</option>
+                      <option value="baik">baik</option>
+                      <option value="rusak ringan">rusak ringan</option>
+                      <option value="rusak berat">rusak berat</option>
+                      <option value="pinjam">pinjam</option>
+                      <option value="dipinjam">dipinjam</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="my-2">
+                  <label className="px-3 font-medium">Ruang Laboratorium</label>
+                  <div className="h-10 shadow-lg rounded-3xl ">
+                    <input
+                      value={formInv.room}
+                      onChange={handleChange}
+                      type="text"
+                      id="room"
+                      name="room"
+                      className="block text-base pl-4 p-3 bg-[#e6e6e6] w-full h-full rounded-3xl focus:outline-none "
+                      placeholder="contoh : D.2.C"
+                      readOnly
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="pt-10 flex justify-end">
-              <button
-                onClick={handleUpdateInv}
-                type="submit"
-                className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
-              >
-                Edit Inventaris {formInv.name}
-              </button>
+            <div className="px-11 flex flex-col lg:flex-row justify-between items-center my-3">
+              <div className="pt-10 flex justify-start">
+                <button
+                  onClick={handleDeleteInv}
+                  className="px-16 py-2 shadow-lg rounded-3xl bg-red-600 hover:bg-red-500 text-white"
+                >
+                  <DeleteForeverRoundedIcon />
+                </button>
+              </div>
+              <div className="pt-10 flex justify-end">
+                <button
+                  onClick={handleUpdateInv}
+                  type="submit"
+                  className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 hover:bg-blue-700 text-white"
+                >
+                  Edit Inventaris {formInv.name}
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

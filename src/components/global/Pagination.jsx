@@ -21,7 +21,7 @@ const Pagination = ({ currentPage, totalPages, paginate }) => {
           className={`px-4 py-2 mx-1  rounded-xl ${
             currentPage === index + 1
               ? "bg-[#253E8D] text-white"
-              : "bg-[#CCCCCC] text-black"
+              : "bg-[#CCCCCC] hover:bg-neutral-200 text-black"
           }`}
           onClick={() => paginate(index + 1)}
         >

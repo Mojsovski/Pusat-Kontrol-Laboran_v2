@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import DrawIcon from "@mui/icons-material/Draw";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
@@ -10,7 +10,6 @@ import TableListPC from "../../../components/laboran/TableListPC.jsx";
 
 function InvList() {
   const [selectedCategory, setSelectedCategory] = useState("");
-  const navigate = useNavigate;
 
   useEffect(() => {
     document.title = "List Inventaris - Pusat Kontrol Laboran";
@@ -30,12 +29,12 @@ function InvList() {
               </div>
             </div>
             <div className="my-2 flex gap-2 ">
-              <button
-                onClick={() => navigate("/inventaris/list-PC")}
+              <Link
+                to={"/inventaris/input"}
                 className="px-4  shadow-lg rounded-xl bg-blue-800 hover:bg-blue-600 text-white"
               >
                 <DrawIcon />
-              </button>
+              </Link>
               <div className=" w-60 h-7 shadow-md rounded-3xl bg-white">
                 <select
                   value={selectedCategory}

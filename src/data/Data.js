@@ -26,6 +26,7 @@ const useStore = create((set) => ({
     status: "",
     quantity: "",
     room: "",
+    comment: "",
   },
 
   // ~~~Inventaris PC~~~
@@ -242,6 +243,7 @@ const useStore = create((set) => ({
         status: "",
         quantity: "",
         room: "",
+        comment: "",
       },
     }),
 

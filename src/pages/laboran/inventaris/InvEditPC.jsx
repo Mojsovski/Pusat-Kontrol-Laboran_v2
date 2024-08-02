@@ -22,6 +22,40 @@ function InvEditPC() {
 
   const handleUpdateInv = async (e) => {
     e.preventDefault();
+    if (
+      !formPC.name ||
+      !formPC.pc.category ||
+      !formPC.pc.cpu ||
+      !formPC.pc.mobo ||
+      !formPC.pc.ram ||
+      !formPC.pc.gpu ||
+      !formPC.pc.storage ||
+      !formPC.pc.keyboard ||
+      !formPC.pc.mouse ||
+      !formPC.pc.monitor ||
+      !formPC.pc.psu ||
+      !formPC.room ||
+      !formPC.status ||
+      !formPC.condition.cpu ||
+      !formPC.condition.mobo ||
+      !formPC.condition.ram ||
+      !formPC.condition.gpu ||
+      !formPC.condition.storage ||
+      !formPC.condition.keyboard ||
+      !formPC.condition.mouse ||
+      !formPC.condition.monitor ||
+      !formPC.condition.psu
+    ) {
+      Swal.fire({
+        title: "Gagal Input!",
+        text: "Isi form yang tersedia",
+        icon: "error",
+        timer: 850,
+        showConfirmButton: false,
+      });
+      return;
+    }
+
     await updateForm();
     navigate("/inventaris/list-PC");
     Swal.fire({

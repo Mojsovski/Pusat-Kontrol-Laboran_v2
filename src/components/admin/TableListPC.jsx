@@ -1,18 +1,27 @@
 import React from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 
 import useStore from "../../data/Data.js";
+import usePaginationStore from "../../data/Pagination.js";
 
 import icons from "../../assets/icons/icon.jsx";
+import Pagination from "../global/Pagination.jsx";
 
 function TableListPC() {
   const { invpc, fetchData } = useStore();
   const filterPC = invpc.sort((a, b) => a.name.localeCompare(b.name));
+  const { currentPage, itemsPerPage, setCurrentPage } = usePaginationStore();
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filterPC.slice(indexOfFirstItem, indexOfLastItem);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
@@ -38,7 +47,6 @@ function TableListPC() {
               <th scope="col" className="px-1 py-3 ">
                 Penyimpanan
               </th>
-
               <th scope="col" className="px-1 py-3">
                 Kategori
               </th>
@@ -51,10 +59,10 @@ function TableListPC() {
             </tr>
           </thead>
           <tbody>
-            {filterPC.map((inv, index) => (
+            {currentItems.map((inv, index) => (
               <tr key={inv.id}>
                 <td scope="col" className="px-1 py-3">
-                  {index + 1}
+                  {indexOfFirstItem + index + 1}
                 </td>
                 <td scope="col" className="px-4 py-3">
                   {inv.name}
@@ -100,9 +108,9 @@ function TableListPC() {
                   <div className="w-full flex justify-center">
                     <Link
                       to={`/admin/inventaris/detail/${inv.id}`}
-                      className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-full shadow"
+                      className="bg-[#fdcd49] hover:bg-yellow-300 py-1 w-20  items-center flex justify-center rounded-xl shadow"
                     >
-                      detail
+                      <SettingsSuggestIcon />
                     </Link>
                   </div>
                 </td>
@@ -110,6 +118,13 @@ function TableListPC() {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-end">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={Math.ceil(filterPC.length / itemsPerPage)}
+          paginate={paginate}
+        />
       </div>
     </>
   );
