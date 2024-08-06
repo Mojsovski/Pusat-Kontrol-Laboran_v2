@@ -167,11 +167,14 @@ function InvRekap() {
                       <th scope="col" className="px-1 py-3  ">
                         No
                       </th>
-                      <th scope="col" className="px-10 py-3 ">
+                      <th scope="col" className="px-7 py-3 ">
                         Nama
                       </th>
-                      <th scope="col" className="px-6 py-3 ">
-                        Keterangan
+                      <th scope="col" className="px-3 py-3 ">
+                        Status
+                      </th>
+                      <th scope="col" className="px-1 py-3 ">
+                        Lokasi sebelumnya
                       </th>
                     </tr>
                   </thead>
@@ -181,7 +184,7 @@ function InvRekap() {
                         <td scope="col" className="px-1 py-3">
                           {index + 1}
                         </td>
-                        <td scope="col" className="px-6 py-3">
+                        <td scope="col" className="px-3 py-3">
                           {inv.name}
                         </td>
                         <td
@@ -206,6 +209,9 @@ function InvRekap() {
                             {inv.status}
                           </p>
                         </td>
+                        <td scope="col" className="px-1 py-3">
+                          {inv.comment || "-"}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -227,11 +233,14 @@ function InvRekap() {
                       <th scope="col" className="px-1 py-3  ">
                         No
                       </th>
-                      <th scope="col" className="px-10 py-3 ">
+                      <th scope="col" className="px-6 py-3 ">
                         Nama
                       </th>
                       <th scope="col" className="px-1 py-3 ">
-                        Keterangan
+                        Status
+                      </th>
+                      <th scope="col" className="px-1 py-3 ">
+                        Lokasi Sekarang
                       </th>
                     </tr>
                   </thead>
@@ -241,7 +250,7 @@ function InvRekap() {
                         <td scope="col" className="px-1 py-3">
                           {index + 1}
                         </td>
-                        <td scope="col" className="px-6 py-3">
+                        <td scope="col" className="px-3 py-3">
                           {inv.name}
                         </td>
 
@@ -266,6 +275,9 @@ function InvRekap() {
                           >
                             {inv.status}
                           </p>
+                        </td>
+                        <td scope="col" className="px-1 py-3">
+                          {inv.comment || "-"}
                         </td>
                       </tr>
                     ))}

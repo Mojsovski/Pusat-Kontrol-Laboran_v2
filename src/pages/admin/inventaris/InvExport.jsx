@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { useNavigate } from "react-router-dom";
 import useStore from "../../../data/Data";
 import { useAuthStore } from "../../../data/Auth";
 
-function ExportInv() {
+function ExportInvALL() {
   const navigate = useNavigate();
   const { inv, invpc, fetchData, fetchDataNonPC } = useStore();
   const { user } = useAuthStore((state) => ({ user: state.user }));
 
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
   // Filter
   const filterUser = inv.filter(
     (inv) => inv.room === user?.user_metadata?.room
@@ -103,15 +101,7 @@ function ExportInv() {
             </div>
             <div className="text-lg">Ruang : {user?.user_metadata?.room}</div>
             <div className="flex justify-between">
-              <div className="text-lg">
-                Periode :
-                <input
-                  type="date"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                  className="ml-2 border rounded"
-                />
-              </div>
+              <div className="text-lg">Periode : </div>
               <div className="text-sm">halaman 1 dari 4</div>
             </div>
           </div>
@@ -525,4 +515,4 @@ function ExportInv() {
   );
 }
 
-export default ExportInv;
+export default ExportInvALL;

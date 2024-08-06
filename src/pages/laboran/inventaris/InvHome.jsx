@@ -94,7 +94,7 @@ function InvHome() {
                 <div className="flex flex-row gap-4 ">
                   <img src={icons.rekapPC} className="w-[25px] " />
                   <div className="p-1 font-semibold text-xl ">
-                    Rekap Komputer
+                    Rekap Komputer {user.user_metadata.room}
                   </div>
                 </div>
                 <Link

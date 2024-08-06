@@ -10,7 +10,7 @@ import icons from "../../../assets/icons/icon.jsx";
 function InvDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { fetchDataById, formPC } = useStore();
+  const { fetchDataById, formPC, invpc } = useStore();
 
   function conditionPC(condition) {
     if (condition === "baik") {
@@ -43,6 +43,20 @@ function InvDetail() {
                 <img src={icons.inputPC} className="w-[25px] " />
                 <div className="p-1 font-semibold text-xl ">
                   Detail Inventaris PC
+                </div>
+              </div>
+              <div className="space-x-3 flex">
+                <div className="rounded-2xl bg-blue-700 px-2">
+                  <p className="text-white">
+                    Ditambahkan :
+                    {new Date(formPC.created_at).toLocaleString("id-ID")}
+                  </p>
+                </div>
+                <div className="rounded-2xl bg-blue-700 px-2">
+                  <p className="text-white">
+                    Diedit :
+                    {new Date(formPC.updated_at).toLocaleString("id-ID")}
+                  </p>
                 </div>
               </div>
             </div>

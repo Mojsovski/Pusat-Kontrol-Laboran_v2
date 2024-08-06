@@ -75,6 +75,15 @@ function TableListInv() {
                 Kondisi
               </th>
               <th scope="col" className="px-1 py-3">
+                Ditambahkan
+              </th>
+              <th scope="col" className="px-1 py-3">
+                Diedit
+              </th>
+              <th scope="col" className="px-1 py-3">
+                Keterangan
+              </th>
+              <th scope="col" className="px-1 py-3">
                 Aksi
               </th>
             </tr>
@@ -112,6 +121,15 @@ function TableListInv() {
                   >
                     {inv.status}
                   </p>
+                </td>
+                <td scope="col" className="px-1 py-3">
+                  {new Date(inv.created_at).toLocaleDateString("id-ID")}
+                </td>
+                <td scope="col" className="px-1 py-3">
+                  {new Date(inv.updated_at).toLocaleDateString("id-ID")}
+                </td>
+                <td scope="col" className="px-1 py-3">
+                  {inv.comment || "-"}
                 </td>
                 <td className="px-1 py-3 ">
                   <div className="flex">

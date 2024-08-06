@@ -126,18 +126,6 @@ function InvAllRekap() {
                 </div>
               </div>
             </div>
-            <div className=" flex justify-between ">
-              <div className="px-5 h-7 rounded-2xl bg-[#0F4C92] shadow flex items-center justify-center">
-                <div className=" text-center text-white text-xs  ">
-                  terakhir update : 14 Juni 2023
-                </div>
-              </div>
-              <div className="px-5 h-7 rounded-2xl bg-[#FF0000] shadow flex items-center justify-center ">
-                <div className=" text-center text-white text-xs ">
-                  belum verifikasi
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         {/* Column 4 */}

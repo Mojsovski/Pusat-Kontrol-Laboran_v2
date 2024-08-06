@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import CircularProgress from "@mui/material/CircularProgress";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 import useStore from "../../data/Data.js";
 import { useAuthStore } from "../../data/Auth";
@@ -10,7 +14,7 @@ import icons from "../../assets/icons/icon.jsx";
 import Pagination from "../global/Pagination.jsx";
 
 function TableListPC() {
-  const { invpc, fetchData, loading, error } = useStore();
+  const { invpc, fetchData, loading, error, deleteForm } = useStore();
   const { user } = useAuthStore((state) => ({ user: state.user }));
   const { currentPage, itemsPerPage, setCurrentPage } = usePaginationStore();
 
@@ -25,12 +29,40 @@ function TableListPC() {
   }, [fetchData]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center">
+        <CircularProgress />
+      </div>
+    );
   }
-
   if (error) {
     return <div>{error}</div>;
   }
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Apa kamu yakin?",
+      text: "Kamu tidak dapat mengembalikan ini!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "batal",
+      confirmButtonText: "Ya, hapus inventaris!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteForm(id);
+        await fetchData();
+        Swal.fire({
+          title: "Terhapus!",
+          text: "Inventaris sudah terhapus.",
+          icon: "success",
+          timer: 700,
+          showConfirmButton: false,
+        });
+      }
+    });
+  };
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -119,12 +151,24 @@ function TableListPC() {
                   </p>
                 </td>
                 <td className="px-1 py-3 ">
-                  <div className="w-full flex justify-center">
+                  <div className="w-full flex justify-center gap-2">
+                    <button
+                      onClick={() => handleDelete(inv.id)}
+                      className="bg-red-500 hover:bg-red-400 py-1 w-10  items-center flex justify-center rounded-xl shadow"
+                    >
+                      <DeleteForeverRoundedIcon style={{ color: "white" }} />
+                    </button>
+                    <Link
+                      to={`/inventaris/editpc/${inv.id}`}
+                      className="bg-[#fdcd49] hover:bg-yellow-300 py-1 w-10  items-center flex justify-center rounded-xl shadow"
+                    >
+                      <EditRoundedIcon />
+                    </Link>
                     <Link
                       to={`/inventaris/detail/${inv.id}`}
-                      className="bg-[#fdcd49] hover:bg-yellow-300 py-1 w-20  items-center flex justify-center rounded-xl shadow"
+                      className="bg-blue-700 hover:bg-blue-600 0 py-1 w-10  items-center flex justify-center rounded-xl shadow"
                     >
-                      <SettingsSuggestIcon />
+                      <SettingsSuggestIcon style={{ color: "white" }} />
                     </Link>
                   </div>
                 </td>
