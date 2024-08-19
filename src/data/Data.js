@@ -16,6 +16,8 @@ const useStore = create((set) => ({
     status: "",
     condition: {},
     room: "",
+    roomOld: "",
+    roomNew: "",
     primaryItem: false,
     pc: {},
     comment: "",
@@ -24,6 +26,7 @@ const useStore = create((set) => ({
     id: "",
     name: "",
     status: "",
+    condition: "",
     quantity: "",
     room: "",
     comment: "",
@@ -51,10 +54,32 @@ const useStore = create((set) => ({
         .eq("id", id)
         .single();
       if (error) throw error;
-      set({ formPC: invpc });
+      set((state) => ({
+        formPC: {
+          ...invpc,
+        },
+      }));
     } catch (error) {
       console.error("Error fetching data by ID:", error.message);
     }
+  },
+
+  fetchMovePC: async (id) => {
+    try {
+      const { data: invpc, error } = await supabase
+        .from("inv_pc")
+        .select("*")
+        .eq("id", id)
+        .single();
+      if (error) throw error;
+      set((state) => ({
+        formPC: {
+          ...invpc,
+          roomOld: invpc.roomOld || state.user?.user_metadata?.room || "",
+        },
+      }));
+      return invpc;
+    } catch (error) {}
   },
 
   //NON PC
@@ -195,6 +220,29 @@ const useStore = create((set) => ({
       }
     }),
 
+  handleMoveFormPC: (field, value) =>
+    set((state) => {
+      if (field.includes(".")) {
+        const [parent, child] = field.split(".");
+        return {
+          formPC: {
+            ...state.formPC,
+            [parent]: {
+              ...state.formPC[parent],
+              [child]: value,
+            },
+          },
+        };
+      } else {
+        return {
+          formPC: {
+            ...state.formPC,
+            [field]: value,
+          },
+        };
+      }
+    }),
+
   //Non PC
   updateFormInv: (field, value) =>
     set((state) => {
@@ -229,6 +277,8 @@ const useStore = create((set) => ({
         status: "",
         condition: {},
         room: "",
+        roomOld: "",
+        roomNew: "",
         primaryItem: false,
         pc: {},
         comment: "",
@@ -241,6 +291,7 @@ const useStore = create((set) => ({
         id: "",
         name: "",
         status: "",
+        condition: "",
         quantity: "",
         room: "",
         comment: "",
@@ -255,6 +306,8 @@ const useStore = create((set) => ({
         status: "",
         quantity: "",
         room: "",
+        roomOld: "",
+        roomNew: "",
         primaryItem: false,
         pc: {},
         condition: {},

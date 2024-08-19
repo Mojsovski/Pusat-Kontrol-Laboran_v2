@@ -102,7 +102,7 @@ function InvEditPC() {
   return (
     <div className="h-screen bg-[#C4C4C4] relative  ">
       <Sidebar />
-      <Navbar title="Inventaris" />
+      <Navbar title="Inventaris" showButtonBack={true} />
       <div className=" pr-10 py-28 pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4] relative">
         <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md">
           <div className="h-10 flex flex-row justify-between items-center">
@@ -306,7 +306,7 @@ function InvEditPC() {
             {/* row 2 */}
             <div className="space-y-7 md:space-y-6 lg:w-1/2">
               <div className="my-2">
-                <label className="px-3 font-medium">Kondisi Barang</label>
+                <label className="px-3 font-medium">Lokasi Barang</label>
                 <div className="  h-10 shadow-lg rounded-3xl bg-white">
                   <select
                     value={formPC.status}
@@ -318,9 +318,7 @@ function InvEditPC() {
                     required
                   >
                     <option value="">kondisi komputer saat ini</option>
-                    <option value="baik">baik</option>
-                    <option value="rusak ringan">rusak ringan</option>
-                    <option value="rusak berat">rusak berat</option>
+                    <option value="lab">lab</option>
                     <option value="pinjam">pinjam</option>
                     <option value="dipinjam">dipinjam</option>
                   </select>

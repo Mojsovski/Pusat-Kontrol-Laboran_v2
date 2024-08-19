@@ -1,8 +1,20 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import {
+  BsCpu,
+  BsMotherboard,
+  BsMemory,
+  BsGpuCard,
+  BsDeviceSsd,
+  BsMouse3,
+  BsKeyboard,
+} from "react-icons/bs";
+import { BiPowerOff, BiNote } from "react-icons/bi";
+import { PiMonitorLight } from "react-icons/pi";
+import { TbHomeMove } from "react-icons/tb";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
 
 import useStore from "../../../data/Data.js";
-
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
@@ -34,8 +46,8 @@ function InvDetail() {
   return (
     <>
       <Sidebar />
-      <Navbar title="Inventaris" />
-      <div className="h-screen bg-[#C4C4C4] relative  ">
+      <Navbar title="Inventaris" showButtonBack={true} />
+      <div className="h-screen bg-[#C4C4C4] relative flex-wrap ">
         <div className="px-5 md:pr-10 py-28 md:pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4]">
           <div className="relative  px-8 py-5 pb-14 bg-neutral-300 rounded-3xl flex-col shadow-md space-y-6">
             <div className="h-10 flex flex-row justify-between items-center">
@@ -46,16 +58,18 @@ function InvDetail() {
                 </div>
               </div>
               <div className="space-x-3 flex">
-                <div className="rounded-2xl bg-blue-700 px-2">
+                <div className="rounded-2xl bg-blue-700 px-3">
                   <p className="text-white">
                     Ditambahkan :
                     {new Date(formPC.created_at).toLocaleString("id-ID")}
                   </p>
                 </div>
-                <div className="rounded-2xl bg-blue-700 px-2">
+                <div className="rounded-2xl bg-blue-700 px-3">
                   <p className="text-white">
                     Diedit :
-                    {new Date(formPC.updated_at).toLocaleString("id-ID")}
+                    {formPC.updated_at
+                      ? new Date(formPC.updated_at).toLocaleString("id-ID")
+                      : "belum pernah"}
                   </p>
                 </div>
               </div>
@@ -64,8 +78,8 @@ function InvDetail() {
               {/* row 1 */}
               <div className="space-y-7 md:space-y-6 lg:w-1/2">
                 <div className="my-2">
-                  <div className="flex justify-start">
-                    <label className="px-3 font-medium ">Nama Komputer</label>
+                  <div className="mx-3 my-1 flex justify-start items-center gap-3">
+                    <label className="font-medium ">Nama Komputer</label>
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
@@ -74,8 +88,11 @@ function InvDetail() {
                   </div>
                 </div>
                 <div className="my-2">
-                  <div className="flex justify-between">
-                    <label className="px-3 font-medium ">Prosessor</label>
+                  <div className="mx-3 my-1 flex justify-between items-center ">
+                    <div className="flex justify-start gap-3 items-center">
+                      <BsCpu className=" size-5" />
+                      <label className="font-medium ">Prosessor</label>
+                    </div>
                     <div className={conditionPC(formPC.condition.cpu)}>
                       {formPC.condition.cpu}
                     </div>
@@ -87,8 +104,11 @@ function InvDetail() {
                   </div>
                 </div>
                 <div className="my-2">
-                  <div className="flex justify-between">
-                    <label className="px-3 font-medium ">Motherboard</label>
+                  <div className="mx-3 my-1 flex justify-between items-center ">
+                    <div className="flex justify-start gap-3 items-center">
+                      <BsMotherboard className=" size-5" />
+                      <label className="font-medium ">Motherboard</label>
+                    </div>
                     <div className={conditionPC(formPC.condition.mobo)}>
                       {formPC.condition.mobo}
                     </div>
@@ -100,8 +120,11 @@ function InvDetail() {
                   </div>
                 </div>
                 <div className="my-2">
-                  <div className="flex justify-between">
-                    <label className="px-3 font-medium ">RAM</label>
+                  <div className="mx-3 my-1 flex justify-between items-center ">
+                    <div className="flex justify-start gap-3 items-center">
+                      <BsMemory className=" size-5" />
+                      <label className="font-medium ">RAM</label>
+                    </div>
                     <div className={conditionPC(formPC.condition.ram)}>
                       {formPC.condition.ram}
                     </div>
@@ -113,8 +136,11 @@ function InvDetail() {
                   </div>
                 </div>
                 <div className="my-2">
-                  <div className="flex justify-between">
-                    <label className="px-3 font-medium ">Kartu Grafis</label>
+                  <div className="mx-3 my-1 flex justify-between items-center ">
+                    <div className="flex justify-start gap-3 items-center">
+                      <BsGpuCard className=" size-5" />
+                      <label className="font-medium ">Kartu Grafis</label>
+                    </div>
                     <div className={conditionPC(formPC.condition.gpu)}>
                       {formPC.condition.gpu}
                     </div>
@@ -126,7 +152,12 @@ function InvDetail() {
                   </div>
                 </div>
                 <div className="my-2">
-                  <label className="px-3 font-medium ">Keterangan</label>
+                  <div className="mx-3 my-2 flex justify-between items-center ">
+                    <div className="flex justify-start gap-3 items-center">
+                      <BiNote className=" size-5" />
+                      <label className="font-medium ">Keterangan</label>
+                    </div>
+                  </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
                       {formPC.comment || "tidak ada"}
@@ -137,7 +168,9 @@ function InvDetail() {
               {/* row 2 */}
               <div className="space-y-7 md:space-y-6 lg:w-1/2">
                 <div className="my-2">
-                  <label className="px-3 font-medium ">Kategori komputer</label>
+                  <div className="mx-3 my-1 flex justify-start items-center gap-3">
+                    <label className="font-medium ">Kategori</label>
+                  </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
                       {formPC.pc.category}
@@ -145,8 +178,11 @@ function InvDetail() {
                   </div>
                 </div>
                 <div className="my-2">
-                  <div className="flex justify-between">
-                    <label className="px-3 font-medium ">Penyimpanan</label>
+                  <div className="mx-3 my-1 flex justify-between items-center ">
+                    <div className="flex justify-start gap-3 items-center">
+                      <BsDeviceSsd className=" size-5" />
+                      <label className="font-medium ">Penyimpanan</label>
+                    </div>
                     <div className={conditionPC(formPC.condition.storage)}>
                       {formPC.condition.storage}
                     </div>
@@ -158,8 +194,11 @@ function InvDetail() {
                   </div>
                 </div>
                 <div className="my-2">
-                  <div className="flex justify-between">
-                    <label className="px-3 font-medium ">Keyboard</label>
+                  <div className="mx-3 my-1 flex justify-between items-center ">
+                    <div className="flex justify-start gap-3 items-center">
+                      <BsKeyboard className=" size-5" />
+                      <label className="font-medium ">Keyboard</label>
+                    </div>
                     <div className={conditionPC(formPC.condition.keyboard)}>
                       {formPC.condition.keyboard}
                     </div>
@@ -171,8 +210,11 @@ function InvDetail() {
                   </div>
                 </div>
                 <div className="my-2">
-                  <div className="flex justify-between">
-                    <label className="px-3 font-medium ">Mouse</label>
+                  <div className="mx-3 my-1 flex justify-between items-center ">
+                    <div className="flex justify-start gap-3 items-center">
+                      <BsMouse3 className=" size-5" />
+                      <label className="font-medium ">mouse</label>
+                    </div>
                     <div className={conditionPC(formPC.condition.mouse)}>
                       {formPC.condition.mouse}
                     </div>
@@ -184,8 +226,13 @@ function InvDetail() {
                   </div>
                 </div>
                 <div className="my-2">
-                  <div className="flex justify-between">
-                    <label className="px-3 font-medium ">Monitor</label>
+                  <div className="mx-3 my-1 flex justify-between items-center ">
+                    <div className="flex justify-start gap-3 items-center">
+                      <PiMonitorLight className=" size-5" />
+                      <label className="font-medium text-center ">
+                        Monitor
+                      </label>
+                    </div>
                     <div className={conditionPC(formPC.condition.monitor)}>
                       {formPC.condition.monitor}
                     </div>
@@ -197,10 +244,13 @@ function InvDetail() {
                   </div>
                 </div>
                 <div className="my-2">
-                  <div className="flex justify-between">
-                    <label className="px-3 font-medium ">Power Supplay</label>
-                    <div className={conditionPC(formPC.condition.psu)}>
-                      {formPC.condition.psu}
+                  <div className="mx-3 my-1 flex justify-between items-center ">
+                    <div className="flex justify-start gap-3 items-center">
+                      <BiPowerOff className=" size-5" />
+                      <label className="font-medium ">Power Supply</label>
+                    </div>
+                    <div className={conditionPC(formPC.condition.keyboard)}>
+                      {formPC.condition.keyboard}
                     </div>
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
@@ -211,15 +261,23 @@ function InvDetail() {
                 </div>
               </div>
             </div>
-            <div className=" px-11 pt-14 flex flex-col lg:flex-row justify-between items-center space-y-5">
-              <button>
+            <div className=" px-11 pt-14 flex flex-col lg:flex-row justify-between gap-5">
+              <div className="flex lg:flex-row flex-col gap-3">
                 <Link
                   to={`/inventaris/editpc/${formPC.id}`}
-                  className="px-16 py-2  shadow-lg rounded-xl bg-yellow-400 hover:bg-yellow-300 text-black"
+                  className="bg-[#fdcd49] hover:bg-yellow-300 px-9 py-2 h-10 space-x-3 items-center flex justify-center rounded-xl shadow"
                 >
-                  edit
+                  <EditRoundedIcon sx={{ fontSize: 20 }} />
+                  <p className="text-center">Edit</p>
                 </Link>
-              </button>
+                <Link
+                  to={`/inventaris/pindah/pc/${formPC.id}`}
+                  className="bg-sky-700 hover:bg-sky-600 px-9 py-2 h-10 space-x-3 items-center flex justify-center rounded-xl shadow"
+                >
+                  <TbHomeMove className="text-white size-5" />
+                  <p className="text-center text-white">Pindah</p>
+                </Link>
+              </div>
               <button
                 type="submit"
                 className="px-16 py-2  shadow-lg rounded-xl  bg-blue-800 hover:bg-blue-700 text-white"

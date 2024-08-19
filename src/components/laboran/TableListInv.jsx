@@ -10,6 +10,7 @@ import usePaginationStore from "../../data/Pagination.js";
 
 import icons from "../../assets/icons/icon.jsx";
 import Pagination from "../global/Pagination.jsx";
+import Status from "../global/Status";
 
 function TableListInv() {
   const navigate = useNavigate();
@@ -104,29 +105,15 @@ function TableListInv() {
                   scope="col"
                   className="px-3 py-3 flex items-center justify-center"
                 >
-                  <p
-                    className={`${
-                      inv.status === "baik"
-                        ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                        : inv.status === "rusak ringan"
-                        ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                        : inv.status === "rusak berat"
-                        ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                        : inv.status === "pinjam"
-                        ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                        : inv.status === "dipinjam"
-                        ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                        : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
-                    }`}
-                  >
-                    {inv.status}
-                  </p>
+                  <Status condition={inv.status} />
                 </td>
                 <td scope="col" className="px-1 py-3">
                   {new Date(inv.created_at).toLocaleDateString("id-ID")}
                 </td>
                 <td scope="col" className="px-1 py-3">
-                  {new Date(inv.updated_at).toLocaleDateString("id-ID")}
+                  {inv.updated_at
+                    ? new Date(inv.updated_at).toLocaleDateString("id-ID")
+                    : "belum pernah"}
                 </td>
                 <td scope="col" className="px-1 py-3">
                   {inv.comment || "-"}

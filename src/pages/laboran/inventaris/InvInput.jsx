@@ -31,7 +31,7 @@ function InvInput() {
   return (
     <>
       <Sidebar />
-      <Navbar title="Inventaris" />
+      <Navbar title="Inventaris" showButtonBack={true} />
       <div className="h-screen  bg-[#C4C4C4] relative  ">
         <div className="px-5 md:pr-10 py-28 md:pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4] ">
           <div className="relative  px-8 py-5 pb-14 bg-neutral-300 rounded-3xl flex-col shadow-md space-y-6 ">

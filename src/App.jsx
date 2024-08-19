@@ -12,6 +12,8 @@ import InvDetail from "./pages/laboran/inventaris/InvDetail";
 import InvEdit from "./pages/laboran/inventaris/InvEdit";
 import InvEditPC from "./pages/laboran/inventaris/InvEditPC";
 import InvListNonPC from "./pages/laboran/inventaris/InvListNonPC";
+import InvMovePC from "./pages/laboran/inventaris/InvMovePC";
+import InvMove from "./pages/laboran/inventaris/InvMove";
 //admin
 import InvAdminHome from "./pages/admin/inventaris/InvHome";
 import InvAdminInput from "./pages/admin/inventaris/InvInput";
@@ -117,6 +119,22 @@ function App() {
         element={
           <ProtectedRoute>
             <InvEditPC />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/inventaris/pindah/pc/:id"
+        element={
+          <ProtectedRoute>
+            <InvMovePC />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/inventaris/pindah/inv/:id"
+        element={
+          <ProtectedRoute>
+            <InvMove />
           </ProtectedRoute>
         }
       />

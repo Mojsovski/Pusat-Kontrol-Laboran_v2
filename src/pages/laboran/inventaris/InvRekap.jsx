@@ -1,64 +1,79 @@
 import React from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import useStore from "../../../data/Data.js";
-import { useAuthStore } from "../../../data/Auth.js";
+import useFilters from "../../../data/filter.js";
 
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
+import Condition from "../../../components/global/Condition.jsx";
+import {
+  MoveButton,
+  HomeBackButton,
+} from "../../../components/global/ActionButton.jsx";
 
 function InvRekap() {
-  const { inv, invpc, fetchData, fetchDataNonPC } = useStore();
-  const { user } = useAuthStore.getState();
+  const {
+    fetchData,
+    fetchDataNonPC,
+    fetchMovePC,
+    handleMoveFormPC,
+    updateForm,
+  } = useStore();
 
-  //filter
-  const filterStatus = (status) =>
-    invpc.filter(
-      (item) => item.status === status && item.room === user.user_metadata.room
-    );
-  const filterPinjam = filterStatus("pinjam");
-  const filterDipinjam = filterStatus("dipinjam");
-  const filterRusak = invpc.filter(
-    (item) =>
-      (item.status === "rusak ringan" || item.status === "rusak berat") &&
-      item.room === user.user_metadata.room
-  );
-  const filterPrimaryPC = invpc.filter(
-    (item) => item.primaryItem === true && item.room === user.user_metadata.room
-  );
-  const limitInv = inv
-    .filter((item) => item.room === user.user_metadata.room)
-    .slice(0, 3);
+  const {
+    filterStatus,
+    filterPinjam,
+    filterDipinjam,
+    filterRusak,
+    filterPrimaryPC,
+    limitInv,
+    countClient,
+    countDosen,
+    countLaboran,
+    countCadangan,
+    countPinjam,
+    countDipinjam,
+    countRusak,
+    countTotal,
+  } = useFilters();
 
-  // count inv pc
-  const countCategory = (category) =>
-    invpc.filter(
-      (item) =>
-        item.pc.category === category && item.room === user.user_metadata.room
-    ).length;
-  const countClient = countCategory("client");
-  const countDosen = countCategory("dosen");
-  const countLaboran = countCategory("laboran");
-  const countCadangan = countCategory("cadangan");
+  const handleBackHome = (id) => {
+    Swal.fire({
+      title: "Mengembalikan barang",
+      text: "Apa kamu ingin mengembalikan barang?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "batal",
+      confirmButtonText: "Ya, kembalikan inventaris!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        // Fetch the current data by ID
+        const currentData = await fetchMovePC(id);
 
-  const countStatus = (status) =>
-    invpc.filter(
-      (item) => item.status === status && item.room === user.user_metadata.room
-    ).length;
-  const countPinjam = countStatus("pinjam");
-  const countDipinjam = countStatus("dipinjam");
+        // Update the formPC state
+        handleMoveFormPC("status", "lab");
+        handleMoveFormPC("roomOld", "");
+        handleMoveFormPC("roomNew", "");
+        handleMoveFormPC("room", currentData.roomOld);
 
-  const countRusak = invpc.filter(
-    (item) =>
-      (item.status === "rusak ringan" || item.status === "rusak berat") &&
-      item.room === user.user_metadata.room
-  ).length;
-
-  const countTotal = invpc.filter(
-    (item) => item.room === user.user_metadata.room
-  ).length;
+        await updateForm();
+        await fetchData();
+        Swal.fire({
+          title: "Mengembalikan Barang",
+          text: "Inventaris sudah dikembalikan ke tempat asal.",
+          icon: "success",
+          timer: 700,
+          showConfirmButton: false,
+        });
+      }
+    });
+  };
 
   useEffect(() => {
     fetchData();
@@ -170,11 +185,11 @@ function InvRekap() {
                       <th scope="col" className="px-7 py-3 ">
                         Nama
                       </th>
-                      <th scope="col" className="px-3 py-3 ">
-                        Status
-                      </th>
                       <th scope="col" className="px-1 py-3 ">
-                        Lokasi sebelumnya
+                        Lokasi Peminjam
+                      </th>
+                      <th scope="col" className="px-1 py-3">
+                        Aksi
                       </th>
                     </tr>
                   </thead>
@@ -189,28 +204,18 @@ function InvRekap() {
                         </td>
                         <td
                           scope="col"
-                          className="px-1 py-3 flex items-center justify-center"
+                          className="px-1 py-3 flex justify-center"
                         >
-                          <p
-                            className={`${
-                              inv.status === "baik"
-                                ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                                : inv.status === "rusak ringan"
-                                ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                                : inv.status === "rusak berat"
-                                ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : inv.status === "pinjam"
-                                ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : inv.status === "dipinjam"
-                                ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
-                            }`}
-                          >
-                            {inv.status}
-                          </p>
+                          <div className=" rounded-2xl px-2 w-20 bg-sky-700">
+                            <p className="text-white">{inv.roomNew}</p>
+                          </div>
                         </td>
-                        <td scope="col" className="px-1 py-3">
-                          {inv.comment || "-"}
+                        <td className="px-1 py-3 ">
+                          <div className="w-full flex justify-center gap-2">
+                            <HomeBackButton
+                              onClick={() => handleBackHome(inv.id)}
+                            />
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -237,9 +242,6 @@ function InvRekap() {
                         Nama
                       </th>
                       <th scope="col" className="px-1 py-3 ">
-                        Status
-                      </th>
-                      <th scope="col" className="px-1 py-3 ">
                         Lokasi Sekarang
                       </th>
                     </tr>
@@ -253,31 +255,13 @@ function InvRekap() {
                         <td scope="col" className="px-3 py-3">
                           {inv.name}
                         </td>
-
                         <td
                           scope="col"
-                          className="px-1 py-3 flex items-center justify-center"
+                          className="px-1 py-3 flex justify-center"
                         >
-                          <p
-                            className={`${
-                              inv.status === "baik"
-                                ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                                : inv.status === "rusak ringan"
-                                ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                                : inv.status === "rusak berat"
-                                ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : inv.status === "pinjam"
-                                ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : inv.status === "dipinjam"
-                                ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
-                            }`}
-                          >
-                            {inv.status}
-                          </p>
-                        </td>
-                        <td scope="col" className="px-1 py-3">
-                          {inv.comment || "-"}
+                          <div className=" rounded-2xl px-2 w-20 bg-sky-700">
+                            <p className="text-white">{inv.room}</p>
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -321,7 +305,7 @@ function InvRekap() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody clas>
+                  <tbody>
                     {filterRusak.map((inv, index) => (
                       <tr>
                         <td scope="col" className="px-1 py-3">
@@ -336,27 +320,8 @@ function InvRekap() {
                         <td scope="col" className="px-1 py-3">
                           {inv.pc.category}
                         </td>
-                        <td
-                          scope="col"
-                          className="px-1 py-3 flex items-center justify-center"
-                        >
-                          <p
-                            className={`${
-                              inv.status === "baik"
-                                ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                                : inv.status === "rusak ringan"
-                                ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                                : inv.status === "rusak berat"
-                                ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : inv.status === "pinjam"
-                                ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : inv.status === "dipinjam"
-                                ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
-                            }`}
-                          >
-                            {inv.status}
-                          </p>
+                        <td scope="col" className="px-1 py-3">
+                          <Condition condition={inv.condition} />
                         </td>
                         <td scope="col" className="px-5 py-3">
                           {inv.comment}

@@ -5,13 +5,21 @@ import CircularProgress from "@mui/material/CircularProgress";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import { TbHomeMove } from "react-icons/tb";
 
 import useStore from "../../data/Data.js";
 import { useAuthStore } from "../../data/Auth";
 import usePaginationStore from "../../data/Pagination.js";
 
-import icons from "../../assets/icons/icon.jsx";
 import Pagination from "../global/Pagination.jsx";
+import Condition from "../global/Condition";
+import Status from "../global/Status.jsx";
+import {
+  MoveButton,
+  DeleteButton,
+  EditButton,
+  DetailButton,
+} from "../global/ActionButton.jsx";
 
 function TableListPC() {
   const { invpc, fetchData, loading, error, deleteForm } = useStore();
@@ -94,7 +102,7 @@ function TableListPC() {
                 Penyimpanan
               </th>
               <th scope="col" className="px-1 py-3">
-                Kategori
+                Lokasi
               </th>
               <th scope="col" className="px-1 py-3 ">
                 Kondisi
@@ -125,51 +133,18 @@ function TableListPC() {
                 <td scope="col" className="px-1 py-3">
                   {inv.pc.storage}
                 </td>
-                <td scope="col" className="px-1 py-3">
-                  {inv.pc.category}
+                <td scope="col" className="px-1 py-3 ">
+                  <Status condition={inv.status} />
                 </td>
-                <td
-                  scope="col"
-                  className="px-1 py-3 flex items-center justify-center"
-                >
-                  <p
-                    className={`${
-                      inv.status === "baik"
-                        ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                        : inv.status === "rusak ringan"
-                        ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                        : inv.status === "rusak berat"
-                        ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                        : inv.status === "pinjam"
-                        ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                        : inv.status === "dipinjam"
-                        ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                        : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
-                    }`}
-                  >
-                    {inv.status}
-                  </p>
+                <td scope="col" className="px-1 py-3">
+                  <Condition condition={inv.condition} />
                 </td>
                 <td className="px-1 py-3 ">
                   <div className="w-full flex justify-center gap-2">
-                    <button
-                      onClick={() => handleDelete(inv.id)}
-                      className="bg-red-500 hover:bg-red-400 py-1 w-10  items-center flex justify-center rounded-xl shadow"
-                    >
-                      <DeleteForeverRoundedIcon style={{ color: "white" }} />
-                    </button>
-                    <Link
-                      to={`/inventaris/editpc/${inv.id}`}
-                      className="bg-[#fdcd49] hover:bg-yellow-300 py-1 w-10  items-center flex justify-center rounded-xl shadow"
-                    >
-                      <EditRoundedIcon />
-                    </Link>
-                    <Link
-                      to={`/inventaris/detail/${inv.id}`}
-                      className="bg-blue-700 hover:bg-blue-600 0 py-1 w-10  items-center flex justify-center rounded-xl shadow"
-                    >
-                      <SettingsSuggestIcon style={{ color: "white" }} />
-                    </Link>
+                    <MoveButton to={`/inventaris/pindah/pc/${inv.id}`} />
+                    <DeleteButton onClick={() => handleDelete(inv.id)} />
+                    <EditButton to={`/inventaris/editpc/${inv.id}`} />
+                    <DetailButton to={`/inventaris/detail/${inv.id}`} />
                   </div>
                 </td>
               </tr>

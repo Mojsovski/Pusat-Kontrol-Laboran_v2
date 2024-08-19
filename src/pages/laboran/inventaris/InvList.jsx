@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import DrawIcon from "@mui/icons-material/Draw";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../../../data/Auth.js";
 
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
@@ -9,6 +10,7 @@ import TableListInv from "../../../components/laboran/TableListInv.jsx";
 import TableListPC from "../../../components/laboran/TableListPC.jsx";
 
 function InvList() {
+  const { user } = useAuthStore.getState();
   const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
@@ -25,7 +27,7 @@ function InvList() {
             <div className="flex flex-row gap-4 ">
               <img src={icons.inputPC} className="w-[25px] " />
               <div className="p-1 font-semibold text-xl ">
-                Daftar Inventaris
+                Daftar Inventaris Ruang {user.user_metadata.room}
               </div>
             </div>
             <div className="my-2 flex gap-2 ">

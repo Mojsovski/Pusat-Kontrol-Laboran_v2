@@ -5,11 +5,11 @@ import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 import useStore from "../../../data/Data.js";
 
-import Sidebar from "../../../components/global/Sidebar";
-import Navbar from "../../../components/global/Navbar";
+import Sidebar from "../../../components/global/Sidebar.jsx";
+import Navbar from "../../../components/global/Navbar.jsx";
 import icons from "../../../assets/icons/icon.jsx";
 
-function InvEdit() {
+function InvMove() {
   const { id } = useParams();
   const navigate = useNavigate();
   const {
@@ -158,7 +158,7 @@ function InvEdit() {
                       type="text"
                       id="condition"
                       name="condition"
-                      className="block text-base pl-4  bg-white w-full h-full rounded-3xl focus:outline-none "
+                      className="block text-base pl-4 bg-white w-full h-full rounded-3xl focus:outline-none "
                     >
                       <option value="">lokasi barang saat ini</option>
                       <option value="lab">lab</option>
@@ -210,4 +210,4 @@ function InvEdit() {
   );
 }
 
-export default InvEdit;
+export default InvMove;
