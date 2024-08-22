@@ -7,6 +7,19 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+const logPC = async (action, data) => {
+  const logEntry = {
+    ...data,
+    action,
+    log_time: new Date().toISOString(),
+  };
+  try {
+    await supabase.from("log").insert([logEntry]);
+  } catch (error) {
+    console.error("Error logging operation:", error.message);
+  }
+};
+
 const useStore = create((set) => ({
   inv: [],
   invpc: [],
@@ -119,6 +132,7 @@ const useStore = create((set) => ({
         .insert([formPC]);
       if (error) throw error;
       console.log("Form submitted successfully:", invpc);
+      await logPC("insert", formPC); // Log the operation
     } catch (error) {
       console.error("Error submitting form:", error.message);
     }
@@ -148,6 +162,7 @@ const useStore = create((set) => ({
         .eq("id", formPC.id);
       if (error) throw error;
       console.log("Form updated successfully:", invpc);
+      await logPC("update", formPC);
     } catch (error) {
       console.error("Error updating form:", error.message);
     }
@@ -171,11 +186,24 @@ const useStore = create((set) => ({
   //PC
   deleteForm: async (id) => {
     try {
+      // Fetch the data to be deleted
       const { data: invpc, error } = await supabase
+        .from("inv_pc")
+        .select("*")
+        .eq("id", id)
+        .single();
+      if (error) throw error;
+
+      // Log the operation before deletion
+      await logPC("delete", invpc);
+
+      // Delete the data
+      const { error: deleteError } = await supabase
         .from("inv_pc")
         .delete()
         .eq("id", id);
-      if (error) throw error;
+      if (deleteError) throw deleteError;
+
       console.log("Form deleted successfully:", invpc);
     } catch (error) {
       console.error("Error deleting form:", error.message);
