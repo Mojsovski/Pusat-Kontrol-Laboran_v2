@@ -8,6 +8,7 @@ import { useAuthStore } from "../../../data/Auth.js";
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
+import Condition from "../../../components/global/Condition.jsx";
 
 function InvHome() {
   const { inv, invpc, fetchData, fetchDataNonPC } = useStore();
@@ -256,28 +257,6 @@ function InvHome() {
           </div>
 
           {/* column 3 */}
-          {/* <div className="flex gap-5 relative  ">
-          <div className="w-full h-[277px] px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
-            <div className=" h-10 flex flex-row gap-4">
-              <img src={icons.rekapPC} className="w-[35px] " />
-              <div className="p-1 font-semibold text-xl ">Rekap</div>
-            </div>
-            <div className="h-32 text-center text-8xl flex justify-center items-center ">
-              D.2.I
-            </div>
-            <div className="h-10 text-center text-base flex justify-center items-center ">
-              Shift : Siang (14.00-21.00)
-            </div>
-            <div className="h-9 flex justify-center items-center">
-              <div className="w-36 h-7 py-1 rounded-2xl bg-[#07AC22]">
-                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
-                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
-          {/* column 4 */}
           <div className=" flex gap-5 relative  ">
             {/* row 1 */}
             <div className=" w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
@@ -332,23 +311,7 @@ function InvHome() {
                           scope="col"
                           className="py-3 flex items-center justify-center "
                         >
-                          <p
-                            className={`${
-                              inv.status === "baik"
-                                ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                                : inv.status === "rusak ringan"
-                                ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                                : inv.status === "rusak berat"
-                                ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : inv.status === "pinjam"
-                                ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : inv.status === "dipinjam"
-                                ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
-                            }`}
-                          >
-                            {inv.status}
-                          </p>
+                          <Condition condition={inv.condition} />
                         </td>
                       </tr>
                     ))}

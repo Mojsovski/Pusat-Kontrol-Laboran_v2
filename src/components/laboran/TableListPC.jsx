@@ -1,18 +1,13 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import CircularProgress from "@mui/material/CircularProgress";
-import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
-import { TbHomeMove } from "react-icons/tb";
 
 import useStore from "../../data/Data.js";
 import { useAuthStore } from "../../data/Auth";
 import usePaginationStore from "../../data/Pagination.js";
 
 import Pagination from "../global/Pagination.jsx";
-import Condition from "../global/Condition";
+import { ConditionAll } from "../global/Condition";
 import Status from "../global/Status.jsx";
 import {
   MoveButton,
@@ -53,8 +48,8 @@ function TableListPC() {
       text: "Kamu tidak dapat mengembalikan ini!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
       cancelButtonText: "batal",
       confirmButtonText: "Ya, hapus inventaris!",
     }).then(async (result) => {
@@ -102,7 +97,7 @@ function TableListPC() {
                 Penyimpanan
               </th>
               <th scope="col" className="px-1 py-3">
-                Lokasi
+                Kategori
               </th>
               <th scope="col" className="px-1 py-3 ">
                 Kondisi
@@ -134,10 +129,10 @@ function TableListPC() {
                   {inv.pc.storage}
                 </td>
                 <td scope="col" className="px-1 py-3 ">
-                  <Status condition={inv.status} />
+                  {inv.pc.category}
                 </td>
                 <td scope="col" className="px-1 py-3">
-                  <Condition condition={inv.condition} />
+                  <ConditionAll condition={inv.condition} />
                 </td>
                 <td className="px-1 py-3 ">
                   <div className="w-full flex justify-center gap-2">

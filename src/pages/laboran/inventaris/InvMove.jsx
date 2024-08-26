@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 import useStore from "../../../data/Data.js";
+import { useAuthStore } from "../../../data/Auth.js";
 
 import Sidebar from "../../../components/global/Sidebar.jsx";
 import Navbar from "../../../components/global/Navbar.jsx";
@@ -12,30 +13,39 @@ import icons from "../../../assets/icons/icon.jsx";
 function InvMove() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const {
-    fetchDataByIdNonPC,
-    formInv,
-    updateFormInv,
-    updateFormNonPC,
-    deleteFormNonPC,
-  } = useStore();
+  const { user } = useAuthStore((state) => ({ user: state.user }));
+  const { fetchMoveNonPC, formInv, handleMoveFormInv, updateFormNonPC } =
+    useStore();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    updateFormInv(name, value);
+    handleMoveFormInv(name, value);
+    if (name === "room") {
+      handleMoveFormInv("roomNew", value);
+      if (value === user.user_metadata.room) {
+        handleMoveFormInv("status", "lab");
+      } else {
+        handleMoveFormInv("status", "dipinjam");
+      }
+    }
   };
 
   const handleUpdateInv = async (e) => {
     e.preventDefault();
-    if (
-      !formInv.name ||
-      !formInv.quantity ||
-      !formInv.status ||
-      !formInv.room
-    ) {
+    if (!formInv.name || !formInv.room || !formInv.roomOld || !formInv.status) {
       Swal.fire({
         title: "Gagal Input!",
         text: "Isi form yang tersedia",
+        icon: "error",
+        timer: 850,
+        showConfirmButton: false,
+      });
+      return;
+    }
+    if (formInv.roomOld === formInv.room) {
+      Swal.fire({
+        title: "Gagal Input!",
+        text: "Ubah ruangan terbaru!",
         icon: "error",
         timer: 850,
         showConfirmButton: false,
@@ -53,35 +63,13 @@ function InvMove() {
     });
   };
 
-  const handleDeleteInv = () => {
-    Swal.fire({
-      title: "Apa kamu yakin?",
-      text: "Kamu tidak dapat mengembalikan ini!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      cancelButtonText: "batal",
-      confirmButtonText: "Ya, hapus inventaris!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await deleteFormNonPC(id);
-        navigate(-1);
-        Swal.fire({
-          title: "Terhapus!",
-          text: "Inventaris sudah terhapus.",
-          icon: "success",
-          timer: 700,
-          showConfirmButton: false,
-        });
-        navigate("/inventaris/list-nonpc");
-      }
-    });
-  };
-
   useEffect(() => {
     if (id) {
-      fetchDataByIdNonPC(id);
+      fetchMoveNonPC(id).then((data) => {
+        if (data) {
+          handleMoveFormInv("roomOld", data.room);
+        }
+      });
     }
   }, [id]);
 
@@ -96,7 +84,7 @@ function InvMove() {
               <div className="flex flex-row gap-4 ">
                 <img src={icons.inputPC} className="w-[25px] " />
                 <div className="p-1 font-semibold text-xl ">
-                  Edit Inventaris {formInv.name}
+                  Pindah Komputer {formInv.name}
                 </div>
               </div>
             </div>
@@ -110,89 +98,91 @@ function InvMove() {
                       type="text"
                       id="name"
                       name="name"
-                      className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
+                      className="block text-base pl-4 p-3 bg-[#e6e6e6] w-full h-full rounded-3xl focus:outline-none "
                       placeholder="contoh : obeng"
                       value={formInv.name}
                       onChange={handleChange}
+                      readOnly
                     />
                   </div>
                 </div>
-                <div className="my-2">
-                  <label className="px-3 font-medium ">Jumlah Barang</label>
-                  <div className="h-10 shadow-lg rounded-3xl bg-white">
-                    <input
-                      type="text"
-                      id="quantity"
-                      name="quantity"
-                      className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
-                      placeholder="contoh : 1"
-                      value={formInv.quantity}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="my-2">
-                  <label className="px-3 font-medium">Kondisi</label>
-                  <div className=" h-10 shadow-lg rounded-3xl bg-white">
-                    <select
-                      value={formInv.status}
-                      onChange={handleChange}
-                      type="text"
-                      id="status"
-                      name="status"
-                      className="block text-base pl-4  bg-white w-full h-full rounded-3xl focus:outline-none "
-                    >
-                      <option value="">kondisi barang saat ini</option>
-                      <option value="baik">baik</option>
-                      <option value="rusak ringan">rusak ringan</option>
-                      <option value="rusak berat">rusak berat</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="my-2">
-                  <label className="px-3 font-medium">Lokasi</label>
-                  <div className=" h-10 shadow-lg rounded-3xl bg-white">
-                    <select
-                      value={formInv.condition}
-                      onChange={handleChange}
-                      type="text"
-                      id="condition"
-                      name="condition"
-                      className="block text-base pl-4 bg-white w-full h-full rounded-3xl focus:outline-none "
-                    >
-                      <option value="">lokasi barang saat ini</option>
-                      <option value="lab">lab</option>
-                      <option value="pinjam">pinjam</option>
-                      <option value="dipinjam">dipinjam</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="my-2">
-                  <label className="px-3 font-medium">Ruang Laboratorium</label>
+                <div className="my-2  ">
+                  <label className="px-3 font-medium">Ruang sebelumnya</label>
                   <div className="h-10 shadow-lg rounded-3xl ">
                     <input
-                      value={formInv.room}
+                      value={formInv.roomOld}
                       onChange={handleChange}
                       type="text"
-                      id="room"
-                      name="room"
+                      id="roomOld"
+                      name="roomOld"
                       className="block text-base pl-4 p-3 bg-[#e6e6e6] w-full h-full rounded-3xl focus:outline-none "
                       placeholder="contoh : D.2.C"
                       readOnly
                     />
                   </div>
                 </div>
+                <div className="my-2 ">
+                  <label className="px-3 font-medium">Ruang selanjutnya</label>
+                  <div className="h-10 shadow-lg rounded-3xl ">
+                    <input
+                      value={formInv.roomNew}
+                      onChange={handleChange}
+                      type="text"
+                      id="roomNew"
+                      name="roomNew"
+                      className="block text-base pl-4 p-3 bg-[#e6e6e6] w-full h-full rounded-3xl focus:outline-none "
+                      placeholder="contoh : D.2.C"
+                    />
+                  </div>
+                </div>
+                <div className="my-2 hidden ">
+                  <label className="px-3 font-medium">Status</label>
+                  <div className="h-10 shadow-lg rounded-3xl ">
+                    <input
+                      value={formInv.status}
+                      onChange={handleChange}
+                      type="text"
+                      id="status"
+                      name="status"
+                      className="block text-base pl-4 p-3 bg-[#e6e6e6] w-full h-full rounded-3xl focus:outline-none "
+                      placeholder="contoh : D.2.C"
+                      readOnly
+                    />
+                  </div>
+                </div>
+                <div className="my-2">
+                  <label className="px-3 font-medium">Lokasi Terbaru</label>
+                  <div className=" h-10 shadow-lg rounded-3xl bg-white">
+                    <select
+                      value={formInv.room}
+                      onChange={handleChange}
+                      type="room"
+                      id="room"
+                      name="room"
+                      className="block text-base pl-4 bg-white w-full h-full rounded-3xl focus:outline-none "
+                    >
+                      <option value="">pilih ruang laboratorium</option>
+                      <option value="D.2.A">D.2.A</option>
+                      <option value="D.2.B">D.2.B</option>
+                      <option value="D.2.C">D.2.C</option>
+                      <option value="D.2.D">D.2.D</option>
+                      <option value="D.2.E">D.2.E</option>
+                      <option value="D.2.F">D.2.F</option>
+                      <option value="D.2.G">D.2.G</option>
+                      <option value="D.2.H">D.2.H</option>
+                      <option value="D.2.I">D.2.I</option>
+                      <option value="D.2.J">D.2.J</option>
+                      <option value="D.2.K">D.2.K</option>
+                      <option value="D.3.L">D.3.L</option>
+                      <option value="D.3.M">D.3.M</option>
+                      <option value="D.3.N">D.3.N</option>
+                      <option value="UPT">UPT</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="px-11 flex flex-col lg:flex-row justify-between items-center my-3">
-              <div className="pt-10 flex justify-start">
-                <button
-                  onClick={handleDeleteInv}
-                  className="px-16 py-2 shadow-lg rounded-3xl bg-red-500 text-white"
-                >
-                  <DeleteForeverRoundedIcon />
-                </button>
-              </div>
+            <div className="px-11 flex flex-col lg:flex-row justify-end items-center my-3">
               <div className="pt-10 flex justify-end">
                 <button
                   onClick={handleUpdateInv}

@@ -12,13 +12,14 @@ import logoSetting from "../../assets/icon/settings.svg";
 import warningImage from "../../assets/images/warningOut.svg";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import { TbLogs } from "react-icons/tb";
 
 import { useAuthStore } from "../../data/Auth";
 
 const Sidebar = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const handleLogout = useAuthStore((state) => state.handleLogout); // Get handleLogout from useAuthStore
-  const { user } = useAuthStore((state) => ({ user: state.user })); // Get user from store
+  const handleLogout = useAuthStore((state) => state.handleLogout);
+  const { user } = useAuthStore((state) => ({ user: state.user }));
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -129,6 +130,17 @@ const Sidebar = () => {
                 >
                   <img src={logoPelaporan} className="w-[30px] h-8 " />
                   <span className="ms-3 justify-center">Kelola Akun</span>
+                </Link>
+              </li>
+            ) : null}
+            {user?.user_metadata?.role === "admin" ? (
+              <li>
+                <Link
+                  to={"/log"}
+                  className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
+                >
+                  <TbLogs className=" size-8 hover:text-black" />
+                  <span className="ms-3 justify-center">Log</span>
                 </Link>
               </li>
             ) : null}

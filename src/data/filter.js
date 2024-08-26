@@ -12,12 +12,22 @@ const useFilters = () => {
         item.status === status && item.roomOld === user.user_metadata.room
     );
 
-  const filterPinjam = invpc.filter(
+  const filterPinjamPC = invpc.filter(
     (item) =>
       item.status === "dipinjam" && item.roomNew === user.user_metadata.room
   );
 
-  const filterDipinjam = invpc.filter(
+  const filterDipinjamPC = invpc.filter(
+    (item) =>
+      item.status === "dipinjam" && item.roomOld === user.user_metadata.room
+  );
+
+  const filterPinjam = inv.filter(
+    (item) =>
+      item.status === "dipinjam" && item.roomNew === user.user_metadata.room
+  );
+
+  const filterDipinjam = inv.filter(
     (item) =>
       item.status === "dipinjam" && item.roomOld === user.user_metadata.room
   );
@@ -69,6 +79,8 @@ const useFilters = () => {
 
   return {
     filterStatus,
+    filterPinjamPC,
+    filterDipinjamPC,
     filterPinjam,
     filterDipinjam,
     filterRusak,

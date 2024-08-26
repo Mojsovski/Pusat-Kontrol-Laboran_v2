@@ -9,7 +9,10 @@ import useFilters from "../../../data/filter.js";
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
-import Condition from "../../../components/global/Condition.jsx";
+import {
+  ConditionAll,
+  Condition,
+} from "../../../components/global/Condition.jsx";
 import {
   MoveButton,
   HomeBackButton,
@@ -26,6 +29,8 @@ function InvRekap() {
 
   const {
     filterStatus,
+    filterPinjamPC,
+    filterDipinjamPC,
     filterPinjam,
     filterDipinjam,
     filterRusak,
@@ -194,7 +199,7 @@ function InvRekap() {
                     </tr>
                   </thead>
                   <tbody>
-                    {filterPinjam.map((inv, index) => (
+                    {filterPinjamPC.map((inv, index) => (
                       <tr>
                         <td scope="col" className="px-1 py-3">
                           {index + 1}
@@ -247,7 +252,7 @@ function InvRekap() {
                     </tr>
                   </thead>
                   <tbody>
-                    {filterDipinjam.map((inv, index) => (
+                    {filterDipinjamPC.map((inv, index) => (
                       <tr>
                         <td scope="col" className="px-1 py-3">
                           {index + 1}
@@ -271,6 +276,109 @@ function InvRekap() {
             </div>
           </div>
           {/* Column 3 */}
+          <div className=" flex lg:flex-row flex-col gap-5 relative ">
+            {/* row 1 */}
+            <div className=" lg:w-1/2 px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
+              <div className=" h-10 flex flex-row gap-4">
+                <img src={icons.inputPC} className="w-[25px] " />
+                <div className="p-1 font-semibold text-xl ">Pinjam Barang</div>
+              </div>
+              <div className="overflow-x-auto relative ">
+                <table className="w-full text-sm  rtl:text-right text-center ">
+                  <thead className=" text-center">
+                    <tr>
+                      <th scope="col" className="px-1 py-3  ">
+                        No
+                      </th>
+                      <th scope="col" className="px-7 py-3 ">
+                        Nama
+                      </th>
+                      <th scope="col" className="px-1 py-3 ">
+                        Lokasi Peminjam
+                      </th>
+                      <th scope="col" className="px-1 py-3">
+                        Aksi
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filterPinjam.map((inv, index) => (
+                      <tr>
+                        <td scope="col" className="px-1 py-3">
+                          {index + 1}
+                        </td>
+                        <td scope="col" className="px-3 py-3">
+                          {inv.name}
+                        </td>
+                        <td
+                          scope="col"
+                          className="px-1 py-3 flex justify-center "
+                        >
+                          <div className=" rounded-2xl px-2 w-20 bg-sky-700 ">
+                            <p className="text-white">{inv.roomNew}</p>
+                          </div>
+                        </td>
+                        <td className="px-1 py-3 ">
+                          <div className=" flex justify-center  gap-2">
+                            <HomeBackButton
+                              onClick={() => handleBackHome(inv.id)}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {/* row 2 */}
+            <div className="lg:w-1/2  px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
+              <div className=" h-10 flex flex-row gap-4">
+                <img src={icons.inputPC} className="w-[35px] " />
+                <div className="p-1 font-semibold text-xl ">
+                  Barang Dipinjam
+                </div>
+              </div>
+              <div className="overflow-x-auto relative ">
+                <table className="w-full text-sm  rtl:text-right text-center ">
+                  <thead className=" text-center">
+                    <tr>
+                      <th scope="col" className="px-1 py-3  ">
+                        No
+                      </th>
+                      <th scope="col" className="px-6 py-3 ">
+                        Nama
+                      </th>
+                      <th scope="col" className="px-1 py-3 ">
+                        Lokasi Sekarang
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filterDipinjam.map((inv, index) => (
+                      <tr>
+                        <td scope="col" className="px-1 py-3">
+                          {index + 1}
+                        </td>
+                        <td scope="col" className="px-3 py-3">
+                          {inv.name}
+                        </td>
+                        <td
+                          scope="col"
+                          className="px-1 py-3 flex justify-center"
+                        >
+                          <div className=" rounded-2xl px-2 w-20 bg-sky-700">
+                            <p className="text-white">{inv.room}</p>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          {/* Column 4 */}
           <div className="flex gap-5 relative">
             <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md">
               <div className="h-10 flex flex-row justify-between items-center">
@@ -321,7 +429,7 @@ function InvRekap() {
                           {inv.pc.category}
                         </td>
                         <td scope="col" className="px-1 py-3">
-                          <Condition condition={inv.condition} />
+                          <ConditionAll condition={inv.condition} />
                         </td>
                         <td scope="col" className="px-5 py-3">
                           {inv.comment}
@@ -333,7 +441,7 @@ function InvRekap() {
               </div>
             </div>
           </div>
-          {/* Column 4 */}
+          {/* Column 5 */}
           <div className="flex gap-5 relative  ">
             <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md ">
               <div className=" h-10 flex flex-row justify-between items-center">
@@ -418,7 +526,7 @@ function InvRekap() {
               </div>
             </div>
           </div>
-          {/* column 5 */}
+          {/* column 6 */}
           <div className=" flex gap-5 relative  ">
             {/* row 1 */}
             <div className=" w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
@@ -473,23 +581,7 @@ function InvRekap() {
                           scope="col"
                           className="py-3 flex items-center justify-center "
                         >
-                          <p
-                            className={`${
-                              inv.status === "baik"
-                                ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                                : inv.status === "rusak ringan"
-                                ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                                : inv.status === "rusak berat"
-                                ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : inv.status === "pinjam"
-                                ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : inv.status === "dipinjam"
-                                ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
-                            }`}
-                          >
-                            {inv.status}
-                          </p>
+                          <Condition condition={inv.condition} />
                         </td>
                       </tr>
                     ))}

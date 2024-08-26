@@ -34,6 +34,9 @@ import Setting from "./pages/setting/Setting";
 import ChangeAccount from "./pages/setting/ChangeAccount";
 import Users from "./pages/setting/Users";
 import SignUp from "./pages/setting/SignUp";
+//log
+import Log from "./pages/admin/log/Log";
+import LogPCDetail from "./pages/admin/log/LogPCDetail";
 
 import ProtectedRoute from "./router/ProtectedRoute";
 
@@ -278,11 +281,29 @@ function App() {
           </ProtectedRoute>
         }
       />
+      {/* PDF */}
       <Route
         path="/downloadrekap"
         element={
           <ProtectedRoute>
             <ExportInv />
+          </ProtectedRoute>
+        }
+      />
+      {/* Log */}
+      <Route
+        path="/log"
+        element={
+          <ProtectedRoute>
+            <Log />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/log/pc/detail/:id"
+        element={
+          <ProtectedRoute>
+            <LogPCDetail />
           </ProtectedRoute>
         }
       />

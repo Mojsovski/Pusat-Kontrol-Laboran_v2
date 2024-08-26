@@ -121,7 +121,7 @@ function InvEdit() {
                   <label className="px-3 font-medium ">Jumlah Barang</label>
                   <div className="h-10 shadow-lg rounded-3xl bg-white">
                     <input
-                      type="text"
+                      type="number"
                       id="quantity"
                       name="quantity"
                       className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
@@ -132,14 +132,14 @@ function InvEdit() {
                   </div>
                 </div>
                 <div className="my-2">
-                  <label className="px-3 font-medium">Kondisi</label>
-                  <div className=" h-10 shadow-lg rounded-3xl bg-white">
+                  <label className="px-3 font-medium">Kondisi barang</label>
+                  <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <select
-                      value={formInv.status}
+                      value={formInv.condition}
                       onChange={handleChange}
                       type="text"
-                      id="status"
-                      name="status"
+                      id="condition"
+                      name="condition"
                       className="block text-base pl-4  bg-white w-full h-full rounded-3xl focus:outline-none "
                     >
                       <option value="">kondisi barang saat ini</option>
@@ -150,24 +150,20 @@ function InvEdit() {
                   </div>
                 </div>
                 <div className="my-2">
-                  <label className="px-3 font-medium">Lokasi</label>
-                  <div className=" h-10 shadow-lg rounded-3xl bg-white">
-                    <select
-                      value={formInv.condition}
+                  <label className="px-3 font-medium">Keterangan</label>
+                  <div className=" h-10 shadow-lg rounded-3xl ">
+                    <input
+                      value={formInv.comment}
                       onChange={handleChange}
                       type="text"
-                      id="condition"
-                      name="condition"
-                      className="block text-base pl-4  bg-white w-full h-full rounded-3xl focus:outline-none "
-                    >
-                      <option value="">lokasi barang saat ini</option>
-                      <option value="lab">lab</option>
-                      <option value="pinjam">pinjam</option>
-                      <option value="dipinjam">dipinjam</option>
-                    </select>
+                      id="comment"
+                      name="comment"
+                      className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
+                      placeholder="diisi bila ada yang kondisi tertentu"
+                    />
                   </div>
                 </div>
-                <div className="my-2">
+                <div className="my-2 hidden">
                   <label className="px-3 font-medium">Ruang Laboratorium</label>
                   <div className="h-10 shadow-lg rounded-3xl ">
                     <input
@@ -179,6 +175,23 @@ function InvEdit() {
                       className="block text-base pl-4 p-3 bg-[#e6e6e6] w-full h-full rounded-3xl focus:outline-none "
                       placeholder="contoh : D.2.C"
                       readOnly
+                    />
+                  </div>
+                </div>
+                <div className="my-2 hidden">
+                  <div className="mx-3 my-1 flex justify-between items-center">
+                    <div className="flex justify-start gap-3 items-center">
+                      <label className="font-medium">Status</label>
+                    </div>
+                  </div>
+                  <div className="  h-10 shadow-lg rounded-3xl ">
+                    <input
+                      value={formInv.status}
+                      onChange={handleChange}
+                      type="text"
+                      id="status"
+                      name="status"
+                      className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
                     />
                   </div>
                 </div>

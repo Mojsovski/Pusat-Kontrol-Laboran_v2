@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { createClient } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
+import useLogStore from "./Log.js"; // Import useLogStore
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -8,6 +9,18 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const logPC = async (action, data) => {
+  const logEntry = {
+    ...data,
+    action,
+    log_time: new Date().toISOString(),
+  };
+  try {
+    await supabase.from("log_pc").insert([logEntry]);
+  } catch (error) {
+    console.error("Error logging operation:", error.message);
+  }
+};
+const logInv = async (action, data) => {
   const logEntry = {
     ...data,
     action,
@@ -42,6 +55,8 @@ const useStore = create((set) => ({
     condition: "",
     quantity: "",
     room: "",
+    roomOld: "",
+    roomNew: "",
     comment: "",
   },
 
@@ -72,6 +87,7 @@ const useStore = create((set) => ({
           ...invpc,
         },
       }));
+      useLogStore.getState().countDamages(id); // Panggil fungsi countDamages
     } catch (error) {
       console.error("Error fetching data by ID:", error.message);
     }
@@ -121,6 +137,24 @@ const useStore = create((set) => ({
     }
   },
 
+  fetchMoveNonPC: async (id) => {
+    try {
+      const { data: inv, error } = await supabase
+        .from("inv")
+        .select("*")
+        .eq("id", id)
+        .single();
+      if (error) throw error;
+      set((state) => ({
+        formInv: {
+          ...inv,
+          roomOld: inv.roomOld || state.user?.user_metadata?.room || "",
+        },
+      }));
+      return inv;
+    } catch (error) {}
+  },
+
   // Create Data
   //PC
   submitForm: async () => {
@@ -132,7 +166,7 @@ const useStore = create((set) => ({
         .insert([formPC]);
       if (error) throw error;
       console.log("Form submitted successfully:", invpc);
-      await logPC("insert", formPC); // Log the operation
+      await logPC("insert", formPC);
     } catch (error) {
       console.error("Error submitting form:", error.message);
     }
@@ -146,6 +180,7 @@ const useStore = create((set) => ({
       const { data: inv, error } = await supabase.from("inv").insert([formInv]);
       if (error) throw error;
       console.log("Form submitted successfully:", inv);
+      await logInv("insert", formInv);
     } catch (error) {
       console.error("Error submitting form:", error.message);
     }
@@ -177,6 +212,7 @@ const useStore = create((set) => ({
         .eq("id", formInv.id);
       if (error) throw error;
       console.log("Form updated successfully:", inv);
+      await logInv("update", formInv);
     } catch (error) {
       console.error("Error updating form:", error.message);
     }
@@ -210,17 +246,22 @@ const useStore = create((set) => ({
     }
   },
   //NonPC
+
   deleteFormNonPC: async (id) => {
     try {
       const { data: inv, error } = await supabase
         .from("inv")
+        .select("*")
+        .eq("id", id)
+        .single();
+      if (error) throw error;
+      await logInv("delete", inv);
+      const { error: deleteError } = await supabase
+        .from("inv")
         .delete()
         .eq("id", id);
-      if (error) throw error;
-      console.log("Form deleted successfully:", inv);
-    } catch (error) {
-      console.error("Error deleting form:", error.message);
-    }
+      if (deleteError) throw deleteError;
+    } catch (error) {}
   },
 
   //update form
@@ -272,6 +313,29 @@ const useStore = create((set) => ({
     }),
 
   //Non PC
+  handleMoveFormInv: (field, value) =>
+    set((state) => {
+      if (field.includes(".")) {
+        const [parent, child] = field.split(".");
+        return {
+          formInv: {
+            ...state.formInv,
+            [parent]: {
+              ...state.formInv[parent],
+              [child]: value,
+            },
+          },
+        };
+      } else {
+        return {
+          formInv: {
+            ...state.formInv,
+            [field]: value,
+          },
+        };
+      }
+    }),
+
   updateFormInv: (field, value) =>
     set((state) => {
       if (field.includes(".")) {

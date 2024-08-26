@@ -14,59 +14,52 @@ import { PiMonitorLight } from "react-icons/pi";
 import { TbHomeMove } from "react-icons/tb";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 
-import useStore from "../../../data/Data.js";
-import useLogStore from "../../../data/Log.js"; // Import useLogStore
+import useLogStore from "../../../data/Log.js";
 
-import Sidebar from "../../../components/global/Sidebar";
-import Navbar from "../../../components/global/Navbar";
+import Sidebar from "../../../components/global/Sidebar.jsx";
+import Navbar from "../../../components/global/Navbar.jsx";
 import icons from "../../../assets/icons/icon.jsx";
-import { ConditionDetail } from "../../../components/global/Condition.jsx";
+import { Action, Condition } from "../../../components/global/Condition.jsx";
 
-function InvDetail() {
+function LogPCDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { fetchDataById, formPC, invpc } = useStore();
-  const { damageCount } = useLogStore(); // Ambil damageCount dari useLogStore
+  const { formlogpc, logpc, fetchLogById } = useLogStore();
 
   useEffect(() => {
     if (id) {
-      fetchDataById(id);
+      fetchLogById(id);
     }
-    document.title = `Detail PC ${formPC.name} - Pusat Kontrol Laboran`;
+    document.title = `Detail PC ${formlogpc.name} - Pusat Kontrol Laboran`;
   }, [id]);
 
   return (
     <>
       <Sidebar />
-      <Navbar title="Inventaris" showButtonBack={true} />
+      <Navbar title="Log" showButtonBack={true} />
       <div className="h-screen bg-[#C4C4C4] relative flex-wrap ">
         <div className="px-5 md:pr-10 py-28 md:pl-20 sm:ml-[266px] flex flex-col bg-[#C4C4C4]">
-          <div className="relative  px-8 py-5 pb-14 bg-neutral-300 rounded-3xl flex-col shadow-md space-y-6">
-            <div className="h-10 flex flex-row justify-between items-center">
+          <div className="relative  px-8 py-5 pb-14 bg-neutral-300 rounded-3xl flex-col shadow-md ">
+            <div className="h-10 flex flex-col lg:flex-row justify-between items-center">
               <div className="flex flex-row gap-4 ">
                 <img src={icons.inputPC} className="w-[25px] " />
                 <div className="p-1 font-semibold text-xl ">
-                  Detail Inventaris PC
+                  Detail Log Aktifitas Inventaris PC
                 </div>
               </div>
-              <div className="space-x-3 flex">
-                <div className="rounded-2xl bg-blue-700 px-3">
+              <div className="flex justify-between gap-5">
+                <Action action={formlogpc.action} />
+                <div className="flex flex-col rounded-2xl bg-blue-700 px-3">
                   <p className="text-white">
                     Ditambahkan :
-                    {new Date(formPC.created_at).toLocaleString("id-ID")}
+                    {new Date(formlogpc.log_time).toLocaleString("id-ID")}
                   </p>
                 </div>
-                <div className="rounded-2xl bg-blue-700 px-3">
-                  <p className="text-white">
-                    Diedit :
-                    {formPC.updated_at
-                      ? new Date(formPC.updated_at).toLocaleString("id-ID")
-                      : "belum pernah"}
-                  </p>
-                </div>
-                <div className="rounded-2xl bg-red-500 px-3">
-                  <p className="text-white">rusak : {damageCount} kali</p>
-                </div>
+              </div>
+            </div>
+            <div className="flex flex-col lg:flex-row justify-end">
+              <div className="rounded-2xl bg-blue-700 px-3">
+                <p className="text-white">id barang :{formlogpc.id}</p>
               </div>
             </div>
             <div className="px-5 lg:px-11 flex flex-col lg:flex-row lg:flex-auto justify-between my-3 lg:space-x-10">
@@ -78,7 +71,7 @@ function InvDetail() {
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                      {formPC.name}
+                      {formlogpc.name}
                     </div>
                   </div>
                 </div>
@@ -88,11 +81,11 @@ function InvDetail() {
                       <BsCpu className=" size-5" />
                       <label className="font-medium ">Prosessor</label>
                     </div>
-                    <ConditionDetail condition={formPC.condition.cpu} />
+                    <Condition condition={formlogpc.condition.cpu} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                      {formPC.pc.cpu}
+                      {formlogpc.pc.cpu}
                     </div>
                   </div>
                 </div>
@@ -102,11 +95,11 @@ function InvDetail() {
                       <BsMotherboard className=" size-5" />
                       <label className="font-medium ">Motherboard</label>
                     </div>
-                    <ConditionDetail condition={formPC.condition.mobo} />
+                    <Condition condition={formlogpc.condition.mobo} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                      {formPC.pc.mobo}
+                      {formlogpc.pc.mobo}
                     </div>
                   </div>
                 </div>
@@ -116,11 +109,11 @@ function InvDetail() {
                       <BsMemory className=" size-5" />
                       <label className="font-medium ">RAM</label>
                     </div>
-                    <ConditionDetail condition={formPC.condition.ram} />
+                    <Condition condition={formlogpc.condition.ram} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                      {formPC.pc.ram}
+                      {formlogpc.pc.ram}
                     </div>
                   </div>
                 </div>
@@ -130,11 +123,11 @@ function InvDetail() {
                       <BsGpuCard className=" size-5" />
                       <label className="font-medium ">Kartu Grafis</label>
                     </div>
-                    <ConditionDetail condition={formPC.condition.gpu} />
+                    <Condition condition={formlogpc.condition.gpu} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                      {formPC.pc.gpu}
+                      {formlogpc.pc.gpu}
                     </div>
                   </div>
                 </div>
@@ -147,7 +140,7 @@ function InvDetail() {
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                      {formPC.comment || "tidak ada"}
+                      {formlogpc.comment || "tidak ada"}
                     </div>
                   </div>
                 </div>
@@ -160,7 +153,7 @@ function InvDetail() {
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                      {formPC.pc.category}
+                      {formlogpc.pc.category}
                     </div>
                   </div>
                 </div>
@@ -170,11 +163,11 @@ function InvDetail() {
                       <BsDeviceSsd className=" size-5" />
                       <label className="font-medium ">Penyimpanan</label>
                     </div>
-                    <ConditionDetail condition={formPC.condition.storage} />
+                    <Condition condition={formlogpc.condition.storage} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                      {formPC.pc.storage}
+                      {formlogpc.pc.storage}
                     </div>
                   </div>
                 </div>
@@ -184,11 +177,11 @@ function InvDetail() {
                       <BsKeyboard className=" size-5" />
                       <label className="font-medium ">Keyboard</label>
                     </div>
-                    <ConditionDetail condition={formPC.condition.keyboard} />
+                    <Condition condition={formlogpc.condition.keyboard} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                      {formPC.pc.keyboard}
+                      {formlogpc.pc.keyboard}
                     </div>
                   </div>
                 </div>
@@ -198,11 +191,11 @@ function InvDetail() {
                       <BsMouse3 className=" size-5" />
                       <label className="font-medium ">mouse</label>
                     </div>
-                    <ConditionDetail condition={formPC.condition.mouse} />
+                    <Condition condition={formlogpc.condition.mouse} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                      {formPC.pc.mouse}
+                      {formlogpc.pc.mouse}
                     </div>
                   </div>
                 </div>
@@ -214,11 +207,11 @@ function InvDetail() {
                         Monitor
                       </label>
                     </div>
-                    <ConditionDetail condition={formPC.condition.monitor} />
+                    <Condition condition={formlogpc.condition.monitor} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                      {formPC.pc.monitor}
+                      {formlogpc.pc.monitor}
                     </div>
                   </div>
                 </div>
@@ -228,40 +221,15 @@ function InvDetail() {
                       <BiPowerOff className=" size-5" />
                       <label className="font-medium ">Power Supply</label>
                     </div>
-                    <ConditionDetail condition={formPC.condition.psu} />
+                    <Condition condition={formlogpc.condition.psu} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
-                      {formPC.pc.psu}
+                      {formlogpc.pc.psu}
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className=" px-11 pt-14 flex flex-col lg:flex-row justify-between gap-5">
-              <div className="flex lg:flex-row flex-col gap-3">
-                <Link
-                  to={`/inventaris/editpc/${formPC.id}`}
-                  className="bg-[#fdcd49] hover:bg-yellow-300 px-9 py-2 h-10 space-x-3 items-center flex justify-center rounded-xl shadow"
-                >
-                  <EditRoundedIcon sx={{ fontSize: 20 }} />
-                  <p className="text-center">Edit</p>
-                </Link>
-                <Link
-                  to={`/inventaris/pindah/pc/${formPC.id}`}
-                  className="bg-sky-700 hover:bg-sky-600 px-9 py-2 h-10 space-x-3 items-center flex justify-center rounded-xl shadow"
-                >
-                  <TbHomeMove className="text-white size-5" />
-                  <p className="text-center text-white">Pindah</p>
-                </Link>
-              </div>
-              <button
-                type="submit"
-                className="px-16 py-2  shadow-lg rounded-xl  bg-blue-800 hover:bg-blue-700 text-white"
-                onClick={() => navigate(-1)}
-              >
-                kembali
-              </button>
             </div>
           </div>
         </div>
@@ -270,4 +238,4 @@ function InvDetail() {
   );
 }
 
-export default InvDetail;
+export default LogPCDetail;

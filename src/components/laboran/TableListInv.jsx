@@ -10,7 +10,13 @@ import usePaginationStore from "../../data/Pagination.js";
 
 import icons from "../../assets/icons/icon.jsx";
 import Pagination from "../global/Pagination.jsx";
-import Status from "../global/Status";
+import Condition from "../global/Condition";
+import {
+  MoveButton,
+  DeleteButton,
+  EditButton,
+  DetailButton,
+} from "../global/ActionButton.jsx";
 
 function TableListInv() {
   const navigate = useNavigate();
@@ -29,8 +35,8 @@ function TableListInv() {
       text: "Kamu tidak dapat mengembalikan ini!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
       cancelButtonText: "batal",
       confirmButtonText: "Ya, hapus inventaris!",
     }).then(async (result) => {
@@ -105,7 +111,7 @@ function TableListInv() {
                   scope="col"
                   className="px-3 py-3 flex items-center justify-center"
                 >
-                  <Status condition={inv.status} />
+                  <Condition condition={inv.condition} />
                 </td>
                 <td scope="col" className="px-1 py-3">
                   {new Date(inv.created_at).toLocaleDateString("id-ID")}
@@ -119,23 +125,10 @@ function TableListInv() {
                   {inv.comment || "-"}
                 </td>
                 <td className="px-1 py-3 ">
-                  <div className="flex">
-                    <div className="w-full flex justify-center">
-                      <Link
-                        to={`/inventaris/edit/${inv.id}`}
-                        className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-xl shadow"
-                      >
-                        <EditRoundedIcon />
-                      </Link>
-                    </div>
-                    <div className="w-full flex justify-center">
-                      <button
-                        onClick={() => handleDeleteInv(inv.id)}
-                        className="bg-red-500 hover:bg-red-400 text-white py-1 w-20  items-center flex justify-center rounded-xl shadow"
-                      >
-                        <DeleteForeverRoundedIcon />
-                      </button>
-                    </div>
+                  <div className="w-full flex justify-center gap-2">
+                    <MoveButton to={`/inventaris/pindah/inv/${inv.id}`} />
+                    <DeleteButton onClick={() => handleDeleteInv(inv.id)} />
+                    <EditButton to={`/inventaris/edit/${inv.id}`} />
                   </div>
                 </td>
               </tr>
