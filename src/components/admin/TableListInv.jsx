@@ -1,21 +1,23 @@
 import React, { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
 
 import useStore from "../../data/Data.js";
 import usePaginationStore from "../../data/Pagination.js";
+import useFilterAdmin from "../../data/filterAdmin.js";
 
-import icons from "../../assets/icons/icon.jsx";
 import Pagination from "../global/Pagination.jsx";
+import Condition from "../global/Condition";
+import {
+  MoveButton,
+  DeleteButton,
+  EditButton,
+} from "../global/ActionButton.jsx";
 
 function TableListInv() {
-  const navigate = useNavigate();
-  const { inv, fetchDataNonPC, deleteFormNonPC } = useStore();
+  const { fetchDataNonPC, deleteFormNonPC } = useStore();
+  const { filtersortInv } = useFilterAdmin();
   const { currentPage, itemsPerPage, setCurrentPage } = usePaginationStore();
-
-  const filterSort = inv.sort((a, b) => a.room.localeCompare(b.room));
 
   const handleDeleteInv = (id) => {
     Swal.fire({
@@ -38,7 +40,6 @@ function TableListInv() {
           timer: 700,
           showConfirmButton: false,
         });
-        navigate("/admin/inventaris/list-nonpc");
       }
     });
   };
@@ -49,7 +50,7 @@ function TableListInv() {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filterSort.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filtersortInv.slice(indexOfFirstItem, indexOfLastItem);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -64,14 +65,23 @@ function TableListInv() {
               <th scope="col" className="px-4 py-3 ">
                 Nama
               </th>
-              <th scope="col" className="px-4 py-3 ">
-                Ruang
-              </th>
               <th scope="col" className="px-1 py-3">
                 Jumlah
               </th>
               <th scope="col" className="px-3 py-3 ">
                 Kondisi
+              </th>
+              <th scope="col" className="px-1 py-3">
+                Ruang
+              </th>
+              <th scope="col" className="px-1 py-3">
+                Ditambahkan
+              </th>
+              <th scope="col" className="px-1 py-3">
+                Diedit
+              </th>
+              <th scope="col" className="px-1 py-3">
+                Keterangan
               </th>
               <th scope="col" className="px-1 py-3">
                 Aksi
@@ -87,9 +97,6 @@ function TableListInv() {
                 <td scope="col" className="px-4 py-3 ">
                   {inv.name}
                 </td>
-                <td scope="col" className="px-4 py-3 ">
-                  {inv.room}
-                </td>
                 <td scope="col" className="px-1 py-3">
                   {inv.quantity}
                 </td>
@@ -97,42 +104,27 @@ function TableListInv() {
                   scope="col"
                   className="px-3 py-3 flex items-center justify-center"
                 >
-                  <p
-                    className={`${
-                      inv.status === "baik"
-                        ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                        : inv.status === "rusak ringan"
-                        ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                        : inv.status === "rusak berat"
-                        ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                        : inv.status === "pinjam"
-                        ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                        : inv.status === "dipinjam"
-                        ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                        : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
-                    }`}
-                  >
-                    {inv.status}
-                  </p>
+                  <Condition condition={inv.condition} />
+                </td>
+                <td scope="col" className="px-1 py-3">
+                  {inv.room}
+                </td>
+                <td scope="col" className="px-1 py-3">
+                  {new Date(inv.created_at).toLocaleDateString("id-ID")}
+                </td>
+                <td scope="col" className="px-1 py-3">
+                  {inv.updated_at
+                    ? new Date(inv.updated_at).toLocaleDateString("id-ID")
+                    : "belum pernah"}
+                </td>
+                <td scope="col" className="px-1 py-3">
+                  {inv.comment || "-"}
                 </td>
                 <td className="px-1 py-3 ">
-                  <div className="flex">
-                    <div className="w-full flex justify-center">
-                      <Link
-                        to={`/admin/inventaris/edit/${inv.id}`}
-                        className="bg-[#fdcd49] py-1 w-20  items-center flex justify-center rounded-xl shadow"
-                      >
-                        <EditRoundedIcon />
-                      </Link>
-                    </div>
-                    <div className="w-full flex justify-center">
-                      <button
-                        onClick={() => handleDeleteInv(inv.id)}
-                        className="bg-red-500 hover:bg-red-400 text-white py-1 w-20  items-center flex justify-center rounded-xl shadow"
-                      >
-                        <DeleteForeverRoundedIcon />
-                      </button>
-                    </div>
+                  <div className="w-full flex justify-center gap-2">
+                    <MoveButton to={`/inventaris/pindah/inv/${inv.id}`} />
+                    <DeleteButton onClick={() => handleDeleteInv(inv.id)} />
+                    <EditButton to={`/inventaris/edit/${inv.id}`} />
                   </div>
                 </td>
               </tr>
@@ -143,7 +135,7 @@ function TableListInv() {
       <div className=" flex justify-end">
         <Pagination
           currentPage={currentPage}
-          totalPages={Math.ceil(filterSort.length / itemsPerPage)}
+          totalPages={Math.ceil(filtersortInv.length / itemsPerPage)}
           paginate={paginate}
         />
       </div>

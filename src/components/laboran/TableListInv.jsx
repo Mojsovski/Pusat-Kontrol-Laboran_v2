@@ -1,21 +1,17 @@
 import React, { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
 
 import useStore from "../../data/Data.js";
 import { useAuthStore } from "../../data/Auth";
 import usePaginationStore from "../../data/Pagination.js";
 
-import icons from "../../assets/icons/icon.jsx";
 import Pagination from "../global/Pagination.jsx";
 import Condition from "../global/Condition";
 import {
   MoveButton,
   DeleteButton,
   EditButton,
-  DetailButton,
 } from "../global/ActionButton.jsx";
 
 function TableListInv() {

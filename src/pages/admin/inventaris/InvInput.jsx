@@ -1,32 +1,22 @@
-import React, { useEffect } from "react";
-import { create } from "zustand";
-import { useAuthStore } from "../../../data/Auth";
+import React, { useEffect, useState } from "react";
 import useStore from "../../../data/Data";
 
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
-import TableInputNonPC from "../../../components/admin/InvTableInput.jsx";
-import TableInputPC from "../../../components/admin/InvTableInputPC.jsx";
-
-const useCategory = create((set) => ({
-  selectedCategory: "",
-  setSelectedCategory: (category) => set({ selectedCategory: category }),
-}));
+import FormInputPC from "../../../components/admin/FormInputPC.jsx";
+import FormInputNonPC from "../../../components/admin/FormInput.jsx";
 
 function InvAdminInput() {
   const { updateFormPC, updateFormInv, resetForm } = useStore();
-  const { user } = useAuthStore((state) => ({ user: state.user }));
-  const { selectedCategory, setSelectedCategory } = useCategory();
+  const [selectedCategory, setSelectedCategory] = useState("pc");
 
   useEffect(() => {
     resetForm();
-    setSelectedCategory("");
-    if (user) {
-      updateFormPC("room", user.user_metadata.room);
-      updateFormInv("room", user.user_metadata.room);
-    }
-  }, [user]);
+    updateFormInv("status", "lab");
+    updateFormPC("status", "lab");
+    // setSelectedCategory("");
+  }, []);
 
   return (
     <>
@@ -41,27 +31,26 @@ function InvAdminInput() {
                 <img src={icons.inputPC} className="w-[25px] " />
                 <h1 className="p-1 font-semibold text-xl ">Input Inventaris</h1>
               </div>
-              <div className="my-2 ">
-                <div className=" w-60 h-7 shadow-lg rounded-3xl bg-white">
-                  <select
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                    type="text"
-                    id="category"
-                    name="category"
-                    className="block text-base pl-4  bg-white w-full h-full rounded-3xl focus:outline-none "
-                    placeholder="NIM/NPP"
-                  >
-                    <option value="">Pilih jenis barang</option>
-                    <option value="PC">Komputer</option>
-                    <option value="Non PC">Non Komputer</option>
-                  </select>
-                </div>
+              <div className="flex gap-3">
+                <button
+                  className={`w-32 h-7 shadow-lg rounded-lg ${
+                    selectedCategory === "pc" ? "bg-blue-600" : "bg-blue-800"
+                  }  `}
+                  onClick={() => setSelectedCategory("pc")}
+                >
+                  <p className="text-center text-white">Komputer</p>
+                </button>
+                <button
+                  className={`w-32 h-7 shadow-lg rounded-lg ${
+                    selectedCategory === "inv" ? "bg-blue-600" : "bg-blue-800"
+                  } `}
+                  onClick={() => setSelectedCategory("inv")}
+                >
+                  <p className="text-center text-white">Non Komputer</p>
+                </button>
               </div>
             </div>
-
-            {selectedCategory === "PC" && <TableInputPC />}
-            {selectedCategory === "Non PC" && <TableInputNonPC />}
+            {selectedCategory === "pc" ? <FormInputPC /> : <FormInputNonPC />}
           </div>
         </div>
       </div>

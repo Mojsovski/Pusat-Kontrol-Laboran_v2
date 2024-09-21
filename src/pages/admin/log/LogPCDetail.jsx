@@ -19,7 +19,10 @@ import useLogStore from "../../../data/Log.js";
 import Sidebar from "../../../components/global/Sidebar.jsx";
 import Navbar from "../../../components/global/Navbar.jsx";
 import icons from "../../../assets/icons/icon.jsx";
-import { Action, Condition } from "../../../components/global/Condition.jsx";
+import {
+  Action,
+  ConditionDetail,
+} from "../../../components/global/Condition.jsx";
 
 function LogPCDetail() {
   const { id } = useParams();
@@ -81,7 +84,7 @@ function LogPCDetail() {
                       <BsCpu className=" size-5" />
                       <label className="font-medium ">Prosessor</label>
                     </div>
-                    <Condition condition={formlogpc.condition.cpu} />
+                    <ConditionDetail condition={formlogpc.condition.cpu} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
@@ -95,7 +98,7 @@ function LogPCDetail() {
                       <BsMotherboard className=" size-5" />
                       <label className="font-medium ">Motherboard</label>
                     </div>
-                    <Condition condition={formlogpc.condition.mobo} />
+                    <ConditionDetail condition={formlogpc.condition.mobo} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
@@ -109,7 +112,7 @@ function LogPCDetail() {
                       <BsMemory className=" size-5" />
                       <label className="font-medium ">RAM</label>
                     </div>
-                    <Condition condition={formlogpc.condition.ram} />
+                    <ConditionDetail condition={formlogpc.condition.ram} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
@@ -123,7 +126,7 @@ function LogPCDetail() {
                       <BsGpuCard className=" size-5" />
                       <label className="font-medium ">Kartu Grafis</label>
                     </div>
-                    <Condition condition={formlogpc.condition.gpu} />
+                    <ConditionDetail condition={formlogpc.condition.gpu} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
@@ -163,7 +166,7 @@ function LogPCDetail() {
                       <BsDeviceSsd className=" size-5" />
                       <label className="font-medium ">Penyimpanan</label>
                     </div>
-                    <Condition condition={formlogpc.condition.storage} />
+                    <ConditionDetail condition={formlogpc.condition.storage} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
@@ -177,7 +180,7 @@ function LogPCDetail() {
                       <BsKeyboard className=" size-5" />
                       <label className="font-medium ">Keyboard</label>
                     </div>
-                    <Condition condition={formlogpc.condition.keyboard} />
+                    <ConditionDetail condition={formlogpc.condition.keyboard} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
@@ -191,7 +194,7 @@ function LogPCDetail() {
                       <BsMouse3 className=" size-5" />
                       <label className="font-medium ">mouse</label>
                     </div>
-                    <Condition condition={formlogpc.condition.mouse} />
+                    <ConditionDetail condition={formlogpc.condition.mouse} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
@@ -207,7 +210,7 @@ function LogPCDetail() {
                         Monitor
                       </label>
                     </div>
-                    <Condition condition={formlogpc.condition.monitor} />
+                    <ConditionDetail condition={formlogpc.condition.monitor} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">
@@ -221,7 +224,7 @@ function LogPCDetail() {
                       <BiPowerOff className=" size-5" />
                       <label className="font-medium ">Power Supply</label>
                     </div>
-                    <Condition condition={formlogpc.condition.psu} />
+                    <ConditionDetail condition={formlogpc.condition.psu} />
                   </div>
                   <div className="  h-10 shadow-lg rounded-3xl bg-white">
                     <div className="block text-base pl-4 p-2 bg-[#c9c9c944] w-full h-full rounded-3xl focus:outline-none ">

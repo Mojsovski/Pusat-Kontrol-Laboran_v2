@@ -1,30 +1,80 @@
 import React from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
+import Swal from "sweetalert2";
 
 import useStore from "../../data/Data.js";
 import usePaginationStore from "../../data/Pagination.js";
+import useFilterAdmin from "../../data/filterAdmin.js";
 
-import icons from "../../assets/icons/icon.jsx";
 import Pagination from "../global/Pagination.jsx";
+import RoomButton from "../global/button/RoomButton.jsx";
+import { ConditionAll } from "../global/Condition";
+import {
+  MoveButton,
+  DeleteButton,
+  EditButton,
+  DetailButton,
+} from "../global/ActionButton.jsx";
 
 function TableListPC() {
-  const { invpc, fetchData } = useStore();
-  const filterPC = invpc.sort((a, b) => a.name.localeCompare(b.name));
+  const { fetchData } = useStore();
+  const { sortnamePC } = useFilterAdmin();
   const { currentPage, itemsPerPage, setCurrentPage } = usePaginationStore();
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = sortnamePC.slice(indexOfFirstItem, indexOfLastItem);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Apa kamu yakin?",
+      text: "Kamu tidak dapat mengembalikan ini!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      cancelButtonText: "batal",
+      confirmButtonText: "Ya, hapus inventaris!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteForm(id);
+        await fetchData();
+        Swal.fire({
+          title: "Terhapus!",
+          text: "Inventaris sudah terhapus.",
+          icon: "success",
+          timer: 700,
+          showConfirmButton: false,
+        });
+      }
+    });
+  };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filterPC.slice(indexOfFirstItem, indexOfLastItem);
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   return (
     <>
+      <div className="grid grid-cols-5 md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-12 gap-4 justify-items-center ">
+        <RoomButton room="All" />
+        <RoomButton room="D.2.A" />
+        <RoomButton room="D.2.B" />
+        <RoomButton room="D.2.C" />
+        <RoomButton room="D.2.D" />
+        <RoomButton room="D.2.E" />
+        <RoomButton room="D.2.F" />
+        <RoomButton room="D.2.G" />
+        <RoomButton room="D.2.H" />
+        <RoomButton room="D.2.I" />
+        <RoomButton room="D.2.J" />
+        <RoomButton room="D.2.K" />
+        <RoomButton room="D.2.L" />
+        <RoomButton room="D.2.M" />
+        <RoomButton room="D.2.N" />
+        <RoomButton room="D.2.UPT" />
+      </div>
       <div className="overflow-x-auto relative ">
         <table className="w-full text-sm  rtl:text-right text-center ">
           <thead className="text-center">
@@ -79,39 +129,18 @@ function TableListPC() {
                 <td scope="col" className="px-1 py-3">
                   {inv.pc.storage}
                 </td>
-                <td scope="col" className="px-1 py-3">
+                <td scope="col" className="px-1 py-3 ">
                   {inv.pc.category}
                 </td>
-                <td
-                  scope="col"
-                  className="px-1 py-3 flex items-center justify-center"
-                >
-                  <p
-                    className={`${
-                      inv.status === "baik"
-                        ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                        : inv.status === "rusak ringan"
-                        ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                        : inv.status === "rusak berat"
-                        ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                        : inv.status === "pinjam"
-                        ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                        : inv.status === "dipinjam"
-                        ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                        : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
-                    }`}
-                  >
-                    {inv.status}
-                  </p>
+                <td scope="col" className="px-1 py-3">
+                  <ConditionAll condition={inv.condition} />
                 </td>
                 <td className="px-1 py-3 ">
-                  <div className="w-full flex justify-center">
-                    <Link
-                      to={`/admin/inventaris/detail/${inv.id}`}
-                      className="bg-[#fdcd49] hover:bg-yellow-300 py-1 w-20  items-center flex justify-center rounded-xl shadow"
-                    >
-                      <SettingsSuggestIcon />
-                    </Link>
+                  <div className="w-full flex justify-center gap-2">
+                    <MoveButton to={`/inventaris/pindah/pc/${inv.id}`} />
+                    <DeleteButton onClick={() => handleDelete(inv.id)} />
+                    <EditButton to={`/admin/inventaris/edit/pc/${inv.id}`} />
+                    <DetailButton to={`/admin/inventaris/detail/${inv.id}`} />
                   </div>
                 </td>
               </tr>
@@ -122,7 +151,7 @@ function TableListPC() {
       <div className="flex justify-end">
         <Pagination
           currentPage={currentPage}
-          totalPages={Math.ceil(filterPC.length / itemsPerPage)}
+          totalPages={Math.ceil(sortnamePC.length / itemsPerPage)}
           paginate={paginate}
         />
       </div>

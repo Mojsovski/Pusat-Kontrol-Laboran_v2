@@ -1,7 +1,8 @@
 import { React, useState, useEffect } from "react";
 import DrawIcon from "@mui/icons-material/Draw";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuthStore } from "../../../data/Auth.js";
+import usePaginationStore from "../../../data/Pagination.js";
 
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
@@ -11,11 +12,17 @@ import TableListPC from "../../../components/laboran/TableListPC.jsx";
 
 function InvList() {
   const { user } = useAuthStore.getState();
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const initialCategory = queryParams.get("category") || "";
+
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const { setCurrentPage } = usePaginationStore();
 
   useEffect(() => {
-    document.title = "List Inventaris - Pusat Kontrol Laboran";
-  }, []);
+    setCurrentPage(1);
+    document.title = `List Inventaris ${user.user_metadata.room} - Pusat Kontrol Laboran`;
+  }, [selectedCategory, setCurrentPage]);
 
   return (
     <div className="h-screen bg-[#C4C4C4] relative  ">

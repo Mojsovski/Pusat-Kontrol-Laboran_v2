@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import DrawIcon from "@mui/icons-material/Draw";
 import Swal from "sweetalert2";
 import useStore from "../../data/Data.js";
 
-function TableInputNonPC() {
+function FormInputNonPC() {
   const navigate = useNavigate();
   const { formInv, updateFormInv, submitFormNonPC, resetFormInv } = useStore();
 
   useEffect(() => {
     resetFormInv();
+    updateFormInv("status", "lab");
   }, []);
 
   const handleChange = (e) => {
@@ -22,7 +24,8 @@ function TableInputNonPC() {
       !formInv.name ||
       !formInv.quantity ||
       !formInv.status ||
-      !formInv.room
+      !formInv.room ||
+      !formInv.condition
     ) {
       Swal.fire({
         title: "Gagal Input!",
@@ -33,8 +36,9 @@ function TableInputNonPC() {
       });
       return;
     }
+
     await submitFormNonPC();
-    navigate("/admin/inventaris/list-nonpc");
+    navigate("/admin/inventaris/list?category=Non%20PC");
     Swal.fire({
       title: "Berhasil!",
       text: "Data inventaris sudah ditambahkan",
@@ -81,19 +85,17 @@ function TableInputNonPC() {
             <label className="px-3 font-medium">Kondisi barang</label>
             <div className="  h-10 shadow-lg rounded-3xl bg-white">
               <select
-                value={formInv.status}
+                value={formInv.condition}
                 onChange={handleChange}
                 type="text"
-                id="status"
-                name="status"
+                id="condition"
+                name="condition"
                 className="block text-base pl-4  bg-white w-full h-full rounded-3xl focus:outline-none "
               >
                 <option value="">kondisi barang saat ini</option>
                 <option value="baik">baik</option>
                 <option value="rusak ringan">rusak ringan</option>
                 <option value="rusak berat">rusak berat</option>
-                <option value="pinjam">pinjam</option>
-                <option value="dipinjam">dipinjam</option>
               </select>
             </div>
           </div>
@@ -134,11 +136,28 @@ function TableInputNonPC() {
                 <option value="D.2.I">D.2.I</option>
                 <option value="D.2.J">D.2.J</option>
                 <option value="D.2.K">D.2.K</option>
-                <option value="D.3.J">D.3.L</option>
-                <option value="D.3.J">D.3.M</option>
-                <option value="D.3.J">D.3.N</option>
+                <option value="D.3.L">D.3.L</option>
+                <option value="D.3.M">D.3.M</option>
+                <option value="D.3.N">D.3.N</option>
                 <option value="UPT">UPT</option>
               </select>
+            </div>
+          </div>
+          <div className="my-2 hidden">
+            <div className="mx-3 my-1 flex justify-between items-center">
+              <div className="flex justify-start gap-3 items-center">
+                <label className="font-medium">Status</label>
+              </div>
+            </div>
+            <div className="  h-10 shadow-lg rounded-3xl ">
+              <input
+                value={formInv.status}
+                onChange={handleChange}
+                type="text"
+                id="status"
+                name="status"
+                className="block text-base pl-4 p-3 bg-white w-full h-full rounded-3xl focus:outline-none "
+              />
             </div>
           </div>
         </div>
@@ -147,13 +166,13 @@ function TableInputNonPC() {
         <button
           onClick={handleSubmitNonPC}
           type="submit"
-          className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
+          className="px-16 py-2 shadow-lg rounded-xl bg-blue-800 hover:bg-blue-600 text-white"
         >
-          Input
+          <DrawIcon /> Input
         </button>
       </div>
     </>
   );
 }
 
-export default TableInputNonPC;
+export default FormInputNonPC;

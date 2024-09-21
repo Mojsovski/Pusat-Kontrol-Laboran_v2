@@ -1,57 +1,37 @@
 import React from "react";
 import { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import useStore from "../../../data/Data.js";
-import { useAuthStore } from "../../../data/Auth.js";
+import useCountAdmin from "../../../data/countAdmin.js";
+import useFilterAdmin from "../../../data/filterAdmin.js";
 
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
+import Condition from "../../../components/global/Condition.jsx";
 
 function InvAdminHome() {
-  const { inv, invpc, fetchData, fetchDataNonPC } = useStore();
-  const { user } = useAuthStore.getState();
-
-  const filterPrimaryPC = invpc.filter((item) => item.primaryItem === true);
-
-  const filterNonPC = inv
-    .filter((item) => item.room)
-    .sort((a, b) => a.room.localeCompare(b.room));
-  const limitInv = filterNonPC.slice(0, 3);
-
-  const countCategory = (room) =>
-    invpc.filter((item) => item.room === room).length;
-  const countA = countCategory("D.2.A");
-  const countB = countCategory("D.2.B");
-  const countC = countCategory("D.2.C");
-  const countD = countCategory("D.2.D");
-  const countE = countCategory("D.2.E");
-  const countF = countCategory("D.2.F");
-  const countG = countCategory("D.2.G");
-  const countH = countCategory("D.2.H");
-  const countI = countCategory("D.2.I");
-  const countJ = countCategory("D.2.J");
-  const countK = countCategory("D.2.K");
-  const countL = countCategory("D.3.L");
-  const countM = countCategory("D.3.M");
-  const countN = countCategory("D.3.N");
-  const countUPT = countCategory("UPT");
-
-  const countDosen = countCategory("dosen");
-  const countLaboran = countCategory("laboran");
-  const countCadangan = countCategory("cadangan");
-
-  const countStatus = (status) =>
-    invpc.filter((item) => item.status === status).length;
-  const countPinjam = countStatus("pinjam");
-  const countDipinjam = countStatus("dipinjam");
-
-  const countRusak = invpc.filter(
-    (item) => item.status === "rusak ringan" || item.status === "rusak berat"
-  ).length;
-
-  const countTotal = invpc.filter((item) => item.room).length;
+  const { fetchData, fetchDataNonPC } = useStore();
+  const { filterAllPrimaryPC, filterAllLimitInv } = useFilterAdmin();
+  const {
+    countA,
+    countB,
+    countC,
+    countD,
+    countE,
+    countF,
+    countG,
+    countH,
+    countI,
+    countJ,
+    countK,
+    countL,
+    countM,
+    countN,
+    countUPT,
+    countAllTotal,
+  } = useCountAdmin();
 
   useEffect(() => {
     fetchData();
@@ -88,6 +68,13 @@ function InvAdminHome() {
               >
                 <img src={icons.verifikasiPC} className="w-[19px] " />
                 Verifikasi Bulanan
+              </Link>
+              <Link
+                to={"/downloadrekap"}
+                className="xl:w-[270px] h-[50px] rounded-xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row items-center justify-center gap-4 font-semibold"
+              >
+                <img src={icons.verifikasiPC} className="w-[19px] " />
+                Log Aktivitas
               </Link>
             </div>
 
@@ -215,7 +202,7 @@ function InvAdminHome() {
                     <h2 className="text-base font-semibold">{countM}</h2>
                     <h2 className="text-base font-semibold">{countN}</h2>
                     <h2 className="text-base font-semibold">{countUPT}</h2>
-                    <h2 className="text-base font-semibold">{countTotal}</h2>
+                    <h2 className="text-base font-semibold">{countAllTotal}</h2>
                   </div>
                 </div>
               </div>
@@ -231,7 +218,7 @@ function InvAdminHome() {
                 </div>
               </div>
               <Link
-                to={"/admin/inventaris/list-PC"}
+                to={"/admin/inventaris/list?category=PC"}
                 className="px-5 h-6 rounded-2xl bg-[#F5BD45] hover:bg-yellow-400 flex items-center shadow"
               >
                 <div className="  text-black text-xs font-medium  ">
@@ -271,7 +258,7 @@ function InvAdminHome() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filterPrimaryPC.map((inv, index) => (
+                  {filterAllPrimaryPC.map((inv, index) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
                         {index + 1}
@@ -305,28 +292,6 @@ function InvAdminHome() {
           </div>
 
           {/* column 3 */}
-          {/* <div className="flex gap-5 relative  ">
-          <div className="w-full h-[277px] px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
-            <div className=" h-10 flex flex-row gap-4">
-              <img src={icons.rekapPC} className="w-[35px] " />
-              <div className="p-1 font-semibold text-xl ">Rekap</div>
-            </div>
-            <div className="h-32 text-center text-8xl flex justify-center items-center ">
-              D.2.I
-            </div>
-            <div className="h-10 text-center text-base flex justify-center items-center ">
-              Shift : Siang (14.00-21.00)
-            </div>
-            <div className="h-9 flex justify-center items-center">
-              <div className="w-36 h-7 py-1 rounded-2xl bg-[#07AC22]">
-                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
-                <div className=" text-center text-white text-sm flex items-center justify-center "></div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
-          {/* column 4 */}
           <div className=" flex gap-5 relative  ">
             {/* row 1 */}
             <div className=" w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
@@ -338,7 +303,7 @@ function InvAdminHome() {
                   </div>
                 </div>
                 <Link
-                  to={"/admin/inventaris/list-nonpc"}
+                  to={"/admin/inventaris/list?category=Non%20PC"}
                   className="px-5 h-6 rounded-2xl bg-[#F5BD45] hover:bg-yellow-400 flex items-center shadow"
                 >
                   <div className="  text-black text-xs font-medium  ">
@@ -369,7 +334,7 @@ function InvAdminHome() {
                     </tr>
                   </thead>
                   <tbody>
-                    {limitInv.map((inv, index) => (
+                    {filterAllLimitInv.map((inv, index) => (
                       <tr>
                         <td scope="col" className="px-1 py-3">
                           {index + 1}
@@ -387,23 +352,7 @@ function InvAdminHome() {
                           scope="col"
                           className="py-3 flex items-center justify-center "
                         >
-                          <p
-                            className={`${
-                              inv.status === "baik"
-                                ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                                : inv.status === "rusak ringan"
-                                ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                                : inv.status === "rusak berat"
-                                ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : inv.status === "pinjam"
-                                ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : inv.status === "dipinjam"
-                                ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                                : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
-                            }`}
-                          >
-                            {inv.status}
-                          </p>
+                          <Condition condition={inv.condition} />
                         </td>
                       </tr>
                     ))}
@@ -411,13 +360,6 @@ function InvAdminHome() {
                 </table>
               </div>
             </div>
-            {/* row 2 */}
-            {/* <div className="w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
-            <div className=" h-10 flex flex-row gap-4">
-              <img src={icons.rekapPC} className="w-[25px] " />
-              <div className="p-1 font-semibold text-xl ">Rekap</div>
-            </div>
-          </div> */}
           </div>
         </div>
       </div>

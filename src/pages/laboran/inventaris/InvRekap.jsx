@@ -28,7 +28,6 @@ function InvRekap() {
   } = useStore();
 
   const {
-    filterStatus,
     filterPinjamPC,
     filterDipinjamPC,
     filterPinjam,

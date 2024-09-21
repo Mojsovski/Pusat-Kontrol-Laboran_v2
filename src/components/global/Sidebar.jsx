@@ -92,8 +92,8 @@ const Sidebar = () => {
               <Link
                 to={
                   user?.user_metadata?.role === "admin"
-                    ? "/admin/inventaris/listinventaris"
-                    : "/inventaris/listinventaris"
+                    ? "/admin/inventaris/list"
+                    : "/inventaris/list"
                 }
                 className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group "
               >
@@ -162,7 +162,7 @@ const Sidebar = () => {
               <Link
                 to=""
                 className="flex items-center  mx-8 py-2 px-4  text-[#E6E6E6] hover:text-black rounded-2xl hover:bg-[#F5BD45] group] "
-                onClick={confirmLogout} // Add onClick event for logout
+                onClick={confirmLogout}
               >
                 <img src={logoLogOut} className="w-[30px] h-8" />
                 <span className="flex-1 ms-3 whitespace-nowrap text-[#E6E6E6]">

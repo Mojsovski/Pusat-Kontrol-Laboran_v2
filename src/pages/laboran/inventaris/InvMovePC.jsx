@@ -83,7 +83,7 @@ function InvMovePC() {
               <div className="flex flex-row gap-4 ">
                 <img src={icons.inputPC} className="w-[25px] " />
                 <div className="p-1 font-semibold text-xl ">
-                  Pindah Komputer {formPC.name}
+                  Peminjaman Komputer {formPC.name}
                 </div>
               </div>
             </div>
@@ -105,7 +105,7 @@ function InvMovePC() {
                     />
                   </div>
                 </div>
-                <div className="my-2  ">
+                <div className="my-2 hidden  ">
                   <label className="px-3 font-medium">Ruang sebelumnya</label>
                   <div className="h-10 shadow-lg rounded-3xl ">
                     <input
@@ -120,7 +120,7 @@ function InvMovePC() {
                     />
                   </div>
                 </div>
-                <div className="my-2 ">
+                <div className="my-2 hidden">
                   <label className="px-3 font-medium">Ruang selanjutnya</label>
                   <div className="h-10 shadow-lg rounded-3xl ">
                     <input

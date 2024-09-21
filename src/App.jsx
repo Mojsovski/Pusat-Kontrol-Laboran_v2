@@ -6,24 +6,14 @@ import Home from "./pages/laboran/home/Home";
 import InvHome from "./pages/laboran/inventaris/InvHome";
 import InvInput from "./pages/laboran/inventaris/InvInput";
 import InvList from "./pages/laboran/inventaris/InvList";
-import InvListPC from "./pages/laboran/inventaris/InvListPC";
 import InvRekap from "./pages/laboran/inventaris/InvRekap";
-import InvDetail from "./pages/laboran/inventaris/InvDetail";
-import InvEdit from "./pages/laboran/inventaris/InvEdit";
-import InvEditPC from "./pages/laboran/inventaris/InvEditPC";
-import InvListNonPC from "./pages/laboran/inventaris/InvListNonPC";
 import InvMovePC from "./pages/laboran/inventaris/InvMovePC";
 import InvMove from "./pages/laboran/inventaris/InvMove";
 //admin
 import InvAdminHome from "./pages/admin/inventaris/InvHome";
 import InvAdminInput from "./pages/admin/inventaris/InvInput";
-import InvAdminList from "./pages/admin/inventaris/InvList";
-import InvAdminListPC from "./pages/admin/inventaris/InvListPC";
+import InvAdminList from "./pages/admin/inventaris/InvAdminList";
 import InvAdminRekap from "./pages/admin/inventaris/InvRekap";
-import InvAdminDetail from "./pages/admin/inventaris/InvDetail";
-import InvAdminEdit from "./pages/admin/inventaris/InvEdit";
-import InvAdminEditPC from "./pages/admin/inventaris/InvEditPC";
-import InvAdminListNonPC from "./pages/admin/inventaris/InvListNonPC";
 import InvRoom from "./pages/admin/inventaris/InvRoom";
 import InvAllRekap from "./pages/admin/inventaris/InvAllRekap";
 import InvAllListPC from "./pages/admin/inventaris/InvAllListPC";
@@ -37,6 +27,10 @@ import SignUp from "./pages/setting/SignUp";
 //log
 import Log from "./pages/admin/log/Log";
 import LogPCDetail from "./pages/admin/log/LogPCDetail";
+//global
+import InvEdit from "./pages/global/inventaris/InvEdit.jsx";
+import InvEditPC from "./pages/global/inventaris/InvEditPC";
+import InvDetailPC from "./pages/global/inventaris/InvDetailPC";
 
 import ProtectedRoute from "./router/ProtectedRoute";
 
@@ -78,15 +72,7 @@ function App() {
         }
       />
       <Route
-        path="/inventaris/list-PC"
-        element={
-          <ProtectedRoute>
-            <InvListPC />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/inventaris/listinventaris"
+        path="/inventaris/list"
         element={
           <ProtectedRoute>
             <InvList />
@@ -94,18 +80,10 @@ function App() {
         }
       />
       <Route
-        path="/inventaris/list-nonpc"
-        element={
-          <ProtectedRoute>
-            <InvListNonPC />
-          </ProtectedRoute>
-        }
-      />
-      <Route
         path="/inventaris/detail/:id"
         element={
           <ProtectedRoute>
-            <InvDetail />
+            <InvDetailPC />
           </ProtectedRoute>
         }
       />
@@ -176,15 +154,7 @@ function App() {
         }
       />
       <Route
-        path="/admin/inventaris/list-PC"
-        element={
-          <ProtectedRoute>
-            <InvAdminListPC />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/inventaris/listinventaris"
+        path="/admin/inventaris/list"
         element={
           <ProtectedRoute>
             <InvAdminList />
@@ -192,18 +162,10 @@ function App() {
         }
       />
       <Route
-        path="/admin/inventaris/list-nonpc"
-        element={
-          <ProtectedRoute>
-            <InvAdminListNonPC />
-          </ProtectedRoute>
-        }
-      />
-      <Route
         path="/admin/inventaris/detail/:id"
         element={
           <ProtectedRoute>
-            <InvAdminDetail />
+            <InvDetailPC />
           </ProtectedRoute>
         }
       />
@@ -211,15 +173,15 @@ function App() {
         path="/admin/inventaris/edit/:id"
         element={
           <ProtectedRoute>
-            <InvAdminEdit />
+            <InvEdit />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/admin/inventaris/editpc/:id"
+        path="/admin/inventaris/edit/pc/:id"
         element={
           <ProtectedRoute>
-            <InvAdminEditPC />
+            <InvEditPC />
           </ProtectedRoute>
         }
       />

@@ -1,35 +1,33 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import useStore from "../../data/Data.js";
-import { useAuthStore } from "../../data/Auth.js";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
-function FormInputNonPC() {
+import useStore from "../../../data/Data.js";
+
+function FormEditInv() {
+  const { id } = useParams();
   const navigate = useNavigate();
-  const { formInv, updateFormInv, submitFormNonPC, resetFormInv } = useStore();
-  const { user } = useAuthStore((state) => ({ user: state.user }));
-
-  useEffect(() => {
-    resetFormInv();
-    if (user) {
-      updateFormInv("room", user.user_metadata.room);
-      updateFormInv("status", "lab");
-    }
-  }, [user]);
+  const {
+    fetchDataByIdNonPC,
+    formInv,
+    updateFormInv,
+    updateFormNonPC,
+    deleteFormNonPC,
+  } = useStore();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     updateFormInv(name, value);
   };
 
-  const handleSubmitNonPC = async (e) => {
+  const handleUpdateInv = async (e) => {
     e.preventDefault();
     if (
       !formInv.name ||
       !formInv.quantity ||
       !formInv.status ||
-      !formInv.room ||
-      !formInv.condition
+      !formInv.room
     ) {
       Swal.fire({
         title: "Gagal Input!",
@@ -40,21 +38,52 @@ function FormInputNonPC() {
       });
       return;
     }
-
-    await submitFormNonPC();
-    navigate("/inventaris/list?category=Non%20PC");
+    await updateFormNonPC();
+    navigate("/inventaris/list-nonpc");
     Swal.fire({
       title: "Berhasil!",
-      text: "Data inventaris sudah ditambahkan",
+      text: "Data inventaris sudah berubah",
       icon: "success",
       timer: 850,
       showConfirmButton: false,
     });
   };
 
+  const handleDeleteInv = () => {
+    Swal.fire({
+      title: "Apa kamu yakin?",
+      text: "Kamu tidak dapat mengembalikan ini!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "batal",
+      confirmButtonText: "Ya, hapus inventaris!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteFormNonPC(id);
+        navigate(-1);
+        Swal.fire({
+          title: "Terhapus!",
+          text: "Inventaris sudah terhapus.",
+          icon: "success",
+          timer: 700,
+          showConfirmButton: false,
+        });
+        navigate("/inventaris/list-nonpc");
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (id) {
+      fetchDataByIdNonPC(id);
+    }
+  }, [id]);
+
   return (
     <>
-      <div className="px-5 md:px-11 flex flex-col md:flex-row md:flex-auto justify-between my-3 sm:space-x-10">
+      <div className="px-5 lg:px-11 flex flex-col lg:w-[450px] lg:flex-auto justify-between my-3 lg:space-x-10">
         {/* row 1 */}
         <div className="space-y-7 md:space-y-6 sm:w-full md:w-[400px]">
           <div className="my-2">
@@ -151,17 +180,27 @@ function FormInputNonPC() {
           </div>
         </div>
       </div>
-      <div className="px-5 pt-7 flex justify-end">
-        <button
-          onClick={handleSubmitNonPC}
-          type="submit"
-          className="px-16 py-2 shadow-lg rounded-3xl bg-blue-800 text-white"
-        >
-          Input
-        </button>
+      <div className="px-11 flex flex-col lg:flex-row justify-between items-center my-3">
+        <div className="pt-10 flex justify-start">
+          <button
+            onClick={handleDeleteInv}
+            className="h-9 px-16 text-center shadow-lg rounded-xl bg-red-700 hover:bg-red-600 text-white"
+          >
+            <DeleteForeverRoundedIcon />
+          </button>
+        </div>
+        <div className="pt-10 flex justify-end">
+          <button
+            onClick={handleUpdateInv}
+            type="submit"
+            className="sm:h-9 px-10 text-center shadow-lg rounded-xl bg-blue-800 hover:bg-blue-600 text-white"
+          >
+            Edit Inventaris {formInv.name}
+          </button>
+        </div>
       </div>
     </>
   );
 }
 
-export default FormInputNonPC;
+export default FormEditInv;

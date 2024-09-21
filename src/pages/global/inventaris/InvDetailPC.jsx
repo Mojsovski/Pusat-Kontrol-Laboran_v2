@@ -15,18 +15,20 @@ import { TbHomeMove } from "react-icons/tb";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 
 import useStore from "../../../data/Data.js";
-import useLogStore from "../../../data/Log.js"; // Import useLogStore
+import { useAuthStore } from "../../../data/Auth.js";
+import useLogStore from "../../../data/Log.js";
 
 import Sidebar from "../../../components/global/Sidebar";
 import Navbar from "../../../components/global/Navbar";
 import icons from "../../../assets/icons/icon.jsx";
 import { ConditionDetail } from "../../../components/global/Condition.jsx";
 
-function InvDetail() {
+function InvDetailPC() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { fetchDataById, formPC, invpc } = useStore();
-  const { damageCount } = useLogStore(); // Ambil damageCount dari useLogStore
+  const { fetchDataById, formPC } = useStore();
+  const { user } = useAuthStore((state) => ({ user: state.user }));
+  const { damageCount } = useLogStore();
 
   useEffect(() => {
     if (id) {
@@ -241,7 +243,11 @@ function InvDetail() {
             <div className=" px-11 pt-14 flex flex-col lg:flex-row justify-between gap-5">
               <div className="flex lg:flex-row flex-col gap-3">
                 <Link
-                  to={`/inventaris/editpc/${formPC.id}`}
+                  to={
+                    user?.user_metadata?.role === "admin"
+                      ? `/admin/inventaris/edit/pc/${formPC.id}`
+                      : `/inventaris/editpc/${formPC.id}`
+                  }
                   className="bg-[#fdcd49] hover:bg-yellow-300 px-9 py-2 h-10 space-x-3 items-center flex justify-center rounded-xl shadow"
                 >
                   <EditRoundedIcon sx={{ fontSize: 20 }} />
@@ -270,4 +276,4 @@ function InvDetail() {
   );
 }
 
-export default InvDetail;
+export default InvDetailPC;

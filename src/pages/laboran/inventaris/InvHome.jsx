@@ -74,7 +74,7 @@ function InvHome() {
                 Input Inventaris Lab
               </Link>
               <Link
-                to={"/inventaris/list-nonpc"}
+                to={"/inventaris/list?category=Non%20PC"}
                 className="xl:w-[270px]  h-[50px] rounded-xl bg-neutral-300 hover:bg-neutral-100 shadow-md flex flex-row items-center justify-center gap-4 font-semibold"
               >
                 <img src={icons.editPC} className="w-[21px] " />
@@ -183,7 +183,7 @@ function InvHome() {
                 </div>
               </div>
               <Link
-                to={"/inventaris/list-PC"}
+                to={"/inventaris/list?category=PC"}
                 className="px-5 h-6 rounded-2xl bg-[#F5BD45] hover:bg-yellow-400 flex items-center shadow"
               >
                 <div className="  text-black text-xs font-medium  ">
@@ -268,7 +268,7 @@ function InvHome() {
                   </div>
                 </div>
                 <Link
-                  to={"/inventaris/list-nonpc"}
+                  to={"/inventaris/list?category=Non%20PC"}
                   className="px-5 h-6 rounded-2xl bg-[#F5BD45] hover:bg-yellow-400 flex items-center shadow"
                 >
                   <div className="  text-black text-xs font-medium  ">
@@ -319,13 +319,6 @@ function InvHome() {
                 </table>
               </div>
             </div>
-            {/* row 2 */}
-            {/* <div className="w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative">
-            <div className=" h-10 flex flex-row gap-4">
-              <img src={icons.rekapPC} className="w-[25px] " />
-              <div className="p-1 font-semibold text-xl ">Rekap</div>
-            </div>
-          </div> */}
           </div>
         </div>
       </div>

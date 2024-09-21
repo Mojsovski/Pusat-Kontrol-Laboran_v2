@@ -11,7 +11,7 @@ import { Action } from "../global/Condition.jsx";
 function TableLogInv() {
   const { loginv, fetchLogInv } = useLogStore();
 
-  const logTerbaru = loginv
+  const sortLog = loginv
     .slice()
     .sort((a, b) => new Date(b.log_time) - new Date(a.log_time));
 
@@ -50,7 +50,7 @@ function TableLogInv() {
             </tr>
           </thead>
           <tbody>
-            {logTerbaru.map((log, index) => (
+            {sortLog.map((log, index) => (
               <tr key={log.id}>
                 <td scope="col" className="px-1 py-3">
                   {index + 1}

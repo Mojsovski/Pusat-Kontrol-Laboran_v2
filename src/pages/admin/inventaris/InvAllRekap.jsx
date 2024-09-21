@@ -3,56 +3,39 @@ import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import useStore from "../../../data/Data.js";
-import { useAuthStore } from "../../../data/Auth.js";
+import useFilterAdmin from "../../../data/filterAdmin.js";
+import useCountAdmin from "../../../data/countAdmin.js";
 
 import Sidebar from "../../../components/global/Sidebar.jsx";
 import Navbar from "../../../components/global/Navbar.jsx";
 import icons from "../../../assets/icons/icon.jsx";
+import {
+  ConditionAll,
+  Condition,
+} from "../../../components/global/Condition.jsx";
 
 function InvAllRekap() {
   const { room } = useParams();
-  const { inv, invpc, fetchData, fetchDataNonPC } = useStore();
-  const { user } = useAuthStore.getState();
+  const { fetchData, fetchDataNonPC } = useStore();
+  const {
+    filterConditionPCAll,
+    filterPinjamPC,
+    filterDipinjamPC,
+    filterPrimaryPC,
+    filterLimitInv,
+  } = useFilterAdmin();
 
-  //filter
-  //pc
-  const filterStatus = (status) =>
-    invpc.filter((item) => item.status === status && item.room === room);
-  const filterPinjam = filterStatus("pinjam");
-  const filterDipinjam = filterStatus("dipinjam");
-  const filterRusak = invpc.filter(
-    (item) =>
-      (item.status === "rusak ringan" || item.status === "rusak berat") &&
-      item.room === room
-  );
-  const filterPrimaryPC = invpc.filter(
-    (item) => item.primaryItem === true && item.room === room
-  );
-  //non pc
-  const limitInv = inv.filter((item) => item.room === room).slice(0, 3);
-
-  // count by category
-  const countCategory = (category) =>
-    invpc.filter((item) => item.pc.category === category && item.room === room)
-      .length;
-  const countClient = countCategory("client");
-  const countDosen = countCategory("dosen");
-  const countLaboran = countCategory("laboran");
-  const countCadangan = countCategory("cadangan");
-
-  //count by status
-  const countStatus = (status) =>
-    invpc.filter((item) => item.status === status && item.room === room).length;
-  const countRusak = invpc.filter(
-    (item) =>
-      (item.status === "rusak ringan" || item.status === "rusak berat") &&
-      item.room === room
-  ).length;
-  const countPinjam = countStatus("pinjam");
-  const countDipinjam = countStatus("dipinjam");
-
-  //count all inv pc
-  const countTotal = invpc.filter((item) => item.room === room).length;
+  const {
+    countClient,
+    countDosen,
+    countLaboran,
+    countCadangan,
+    countTotal,
+    countRusakRingan,
+    countRusakBerat,
+    countPinjam,
+    countDipinjam,
+  } = useCountAdmin();
 
   useEffect(() => {
     fetchData();
@@ -101,11 +84,21 @@ function InvAllRekap() {
                   <div className="text-base font-semibold">
                     Komputer Cadangan
                   </div>
-                  <div className=" text-base font-semibold">Komputer Rusak</div>
+                  <div className=" text-base font-semibold">
+                    Komputer Rusak Ringan
+                  </div>
+                  <div className=" text-base font-semibold">
+                    Komputer Rusak Berat
+                  </div>
                 </div>
                 <div className="space-y-5">
                   <div className="text-base font-semibold">{countCadangan}</div>
-                  <div className=" text-base font-semibold">{countRusak}</div>
+                  <div className=" text-base font-semibold">
+                    {countRusakRingan}
+                  </div>
+                  <div className=" text-base font-semibold">
+                    {countRusakBerat}
+                  </div>
                 </div>
               </div>
               {/*  3 */}
@@ -128,7 +121,7 @@ function InvAllRekap() {
             </div>
           </div>
         </div>
-        {/* Column 4 */}
+        {/* Column 2 */}
         <div className="flex gap-5 relative  ">
           <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md ">
             <div className=" h-10 flex flex-row justify-between items-center">
@@ -213,7 +206,7 @@ function InvAllRekap() {
             </div>
           </div>
         </div>
-        {/* column 5 */}
+        {/* column 3 */}
         <div className=" flex gap-5 relative  ">
           {/* row 1 */}
           <div className=" w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
@@ -253,7 +246,7 @@ function InvAllRekap() {
                   </tr>
                 </thead>
                 <tbody>
-                  {limitInv.map((inv, index) => (
+                  {filterLimitInv.map((inv, index) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
                         {index + 1}
@@ -268,23 +261,7 @@ function InvAllRekap() {
                         scope="col"
                         className="py-3 flex items-center justify-center "
                       >
-                        <p
-                          className={`${
-                            inv.status === "baik"
-                              ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                              : inv.status === "rusak ringan"
-                              ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                              : inv.status === "rusak berat"
-                              ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                              : inv.status === "pinjam"
-                              ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                              : inv.status === "dipinjam"
-                              ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                              : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
-                          }`}
-                        >
-                          {inv.status}
-                        </p>
+                        <Condition condition={inv.condition} />
                       </td>
                     </tr>
                   ))}
@@ -293,7 +270,7 @@ function InvAllRekap() {
             </div>
           </div>
         </div>
-        {/* Column 2 */}
+        {/* Column 4 */}
         <div className=" flex gap-5 relative ">
           {/* row 1 */}
           <div className=" w-1/2 px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md relative ">
@@ -317,7 +294,7 @@ function InvAllRekap() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filterPinjam.map((inv, index) => (
+                  {filterPinjamPC.map((inv, index) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
                         {index + 1}
@@ -377,7 +354,7 @@ function InvAllRekap() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filterDipinjam.map((inv, index) => (
+                  {filterDipinjamPC.map((inv, index) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
                         {index + 1}
@@ -415,7 +392,7 @@ function InvAllRekap() {
             </div>
           </div>
         </div>
-        {/* Column 3 */}
+        {/* Column 5 */}
         <div className="flex gap-5 relative">
           <div className="relative w-full px-8 py-5 bg-neutral-300 rounded-3xl flex-col shadow-md">
             <div className="h-10 flex flex-row justify-between items-center">
@@ -448,8 +425,8 @@ function InvAllRekap() {
                     </th>
                   </tr>
                 </thead>
-                <tbody clas>
-                  {filterRusak.map((inv, index) => (
+                <tbody>
+                  {filterConditionPCAll.map((inv, index) => (
                     <tr>
                       <td scope="col" className="px-1 py-3">
                         {index + 1}
@@ -463,27 +440,8 @@ function InvAllRekap() {
                       <td scope="col" className="px-1 py-3">
                         {inv.pc.category}
                       </td>
-                      <td
-                        scope="col"
-                        className="px-1 py-3 flex items-center justify-center"
-                      >
-                        <p
-                          className={`${
-                            inv.status === "baik"
-                              ? "bg-[#07AC22AB] py-1 w-28 text-white items-center flex justify-center rounded-full shadow "
-                              : inv.status === "rusak ringan"
-                              ? "bg-[#fdcd49] py-1 w-28 text-black items-center flex justify-center rounded-full shadow "
-                              : inv.status === "rusak berat"
-                              ? "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                              : inv.status === "pinjam"
-                              ? " bg-sky-700 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                              : inv.status === "dipinjam"
-                              ? " bg-indigo-500 py-1 w-28 items-center flex justify-center rounded-full text-white shadow "
-                              : "bg-[#FF0000] py-1 w-28 items-center flex justify-center rounded-full text-[#9B4332] shadow "
-                          }`}
-                        >
-                          {inv.status}
-                        </p>
+                      <td scope="col" className="px-1 py-3">
+                        <ConditionAll condition={inv.condition} />
                       </td>
                       <td scope="col" className="px-1 py-3">
                         {inv.pc.category}
