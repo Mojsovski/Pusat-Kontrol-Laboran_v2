@@ -1,8 +1,8 @@
 import { Navigate } from "react-router-dom";
-import { useAuthStore, isSessionValid } from "../data/Auth";
+import { useAuthStore } from "../data/Auth";
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAuthStore();
+  const { user, isSessionValid } = useAuthStore();
 
   if (!user || !isSessionValid()) {
     return <Navigate to="/" />;
